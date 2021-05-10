@@ -1,0 +1,54 @@
+<resources>
+    <!-- General -->
+    <string name="app_name" translatable="false">Wallpapers</string>
+    <string name="error_network">Network error</string>
+    <string name="navigation_home_label">Wallpapers</string>
+    <string name="navigation_detail_label">Wallpaper</string>
+    <string name="navigation_settings_label">Settings</string>
+
+
+    <!-- Home Fragment -->
+    <string name="rv_item_description">Wallpaper</string>
+    <string name="error_no_network">No Internet Connection</string>
+    <string name="btn_retry">Retry</string>
+    <string name="menu_main_search">Search</string>
+    <string name="menu_main_settings">Settings</string>
+
+    <!-- Detail Fragment -->
+    <string name="btn_download">Download</string>
+    <string name="btn_set">Set</string>
+    <string name="wallpaper_size">%1$sMB</string>
+    <string name="wallpaper_resolution">%1$s x %2$s</string>
+
+    <!-- View Mode -->
+    <string name="view_mode_key" translatable="false">view_mode</string>
+    <string name="view_mode_title">View mode</string>
+    <string name="view_mode_description">List, Grid</string>
+    <string name="view_mode_value_list" translatable="false">list</string>
+    <string name="view_mode_value_grid" translatable="false">grid</string>
+    <string name="view_mode_entry_list">List</string>
+    <string name="view_mode_entry_grid">Grid</string>
+
+    <!-- Theme -->
+    <string name="ui_header">UI</string>
+    <string name="theme_key" translatable="false">theme</string>
+    <string name="theme_title">Theme</string>
+    <string name="theme_description">System, Light, Dark</string>
+    <string name="theme_value_system" translatable="false">system</string>
+    <string name="theme_value_light" translatable="false">light</string>
+    <string name="theme_value_dark" translatable="false">dark</string>
+    <string name="theme_entry_system">System default</string>
+    <string name="theme_entry_light">Light</string>
+    <string name="theme_entry_dark">Dark</string>
+
+    <!-- About -->
+    <string name="about_header">About</string>
+    <string name="app_key" translatable="false">app</string>
+    <string name="author_key" translatable="false">author</string>
+    <string name="author_title">Developer</string>
+    <string name="author_summary" translatable="false">Jankku</string>
+
+    <string name="github_key" translatable="false">github</string>
+    <string name="github_title" translatable="false">GitHub</string>
+    <string name="github_summary" translatable="false">https://github.com/jankku/wallpapers</string>
+</resources>
