@@ -5,14 +5,10 @@ import com.jankku.wallpapers.util.Constants.BASE_URL
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.OkHttpClient
-import okhttp3.ResponseBody
-import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
-import retrofit2.http.Streaming
-import retrofit2.http.Url
 
 private val okHttpClient = OkHttpClient
     .Builder()
@@ -43,11 +39,22 @@ interface AlphaCodersApiService {
         @Query("method") method: String,
         @Query("page") page: Int,
         @Query("check_last") checkIfLastPage: Int // 1 = true, 0 = false
-    ): NetworkResponse
+    ): NetworkWallpaperResponse
 
-    @Streaming
-    @GET
-    suspend fun getWallpaper(@Url url: String): Response<ResponseBody>
+    @GET("get.php")
+    suspend fun getCategoryList(
+        @Query("auth") apiKey: String,
+        @Query("method") method: String,
+    ) : NetworkCategoryResponse
+
+    @GET("get.php")
+    suspend fun getCategory(
+        @Query("auth") apiKey: String,
+        @Query("method") method: String,
+        @Query("id") id: Int,
+        @Query("page") page: Int,
+        @Query("check_last") checkIfLastPage: Int // 1 = true, 0 = false
+    ) : NetworkWallpaperResponse
 }
 
 object AlphaCodersApi {

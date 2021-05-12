@@ -1,7 +1,6 @@
 <resources>
     <!-- General -->
     <string name="app_name" translatable="false">Wallpapers</string>
-    <string name="error_network">Network error</string>
     <string name="navigation_home_label">Wallpapers</string>
     <string name="navigation_detail_label">Wallpaper</string>
     <string name="navigation_settings_label">Settings</string>
@@ -10,6 +9,7 @@
     <!-- Home Fragment -->
     <string name="rv_item_description">Wallpaper</string>
     <string name="error_no_network">No Internet Connection</string>
+    <string name="error_network">Network error</string>
     <string name="btn_retry">Retry</string>
     <string name="menu_main_search">Search</string>
     <string name="menu_main_settings">Settings</string>
@@ -19,6 +19,9 @@
     <string name="btn_set">Set</string>
     <string name="wallpaper_size">%1$sMB</string>
     <string name="wallpaper_resolution">%1$s x %2$s</string>
+    <string name="error_image_download">Failed to download image</string>
+    <string name="error_image_save">Failed to save image</string>
+    <string name="image_saved">Image saved to downloads</string>
 
     <!-- View Mode -->
     <string name="view_mode_key" translatable="false">view_mode</string>

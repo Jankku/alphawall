@@ -19,11 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="2dp"
         app:cardCornerRadius="0dp"
-        app:cardPreventCornerOverlap="false"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:cardPreventCornerOverlap="false">
 
         <ImageView
             android:id="@+id/ivWallpaper"
@@ -31,11 +27,7 @@
             android:layout_height="180dp"
             app:imageUrl="@{wallpaper.thumbUrl}"
             tools:src="@color/black"
-            android:contentDescription="@string/rv_item_description"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:contentDescription="@string/rv_item_description" />
 
     </com.google.android.material.card.MaterialCardView>
 

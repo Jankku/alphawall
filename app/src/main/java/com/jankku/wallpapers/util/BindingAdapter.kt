@@ -45,7 +45,7 @@ fun detailImageLoad(imageView: ImageView, url: String, viewModel: DetailViewMode
                 target: Target<Drawable>?,
                 isFirstResource: Boolean
             ): Boolean {
-                viewModel._isLoading.value = false
+                viewModel._isLoadingPicture.value = false
                 viewModel._networkError.value = true
                 return false
             }
@@ -57,7 +57,7 @@ fun detailImageLoad(imageView: ImageView, url: String, viewModel: DetailViewMode
                 dataSource: DataSource?,
                 isFirstResource: Boolean
             ): Boolean {
-                viewModel._isLoading.value = false
+                viewModel._isLoadingPicture.value = false
                 return false
             }
         })
@@ -65,7 +65,7 @@ fun detailImageLoad(imageView: ImageView, url: String, viewModel: DetailViewMode
 }
 
 /**
- * Binding adapter used to hide the spinner on DetailFragment once the image is loaded
+ * Binding adapter used to hide the view loading finishes
  */
 @BindingAdapter("isLoading")
 fun hideIfNotLoading(view: View, isLoading: Boolean) {

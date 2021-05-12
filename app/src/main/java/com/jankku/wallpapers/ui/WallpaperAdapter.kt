@@ -14,20 +14,6 @@ import com.jankku.wallpapers.databinding.WallpaperItemBinding
 class WallpaperAdapter(private val clickListener: (Wallpaper) -> Unit) :
     PagingDataAdapter<Wallpaper, WallpaperAdapter.ViewHolder>(DiffCallback) {
 
-    class ViewHolder(
-        val binding: WallpaperItemBinding,
-        clickAtPosition: (Int) -> Unit
-    ) : RecyclerView.ViewHolder(binding.root) {
-        init {
-            itemView.setOnClickListener { clickAtPosition(absoluteAdapterPosition) }
-        }
-
-        companion object {
-            @LayoutRes
-            val LAYOUT = R.layout.wallpaper_item
-        }
-    }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding: WallpaperItemBinding = DataBindingUtil.inflate(
             LayoutInflater.from(parent.context),
@@ -46,6 +32,21 @@ class WallpaperAdapter(private val clickListener: (Wallpaper) -> Unit) :
             holder.binding.also {
                 it.wallpaper = wallpaper
             }
+        }
+    }
+
+    class ViewHolder(
+        val binding: WallpaperItemBinding,
+        clickAtPosition: (Int) -> Unit
+    ) : RecyclerView.ViewHolder(binding.root) {
+
+        init {
+            itemView.setOnClickListener { clickAtPosition(absoluteAdapterPosition) }
+        }
+
+        companion object {
+            @LayoutRes
+            val LAYOUT = R.layout.wallpaper_item
         }
     }
 

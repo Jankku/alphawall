@@ -26,9 +26,8 @@ class WallpaperRemoteMediator(
     override suspend fun load(
         loadType: LoadType, state: PagingState<Int, Wallpaper>
     ): MediatorResult {
-        val pageKeyData = getKeyPageData(loadType, state)
 
-        val page = when (pageKeyData) {
+        val page = when (val pageKeyData = getKeyPageData(loadType, state)) {
             is MediatorResult.Success -> {
                 return pageKeyData
             }
@@ -68,7 +67,10 @@ class WallpaperRemoteMediator(
         }
     }
 
-    private suspend fun getKeyPageData(loadType: LoadType, state: PagingState<Int, Wallpaper>): Any {
+    private suspend fun getKeyPageData(
+        loadType: LoadType,
+        state: PagingState<Int, Wallpaper>
+    ): Any {
         return when (loadType) {
             LoadType.REFRESH -> {
                 val remoteKeys = getRemoteKeyClosestToCurrentPosition(state)

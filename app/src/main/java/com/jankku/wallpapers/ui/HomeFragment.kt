@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.*
 import android.widget.Toast
 import androidx.core.view.isVisible
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -23,14 +22,14 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
-class HomeFragment : Fragment() {
+@ExperimentalPagingApi
+class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private lateinit var application: Application
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private lateinit var adapter: WallpaperAdapter
 
-    @ExperimentalPagingApi
     private val homeViewModel: HomeViewModel by viewModels {
         HomeViewModelFactory((application as WallpaperApplication).repository)
     }
@@ -45,18 +44,21 @@ class HomeFragment : Fragment() {
         setHasOptionsMenu(true)
     }
 
-    @ExperimentalPagingApi
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = DataBindingUtil.inflate(
+        _binding = FragmentHomeBinding.inflate(
             inflater,
-            R.layout.fragment_home,
             container,
             false
         )
 
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         adapter = WallpaperAdapter { wallpaper ->
             // This is executed when clicking wallpaper
             val action = HomeFragmentDirections.actionHomeFragmentToDetailFragment(
@@ -89,9 +91,11 @@ class HomeFragment : Fragment() {
         )
 
         adapter.addLoadStateListener { loadState ->
-            binding.recyclerview.isVisible = loadState.source.refresh !is LoadState.Error
-            binding.spinner.isVisible = loadState.source.refresh is LoadState.Loading
-            binding.btnRetry.isVisible = loadState.source.refresh is LoadState.Error
+            if (_binding != null) {
+                binding.recyclerview.isVisible = loadState.source.refresh !is LoadState.Error
+                binding.spinner.isVisible = loadState.source.refresh is LoadState.Loading
+                binding.btnRetry.isVisible = loadState.source.refresh is LoadState.Error
+            }
         }
 
         homeViewModel.networkError.observe(viewLifecycleOwner) { networkError ->
@@ -99,8 +103,6 @@ class HomeFragment : Fragment() {
                 Toast.makeText(application, R.string.error_network, Toast.LENGTH_LONG).show()
             }
         }
-
-        return binding.root
     }
 
     override fun onDestroyView() {

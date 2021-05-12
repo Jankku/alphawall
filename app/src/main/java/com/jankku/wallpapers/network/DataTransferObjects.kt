@@ -1,32 +1,22 @@
 package com.jankku.wallpapers.network
 
+import com.jankku.wallpapers.database.Category
 import com.jankku.wallpapers.database.Wallpaper
 import com.squareup.moshi.Json
 
 /**
  * Response from [AlphaCodersApiService]
  */
-data class NetworkResponse(
+data class NetworkWallpaperResponse(
     @Json(name = "success") val success: Boolean,
     @Json(name = "wallpapers") val wallpapers: List<Wallpaper>,
     @Json(name = "is_last") val isLastPage: Boolean
 )
 
 /**
- * Convert Network results to database objects [Wallpaper]
+ * Response from [AlphaCodersApiService]
  */
-/*
-fun NetworkResponse.asDatabaseModel(): List<Wallpaper> {
-    return wallpapers.map {
-        Wallpaper(
-            id = it.id,
-            imageUrl = it.imageUrl,
-            pageUrl = it.pageUrl,
-            thumbUrl = it.thumbUrl,
-            width = it.width,
-            height = it.height,
-            fileSize = it.fileSize,
-            fileType = it.fileType
-        )
-    }
-}*/
+data class NetworkCategoryResponse(
+    @Json(name = "success") val success: Boolean,
+    @Json(name = "categories") val categories: List<Category>,
+)

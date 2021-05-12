@@ -12,11 +12,11 @@ class DetailViewModel : ViewModel() {
     val wallpaper: LiveData<Wallpaper>
         get() = _wallpaper
 
-    val _isLoading = MutableLiveData(true)
-    val isLoading: LiveData<Boolean>
-        get() = _isLoading
+    val _isLoadingPicture = MutableLiveData(true)
+    val isLoadingPicture: LiveData<Boolean>
+        get() = _isLoadingPicture
 
-    var _networkError = MutableLiveData(false)
+    val _networkError = MutableLiveData(false)
     val networkError: LiveData<Boolean>
         get() = _networkError
 
@@ -24,8 +24,20 @@ class DetailViewModel : ViewModel() {
     val setWallpaper: LiveData<Boolean>
         get() = _setWallpaper
 
+    private val _downloadWallpaper = MutableLiveData(false)
+    val downloadWallpaper: LiveData<Boolean>
+        get() = _downloadWallpaper
+
+    val _isDownloadingWallpaper = MutableLiveData(false)
+    val isDownloadingWallpaper: LiveData<Boolean>
+        get() = _isDownloadingWallpaper
+
     fun setWallpaper(value: Boolean) {
         _setWallpaper.value = value
+    }
+
+    fun downloadWallpaper(value: Boolean) {
+        _downloadWallpaper.value = value
     }
 }
 

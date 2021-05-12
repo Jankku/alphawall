@@ -6,10 +6,15 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.jankku.wallpapers.util.Constants.DATABASE_NAME
 
-@Database(entities = [Wallpaper::class, RemoteKey::class], version = 1, exportSchema = false)
+@Database(
+    entities = [Wallpaper::class, RemoteKey::class, Category::class],
+    version = 2,
+    exportSchema = false
+)
 abstract class WallpaperDatabase : RoomDatabase() {
     abstract fun wallpaperDao(): WallpaperDao
     abstract fun remoteKeyDao(): RemoteKeyDao
+    abstract fun categoryDao(): CategoryDao
 
     companion object {
         // Singleton prevents multiple instances of database opening at the
@@ -27,7 +32,7 @@ abstract class WallpaperDatabase : RoomDatabase() {
                     context.applicationContext,
                     WallpaperDatabase::class.java,
                     DATABASE_NAME
-                ).build()
+                ).fallbackToDestructiveMigration().build()
                 INSTANCE = instance
                 // return instance
                 instance
