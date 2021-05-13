@@ -1,17 +1,16 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <style name="Base.Theme.Wallpapers" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
-        <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="android:navigationBarColor">@android:color/transparent</item>
-        <item name="android:colorBackground">?attr/colorSurface</item>
-        <item name="colorPrimaryDark" tools:targetApi="23">?attr/colorPrimary</item>
+    <style name="Base.Theme.Wallpapers" parent="Theme.MaterialComponents.DayNight">
+        <item name="android:statusBarColor">?colorPrimarySurface</item>
+        <item name="android:navigationBarColor">?colorPrimarySurface</item>
+        <item name="bottomNavigationStyle">@style/Widget.MaterialComponents.BottomNavigationView.PrimarySurface</item>
     </style>
 
     <style name="Theme.Wallpapers" parent="Base.Theme.Wallpapers">
+        <item name="android:windowLightStatusBar" tools:targetApi="23">false</item>
         <item name="android:windowLightNavigationBar" tools:targetApi="27">true</item>
-        <item name="android:windowLightStatusBar" tools:targetApi="23">true</item>
 
-        <item name="colorPrimary">?attr/colorSurface</item>
+        <item name="colorPrimary">@color/green_500</item>
         <item name="colorPrimaryVariant">@color/green_500</item>
         <item name="colorOnPrimary">@color/white</item>
 

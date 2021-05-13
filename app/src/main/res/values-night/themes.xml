@@ -1,17 +1,14 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <style name="Theme.Wallpapers" parent="Base.Theme.Wallpapers">
-        <item name="android:windowLightNavigationBar" tools:targetApi="27">true</item>
         <item name="android:windowLightStatusBar" tools:targetApi="23">false</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="27">false</item>
 
         <item name="colorPrimary">@color/green_200</item>
-        <item name="colorPrimaryVariant">@color/green_300</item>
+        <item name="colorPrimaryVariant">@color/green_300</item>Y
         <item name="colorOnPrimary">@color/black</item>
 
         <item name="colorSecondary">@color/green_200</item>
         <item name="colorSecondaryVariant">@color/green_500</item>
         <item name="colorOnSecondary">@color/black</item>
-
-        <item name="colorSurface">@color/grey_700</item>
-        <item name="colorPrimarySurface">@color/grey_700</item>
     </style>
 </resources>

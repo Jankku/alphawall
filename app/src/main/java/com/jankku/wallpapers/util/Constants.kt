@@ -6,5 +6,5 @@ object Constants {
     const val STARTING_PAGE_INDEX = 1
     const val PAGE_SIZE = 30
     const val IMAGE_DOWNLOAD_RELATIVE_PATH = "Download/"
-    const val IMAGE_DOWNLOAD_QUALITY = 95
+    const val IMAGE_DOWNLOAD_QUALITY = 50
 }

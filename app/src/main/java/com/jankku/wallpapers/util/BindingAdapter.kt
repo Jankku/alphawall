@@ -45,8 +45,8 @@ fun detailImageLoad(imageView: ImageView, url: String, viewModel: DetailViewMode
                 target: Target<Drawable>?,
                 isFirstResource: Boolean
             ): Boolean {
-                viewModel._isLoadingPicture.value = false
-                viewModel._networkError.value = true
+                viewModel.isLoadingPicture.value = false
+                viewModel.networkError.value = true
                 return false
             }
 
@@ -57,7 +57,7 @@ fun detailImageLoad(imageView: ImageView, url: String, viewModel: DetailViewMode
                 dataSource: DataSource?,
                 isFirstResource: Boolean
             ): Boolean {
-                viewModel._isLoadingPicture.value = false
+                viewModel.isLoadingPicture.value = false
                 return false
             }
         })

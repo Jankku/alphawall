@@ -6,27 +6,21 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.jankku.wallpapers.database.Wallpaper
 import com.jankku.wallpapers.repository.WallpaperRepository
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.distinctUntilChanged
 
 @ExperimentalPagingApi
 class HomeViewModel(private val repository: WallpaperRepository) : ViewModel() {
 
-    private val _wallpapers: Flow<PagingData<Wallpaper>> = fetchWallpapers()
-    val wallpapers: Flow<PagingData<Wallpaper>>
+    private val _wallpapers: LiveData<PagingData<Wallpaper>> = fetchWallpapers()
+    val wallpapers: LiveData<PagingData<Wallpaper>>
         get() = _wallpapers
-
-    private val _isEmpty = MutableLiveData(false)
-    val isEmpty: LiveData<Boolean>
-        get() = _isEmpty
 
     private var _networkError = MutableLiveData(false)
     val networkError: LiveData<Boolean>
         get() = _networkError
 
-    private fun fetchWallpapers(): Flow<PagingData<Wallpaper>> {
+    private fun fetchWallpapers(): LiveData<PagingData<Wallpaper>> {
         return repository
-            .refreshWallpapers()
+            .fetchWallpapers()
             .distinctUntilChanged()
             .cachedIn(viewModelScope)
     }

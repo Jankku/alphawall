@@ -24,9 +24,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
     }
 
     private val githubListener = Preference.OnPreferenceClickListener {
-        val intent = Intent(Intent.ACTION_VIEW).apply {
-            data = Uri.parse(githubPref?.summary as String?)
-        }
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(githubPref?.summary as String?))
         startActivity(intent)
         true
     }

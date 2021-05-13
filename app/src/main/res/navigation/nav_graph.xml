@@ -1,16 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<navigation
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@+id/homeFragment">
 
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.jankku.wallpapers.ui.HomeFragment"
-        android:label="@string/navigation_home_label"
-        tools:layout="@layout/fragment_home" >
+        android:label="@string/navigation_home_label">
         <action
             android:id="@+id/action_homeFragment_to_detailFragment"
             app:destination="@id/detailFragment"
@@ -18,15 +15,6 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@android:anim/slide_in_left"
             app:popExitAnim="@android:anim/slide_out_right"
-            app:popUpTo="@id/homeFragment"
-            app:popUpToInclusive="false" />
-        <action
-            android:id="@+id/action_homeFragment_to_settingsFragment"
-            app:destination="@id/settingsFragment"
-            app:enterAnim="@anim/fragment_open_enter"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim"
             app:popUpTo="@id/homeFragment"
             app:popUpToInclusive="false" />
     </fragment>
@@ -38,16 +26,13 @@
         <argument
             android:name="wallpaper"
             app:argType="com.jankku.wallpapers.database.Wallpaper" />
-        <action
-            android:id="@+id/action_detailFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.jankku.wallpapers.ui.SettingsFragment"
-        android:label="@string/navigation_settings_label" >
-        <action
-            android:id="@+id/action_settingsFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
-    </fragment>
+        android:label="@string/navigation_settings_label" />
+    <fragment
+        android:id="@+id/categoryFragment"
+        android:name="com.jankku.wallpapers.ui.CategoryFragment"
+        android:label="@string/navigation_categories_label" />
 </navigation>

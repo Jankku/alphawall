@@ -1,20 +1,32 @@
 <resources>
     <!-- General -->
     <string name="app_name" translatable="false">Wallpapers</string>
-    <string name="navigation_home_label">Wallpapers</string>
+    <string name="navigation_home_label">Home</string>
     <string name="navigation_detail_label">Wallpaper</string>
+    <string name="navigation_search_label">Search</string>
+    <string name="navigation_categories_label">Categories</string>
     <string name="navigation_settings_label">Settings</string>
 
+    <!-- App bar menu -->
+    <string name="menu_main_search">Search</string>
+    <string name="menu_main_sort">Sort</string>
+
+    <!-- Search -->
+    <string name="search_hint">Search wallpapers</string>
+
+    <!-- Bottom navigation -->
+    <string name="menu_bottom_nav_home">Home</string>
+    <string name="menu_bottom_nav_categories">Categories</string>
+    <string name="menu_bottom_nav_settings">Settings</string>
 
     <!-- Home Fragment -->
     <string name="rv_item_description">Wallpaper</string>
     <string name="error_no_network">No Internet Connection</string>
     <string name="error_network">Network error</string>
     <string name="btn_retry">Retry</string>
-    <string name="menu_main_search">Search</string>
-    <string name="menu_main_settings">Settings</string>
 
     <!-- Detail Fragment -->
+    <string name="btn_page">Web</string>
     <string name="btn_download">Download</string>
     <string name="btn_set">Set</string>
     <string name="wallpaper_size">%1$sMB</string>
@@ -54,4 +66,6 @@
     <string name="github_key" translatable="false">github</string>
     <string name="github_title" translatable="false">GitHub</string>
     <string name="github_summary" translatable="false">https://github.com/jankku/wallpapers</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

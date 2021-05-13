@@ -5,22 +5,37 @@ import android.view.MotionEvent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController
 import com.aghajari.zoomhelper.ZoomHelper
 import com.jankku.wallpapers.R
+import com.jankku.wallpapers.databinding.ActivityMainBinding
+
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         val navHostFragment = supportFragmentManager
             .findFragmentById(R.id.nav_host_fragment) as NavHostFragment? ?: return
+        val navController = navHostFragment.navController
 
-        setupActionBarWithNavController(navHostFragment.findNavController())
+        binding.bottomNavigation.setupWithNavController(navController)
+        binding.bottomNavigation.setOnNavigationItemReselectedListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.homeFragment -> {
+                    // Nothing to prevent API calls
+                }
+            }
+        }
+
+        setupActionBarWithNavController(navController)
         supportActionBar!!.elevation = 0f
-        ZoomHelper.getInstance().layoutTheme = android.R.style.Theme_Translucent_NoTitleBar_Fullscreen
+        //ZoomHelper.getInstance().layoutTheme = android.R.style.Theme_Translucent_NoTitleBar_Fullscreen
     }
 
     override fun onSupportNavigateUp(): Boolean =
@@ -30,5 +45,10 @@ class MainActivity : AppCompatActivity() {
         return ZoomHelper
             .getInstance()
             .dispatchTouchEvent(ev!!, this) || super.dispatchTouchEvent(ev)
+    }
+
+    fun setBottomNavigationVisibility(visibility: Int) {
+        // get the reference of the bottomNavigation and set the visibility.
+        binding.bottomNavigation.visibility = visibility
     }
 }

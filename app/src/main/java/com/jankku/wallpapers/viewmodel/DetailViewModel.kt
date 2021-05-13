@@ -1,52 +1,42 @@
 package com.jankku.wallpapers.viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.*
 import com.jankku.wallpapers.database.Wallpaper
 
-class DetailViewModel : ViewModel() {
+class DetailViewModel(wallpaper: Wallpaper) : ViewModel() {
 
-    val _wallpaper = MutableLiveData<Wallpaper>()
+    private val _wallpaper = liveData {
+        this.emit(wallpaper)
+    }
     val wallpaper: LiveData<Wallpaper>
         get() = _wallpaper
 
-    val _isLoadingPicture = MutableLiveData(true)
-    val isLoadingPicture: LiveData<Boolean>
-        get() = _isLoadingPicture
-
-    val _networkError = MutableLiveData(false)
-    val networkError: LiveData<Boolean>
-        get() = _networkError
-
-    private val _setWallpaper = MutableLiveData(false)
-    val setWallpaper: LiveData<Boolean>
-        get() = _setWallpaper
-
-    private val _downloadWallpaper = MutableLiveData(false)
-    val downloadWallpaper: LiveData<Boolean>
-        get() = _downloadWallpaper
-
-    val _isDownloadingWallpaper = MutableLiveData(false)
-    val isDownloadingWallpaper: LiveData<Boolean>
-        get() = _isDownloadingWallpaper
+    val isLoadingPicture = MutableLiveData(true)
+    val isDownloadingWallpaper = MutableLiveData(false)
+    val setWallpaper = MutableLiveData(false)
+    val downloadWallpaper = MutableLiveData(false)
+    val openWallpaperPage = MutableLiveData(false)
+    val networkError = MutableLiveData(false)
 
     fun setWallpaper(value: Boolean) {
-        _setWallpaper.value = value
+        setWallpaper.value = value
     }
 
     fun downloadWallpaper(value: Boolean) {
-        _downloadWallpaper.value = value
+        downloadWallpaper.value = value
+    }
+
+    fun openWallpaperPage(value: Boolean) {
+        openWallpaperPage.value = value
     }
 }
 
-class DetailViewModelFactory :
+class DetailViewModelFactory(private val wallpaper: Wallpaper) :
     ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(DetailViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
-            return DetailViewModel() as T
+            return DetailViewModel(wallpaper) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

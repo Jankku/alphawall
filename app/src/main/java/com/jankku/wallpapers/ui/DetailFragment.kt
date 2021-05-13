@@ -4,8 +4,9 @@ import android.app.Application
 import android.content.ContentResolver
 import android.content.ContentValues
 import android.content.Context
+import android.content.Intent
 import android.graphics.Bitmap
-import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
@@ -14,13 +15,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.target.CustomTarget
-import com.bumptech.glide.request.transition.Transition
 import com.jankku.wallpapers.R
 import com.jankku.wallpapers.databinding.FragmentDetailBinding
 import com.jankku.wallpapers.util.Constants.IMAGE_DOWNLOAD_QUALITY
@@ -29,6 +27,7 @@ import com.jankku.wallpapers.viewmodel.DetailViewModel
 import com.jankku.wallpapers.viewmodel.DetailViewModelFactory
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.io.File
 import java.io.FileOutputStream
 import java.io.OutputStream
@@ -36,7 +35,9 @@ import java.net.MalformedURLException
 import java.net.URISyntaxException
 
 
-class DetailFragment : Fragment() {
+class DetailFragment : BaseFragment() {
+
+    override var bottomNavigationVisibility = View.GONE
 
     private lateinit var application: Application
     private var _binding: FragmentDetailBinding? = null
@@ -44,13 +45,12 @@ class DetailFragment : Fragment() {
     private val args: DetailFragmentArgs by navArgs()
 
     private val detailViewModel: DetailViewModel by viewModels {
-        DetailViewModelFactory()
+        DetailViewModelFactory(args.wallpaper)
     }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         application = requireActivity().application
-        //(context as AppCompatActivity).supportActionBar?.hide()
     }
 
     override fun onCreateView(
@@ -62,43 +62,45 @@ class DetailFragment : Fragment() {
             container,
             false
         )
-
-        detailViewModel._wallpaper.value = args.wallpaper
-
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = detailViewModel
 
-        detailViewModel.networkError.observe(viewLifecycleOwner) { networkError ->
-            if (networkError) {
-                Toast.makeText(application, "Network error", Toast.LENGTH_LONG).show()
-            }
-        }
+        setupObservers()
 
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        // https://stackoverflow.com/questions/62577645/android-view-view-systemuivisibility-deprecated-what-is-the-replacement
-/*        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            requireActivity().window.setDecorFitsSystemWindows(false)
-            requireActivity().window.insetsController?.hide(WindowInsets.Type.systemBars())
-        } else {
-            requireActivity().window.setFlags(
-                WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN
-            )
-        }*/
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    private fun setupObservers() {
+        detailViewModel.networkError.observe(viewLifecycleOwner) { networkError ->
+            if (networkError) {
+                Toast.makeText(application, "Network error", Toast.LENGTH_SHORT).show()
+            }
+        }
 
         detailViewModel.downloadWallpaper.observe(viewLifecycleOwner) { downloadWallpaper ->
-            if (downloadWallpaper == true) {
+            if (downloadWallpaper) {
+                val id = detailViewModel.wallpaper.value!!.id
                 val url = detailViewModel.wallpaper.value!!.imageUrl
-                downloadImage(url)
+                detailViewModel.isDownloadingWallpaper.value = true
+
+                lifecycleScope.launch(Dispatchers.Default) {
+                    try {
+                        val bitmap = downloadImage(url)
+                        saveImageToDownloads(bitmap, id)
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
+                }
             }
         }
 
         detailViewModel.setWallpaper.observe(viewLifecycleOwner) { setWallpaper ->
-            if (setWallpaper == true) {
+            if (setWallpaper) {
                 try {
                     TODO("Save wallpaper to app specific storage, get content URI, call intent")
                     //val uri = Uri.parse(url)
@@ -112,62 +114,28 @@ class DetailFragment : Fragment() {
 
             }
         }
+
+        detailViewModel.openWallpaperPage.observe(viewLifecycleOwner) { openInWeb ->
+            if (openInWeb) {
+                val url = detailViewModel.wallpaper.value!!.pageUrl
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                startActivity(intent)
+            }
+        }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-        //(context as AppCompatActivity).supportActionBar?.show()
-
-/*        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            requireActivity().window.setDecorFitsSystemWindows(true)
-            requireActivity().window.insetsController?.show(WindowInsets.Type.systemBars())
-        } else {
-            requireActivity().window.setFlags(
-                WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN
-            )
-        }*/
-    }
-
-    private fun downloadImage(imageUrl: String) {
-        val id = detailViewModel.wallpaper.value!!.id
-        val fileType = detailViewModel.wallpaper.value!!.fileType
-
-        detailViewModel._isDownloadingWallpaper.value = true
-
-        lifecycleScope.launch(Dispatchers.IO) {
+    private suspend fun downloadImage(imageUrl: String): Bitmap {
+        return withContext(Dispatchers.IO) {
             Glide
                 .with(application)
                 .asBitmap()
                 .load(imageUrl)
-                .into(object : CustomTarget<Bitmap>() {
-                    override fun onResourceReady(
-                        resource: Bitmap,
-                        transition: Transition<in Bitmap>?
-                    ) {
-                        saveImageToPictures(resource, id, fileType)
-                    }
-
-                    override fun onLoadCleared(placeholder: Drawable?) {
-                    }
-
-                    override fun onLoadFailed(errorDrawable: Drawable?) {
-                        super.onLoadFailed(errorDrawable)
-                        detailViewModel._isDownloadingWallpaper.value = false
-                        lifecycleScope.launch(Dispatchers.Main) {
-                            Toast.makeText(
-                                application,
-                                R.string.error_image_download,
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
-                    }
-                })
+                .submit()
+                .get()
         }
     }
 
-    fun saveImageToPictures(bitmap: Bitmap, id: String, fileType: String) {
+    private fun saveImageToDownloads(bitmap: Bitmap, id: String) {
         if (activity == null) return
 
         var outputStream: OutputStream? = null
@@ -176,8 +144,8 @@ class DetailFragment : Fragment() {
             try {
                 val resolver: ContentResolver = requireActivity().contentResolver
                 val contentValues = ContentValues().apply {
-                    put(MediaStore.DownloadColumns.DISPLAY_NAME, "$id.$fileType")
-                    put(MediaStore.DownloadColumns.MIME_TYPE, "image/$fileType")
+                    put(MediaStore.DownloadColumns.DISPLAY_NAME, id)
+                    put(MediaStore.DownloadColumns.MIME_TYPE, "image/jpeg")
                     put(MediaStore.DownloadColumns.RELATIVE_PATH, IMAGE_DOWNLOAD_RELATIVE_PATH)
                 }
                 val imageUri = resolver
@@ -191,7 +159,7 @@ class DetailFragment : Fragment() {
                 val imagesDir =
                     Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
                         .toString()
-                val image = File(imagesDir, "$id.$fileType")
+                val image = File(imagesDir, "$id.jpg")
                 outputStream = FileOutputStream(image)
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -203,13 +171,13 @@ class DetailFragment : Fragment() {
             outputStream?.close()
             requireActivity().runOnUiThread {
                 Toast.makeText(application, R.string.image_saved, Toast.LENGTH_SHORT).show()
-                detailViewModel._isDownloadingWallpaper.value = false
+                detailViewModel.isDownloadingWallpaper.value = false
             }
         } catch (e: Exception) {
             e.printStackTrace()
             requireActivity().runOnUiThread {
                 Toast.makeText(application, R.string.error_image_save, Toast.LENGTH_SHORT).show()
-                detailViewModel._isDownloadingWallpaper.value = false
+                detailViewModel.isDownloadingWallpaper.value = false
             }
         }
     }

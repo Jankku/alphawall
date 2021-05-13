@@ -4,18 +4,18 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
-import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.jankku.wallpapers.R
-import com.jankku.wallpapers.database.Wallpaper
-import com.jankku.wallpapers.databinding.ItemWallpaperBinding
+import com.jankku.wallpapers.database.Category
+import com.jankku.wallpapers.databinding.ItemCategoryBinding
 
-class WallpaperAdapter(private val clickListener: (Wallpaper) -> Unit) :
-    PagingDataAdapter<Wallpaper, WallpaperAdapter.ViewHolder>(DiffCallback) {
+class CategoryAdapter(private val clickListener: (Category) -> Unit) :
+    ListAdapter<Category, CategoryAdapter.ViewHolder>(DiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding: ItemWallpaperBinding = DataBindingUtil.inflate(
+        val binding: ItemCategoryBinding = DataBindingUtil.inflate(
             LayoutInflater.from(parent.context),
             ViewHolder.LAYOUT,
             parent,
@@ -27,16 +27,16 @@ class WallpaperAdapter(private val clickListener: (Wallpaper) -> Unit) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val wallpaper = getItem(position)
-        if (wallpaper != null) {
+        val categoryItem = getItem(position)
+        if (categoryItem != null) {
             holder.binding.also {
-                it.wallpaper = wallpaper
+                it.category = categoryItem
             }
         }
     }
 
     class ViewHolder(
-        val binding: ItemWallpaperBinding,
+        val binding: ItemCategoryBinding,
         clickAtPosition: (Int) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
 
@@ -46,16 +46,16 @@ class WallpaperAdapter(private val clickListener: (Wallpaper) -> Unit) :
 
         companion object {
             @LayoutRes
-            val LAYOUT = R.layout.item_wallpaper
+            val LAYOUT = R.layout.item_category
         }
     }
 
     companion object {
-        object DiffCallback : DiffUtil.ItemCallback<Wallpaper>() {
-            override fun areItemsTheSame(oldItem: Wallpaper, newItem: Wallpaper) =
+        object DiffCallback : DiffUtil.ItemCallback<Category>() {
+            override fun areItemsTheSame(oldItem: Category, newItem: Category) =
                 oldItem == newItem
 
-            override fun areContentsTheSame(oldItem: Wallpaper, newItem: Wallpaper) =
+            override fun areContentsTheSame(oldItem: Category, newItem: Category) =
                 oldItem.id == newItem.id
         }
     }
