@@ -3,29 +3,35 @@ package com.jankku.wallpapers.ui
 import android.app.Application
 import android.content.Context
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.RecyclerView
-import com.jankku.wallpapers.R
 import com.jankku.wallpapers.WallpaperApplication
-import com.jankku.wallpapers.databinding.FragmentHomeBinding
-import com.jankku.wallpapers.viewmodel.HomeViewModel
-import com.jankku.wallpapers.viewmodel.HomeViewModelFactory
+import com.jankku.wallpapers.databinding.FragmentCategoryDetailBinding
+import com.jankku.wallpapers.viewmodel.CategoryItemViewModel
+import com.jankku.wallpapers.viewmodel.CategoryItemViewModelFactory
 
 @ExperimentalPagingApi
-class HomeFragment : BaseFragment() {
+class CategoryDetailFragment : BaseFragment() {
 
     private lateinit var application: Application
-    private var _binding: FragmentHomeBinding? = null
+    private var _binding: FragmentCategoryDetailBinding? = null
     private val binding get() = _binding!!
     private lateinit var adapter: WallpaperAdapter
+    private val args: CategoryDetailFragmentArgs by navArgs()
 
-    private val viewModel: HomeViewModel by viewModels {
-        HomeViewModelFactory((application as WallpaperApplication).repository)
+    private val viewModel: CategoryItemViewModel by viewModels {
+        CategoryItemViewModelFactory(
+            args.category,
+            (application as WallpaperApplication).repository
+        )
     }
 
     override fun onAttach(context: Context) {
@@ -42,7 +48,7 @@ class HomeFragment : BaseFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentHomeBinding.inflate(
+        _binding = FragmentCategoryDetailBinding.inflate(
             inflater,
             container,
             false
@@ -54,7 +60,6 @@ class HomeFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.lifecycleOwner = viewLifecycleOwner
-        binding.viewModel = viewModel
 
         setupObservers()
         setupAdapter()
@@ -65,9 +70,10 @@ class HomeFragment : BaseFragment() {
     private fun setupAdapter() {
         adapter = WallpaperAdapter { wallpaper ->
             // This is executed when clicking wallpaper
-            val action = HomeFragmentDirections.actionHomeFragmentToDetailFragment(
-                wallpaper = wallpaper
-            )
+            val action =
+                CategoryDetailFragmentDirections.actionCategoryDetailFragmentToDetailFragment(
+                    wallpaper = wallpaper
+                )
             findNavController().navigate(action)
         }
 
@@ -76,7 +82,7 @@ class HomeFragment : BaseFragment() {
 
         adapter.addLoadStateListener { loadState ->
             if (_binding != null) {
-                binding.rvWallpaper.isVisible = loadState.source.refresh !is LoadState.Error
+                binding.rvCategoryDetail.isVisible = loadState.source.refresh !is LoadState.Error
                 binding.spinner.isVisible = loadState.source.refresh is LoadState.Loading
                 binding.btnRetry.isVisible = loadState.source.refresh is LoadState.Error
             }
@@ -84,7 +90,7 @@ class HomeFragment : BaseFragment() {
     }
 
     private fun setupRecyclerView() {
-        binding.rvWallpaper.let {
+        binding.rvCategoryDetail.let {
             it.setHasFixedSize(true)
             it.adapter = adapter.withLoadStateHeaderAndFooter(
                 header = WallpaperLoadingStateAdapter { adapter.retry() },
@@ -100,27 +106,15 @@ class HomeFragment : BaseFragment() {
     }
 
     private fun setupSwipeRefresh() {
-        binding.swipeRefresh.setOnRefreshListener {
+        binding.srCategoryDetail.setOnRefreshListener {
             adapter.refresh()
-            binding.swipeRefresh.isRefreshing = false
+            binding.srCategoryDetail.isRefreshing = false
         }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu_main, menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.action_search -> true
-            R.id.action_sort -> true
-            else -> super.onOptionsItemSelected(item)
-        }
     }
 }
 

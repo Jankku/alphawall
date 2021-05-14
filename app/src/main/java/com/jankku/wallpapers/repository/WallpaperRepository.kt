@@ -7,22 +7,33 @@ import com.jankku.wallpapers.database.Category
 import com.jankku.wallpapers.database.Wallpaper
 import com.jankku.wallpapers.database.WallpaperDatabase
 import com.jankku.wallpapers.network.AlphaCodersApiService
+import com.jankku.wallpapers.network.WallpaperPagingSource
 import com.jankku.wallpapers.network.WallpaperRemoteMediator
 import com.jankku.wallpapers.util.Constants.PAGE_SIZE
 import kotlinx.coroutines.flow.Flow
 import retrofit2.HttpException
 import java.io.IOException
 
+@ExperimentalPagingApi
 class WallpaperRepository(
     private val api: AlphaCodersApiService,
     private val database: WallpaperDatabase
 ) {
-
-    @ExperimentalPagingApi
     fun fetchWallpapers(): LiveData<PagingData<Wallpaper>> {
         return Pager(
             pagingSourceFactory = { database.wallpaperDao().getAll() },
             remoteMediator = WallpaperRemoteMediator(api, database),
+            config = PagingConfig(
+                pageSize = PAGE_SIZE,
+                prefetchDistance = PAGE_SIZE + (PAGE_SIZE * 2),
+                enablePlaceholders = false
+            )
+        ).liveData
+    }
+
+    fun fetchCategory(category: Category): LiveData<PagingData<Wallpaper>> {
+        return Pager(
+            pagingSourceFactory = { WallpaperPagingSource(api, category) },
             config = PagingConfig(
                 pageSize = PAGE_SIZE,
                 prefetchDistance = PAGE_SIZE + (PAGE_SIZE * 2),

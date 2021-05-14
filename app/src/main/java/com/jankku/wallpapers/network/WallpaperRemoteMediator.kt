@@ -39,7 +39,7 @@ class WallpaperRemoteMediator(
         try {
             val response = api.getWallpapers(
                 apiKey = BuildConfig.apiKey,
-                method = "popular",
+                method = "featured",
                 page = page,
                 checkIfLastPage = 1 // 1 = true, 0 = false
 

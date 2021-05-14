@@ -34,5 +34,31 @@
     <fragment
         android:id="@+id/categoryFragment"
         android:name="com.jankku.wallpapers.ui.CategoryFragment"
-        android:label="@string/navigation_categories_label" />
+        android:label="@string/navigation_categories_label" >
+        <action
+            android:id="@+id/action_categoryFragment_to_categoryDetailFragment"
+            app:destination="@id/categoryDetailFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/categoryDetailFragment"
+        android:name="com.jankku.wallpapers.ui.CategoryDetailFragment"
+        android:label="{categoryName}">
+        <argument
+            android:name="category"
+            app:argType="com.jankku.wallpapers.database.Category" />
+        <argument
+            android:name="categoryName"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_categoryDetailFragment_to_detailFragment"
+            app:destination="@id/detailFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
+    </fragment>
 </navigation>

@@ -5,6 +5,7 @@ import android.view.MotionEvent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.aghajari.zoomhelper.ZoomHelper
@@ -33,9 +34,12 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        setupActionBarWithNavController(navController)
+        val appBarConfiguration = AppBarConfiguration(
+            setOf(R.id.homeFragment, R.id.categoryFragment, R.id.settingsFragment)
+        )
+
+        setupActionBarWithNavController(navController, appBarConfiguration)
         supportActionBar!!.elevation = 0f
-        //ZoomHelper.getInstance().layoutTheme = android.R.style.Theme_Translucent_NoTitleBar_Fullscreen
     }
 
     override fun onSupportNavigateUp(): Boolean =

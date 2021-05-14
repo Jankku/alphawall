@@ -1,13 +1,14 @@
 package com.jankku.wallpapers.viewmodel
 
 import androidx.lifecycle.*
+import androidx.paging.ExperimentalPagingApi
 import com.jankku.wallpapers.database.Category
 import com.jankku.wallpapers.repository.WallpaperRepository
 import kotlinx.coroutines.launch
 
+@ExperimentalPagingApi
 class CategoryViewModel(private val repository: WallpaperRepository) : ViewModel() {
     val categories: LiveData<List<Category>> = repository.fetchCategories().asLiveData()
-
 
     init {
         viewModelScope.launch {
@@ -16,6 +17,7 @@ class CategoryViewModel(private val repository: WallpaperRepository) : ViewModel
     }
 }
 
+@ExperimentalPagingApi
 class CategoryViewModelFactory(private val repository: WallpaperRepository) :
     ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {

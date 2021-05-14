@@ -3,22 +3,25 @@ package com.jankku.wallpapers.ui
 import android.app.Application
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import androidx.paging.ExperimentalPagingApi
 import com.jankku.wallpapers.WallpaperApplication
 import com.jankku.wallpapers.databinding.FragmentCategoryBinding
 import com.jankku.wallpapers.viewmodel.CategoryViewModel
 import com.jankku.wallpapers.viewmodel.CategoryViewModelFactory
 
+@ExperimentalPagingApi
 class CategoryFragment : BaseFragment() {
 
     private lateinit var application: Application
     private var _binding: FragmentCategoryBinding? = null
     private val binding get() = _binding!!
     private lateinit var adapter: CategoryAdapter
+
 
     private val categoryViewModel: CategoryViewModel by viewModels {
         CategoryViewModelFactory((application as WallpaperApplication).repository)
@@ -57,9 +60,13 @@ class CategoryFragment : BaseFragment() {
     }
 
     private fun setupAdapter() {
-        adapter = CategoryAdapter {
+        adapter = CategoryAdapter { category ->
             // This is executed when clicking wallpaper
-            Log.d("LOG_CLICK", "Clicked category: $it")
+            val action = CategoryFragmentDirections.actionCategoryFragmentToCategoryDetailFragment(
+                category = category,
+                categoryName = category.name
+            )
+            findNavController().navigate(action)
         }
     }
 
@@ -72,12 +79,6 @@ class CategoryFragment : BaseFragment() {
         categoryViewModel.categories.observe(viewLifecycleOwner) { list ->
             adapter.submitList(list)
         }
-
-//        categoryViewModel.networkError.observe(viewLifecycleOwner) { networkError ->
-//            if (networkError) {
-//                Toast.makeText(application, R.string.error_network, Toast.LENGTH_LONG).show()
-//            }
-//        }
     }
 
     override fun onDestroyView() {

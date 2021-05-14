@@ -15,12 +15,9 @@ private val okHttpClient = OkHttpClient
     .addNetworkInterceptor { chain ->
         val request = chain.request()
         val response = chain.proceed(request)
-
         Log.d("LOG_RESPONSE", response.request().url().toString())
-
         return@addNetworkInterceptor response
-    }
-    .build()
+    }.build()
 
 private val moshi = Moshi.Builder()
     .add(KotlinJsonAdapterFactory())
@@ -45,7 +42,7 @@ interface AlphaCodersApiService {
     suspend fun getCategoryList(
         @Query("auth") apiKey: String,
         @Query("method") method: String,
-    ) : NetworkCategoryResponse
+    ): NetworkCategoryResponse
 
     @GET("get.php")
     suspend fun getCategory(
@@ -54,7 +51,7 @@ interface AlphaCodersApiService {
         @Query("id") id: Int,
         @Query("page") page: Int,
         @Query("check_last") checkIfLastPage: Int // 1 = true, 0 = false
-    ) : NetworkWallpaperResponse
+    ): NetworkWallpaperResponse
 }
 
 object AlphaCodersApi {

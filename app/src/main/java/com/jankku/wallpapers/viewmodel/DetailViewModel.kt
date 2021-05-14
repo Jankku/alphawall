@@ -5,9 +5,7 @@ import com.jankku.wallpapers.database.Wallpaper
 
 class DetailViewModel(wallpaper: Wallpaper) : ViewModel() {
 
-    private val _wallpaper = liveData {
-        this.emit(wallpaper)
-    }
+    private val _wallpaper = liveData { emit(wallpaper) }
     val wallpaper: LiveData<Wallpaper>
         get() = _wallpaper
 

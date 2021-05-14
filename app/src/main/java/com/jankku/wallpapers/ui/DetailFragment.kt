@@ -44,7 +44,7 @@ class DetailFragment : BaseFragment() {
     private val binding get() = _binding!!
     private val args: DetailFragmentArgs by navArgs()
 
-    private val detailViewModel: DetailViewModel by viewModels {
+    private val viewModel: DetailViewModel by viewModels {
         DetailViewModelFactory(args.wallpaper)
     }
 
@@ -63,7 +63,7 @@ class DetailFragment : BaseFragment() {
             false
         )
         binding.lifecycleOwner = viewLifecycleOwner
-        binding.viewModel = detailViewModel
+        binding.viewModel = viewModel
 
         setupObservers()
 
@@ -76,17 +76,17 @@ class DetailFragment : BaseFragment() {
     }
 
     private fun setupObservers() {
-        detailViewModel.networkError.observe(viewLifecycleOwner) { networkError ->
+        viewModel.networkError.observe(viewLifecycleOwner) { networkError ->
             if (networkError) {
                 Toast.makeText(application, "Network error", Toast.LENGTH_SHORT).show()
             }
         }
 
-        detailViewModel.downloadWallpaper.observe(viewLifecycleOwner) { downloadWallpaper ->
+        viewModel.downloadWallpaper.observe(viewLifecycleOwner) { downloadWallpaper ->
             if (downloadWallpaper) {
-                val id = detailViewModel.wallpaper.value!!.id
-                val url = detailViewModel.wallpaper.value!!.imageUrl
-                detailViewModel.isDownloadingWallpaper.value = true
+                val id = viewModel.wallpaper.value!!.id
+                val url = viewModel.wallpaper.value!!.imageUrl
+                viewModel.isDownloadingWallpaper.value = true
 
                 lifecycleScope.launch(Dispatchers.Default) {
                     try {
@@ -99,7 +99,7 @@ class DetailFragment : BaseFragment() {
             }
         }
 
-        detailViewModel.setWallpaper.observe(viewLifecycleOwner) { setWallpaper ->
+        viewModel.setWallpaper.observe(viewLifecycleOwner) { setWallpaper ->
             if (setWallpaper) {
                 try {
                     TODO("Save wallpaper to app specific storage, get content URI, call intent")
@@ -115,9 +115,9 @@ class DetailFragment : BaseFragment() {
             }
         }
 
-        detailViewModel.openWallpaperPage.observe(viewLifecycleOwner) { openInWeb ->
+        viewModel.openWallpaperPage.observe(viewLifecycleOwner) { openInWeb ->
             if (openInWeb) {
-                val url = detailViewModel.wallpaper.value!!.pageUrl
+                val url = viewModel.wallpaper.value!!.pageUrl
                 val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
                 startActivity(intent)
             }
@@ -171,13 +171,13 @@ class DetailFragment : BaseFragment() {
             outputStream?.close()
             requireActivity().runOnUiThread {
                 Toast.makeText(application, R.string.image_saved, Toast.LENGTH_SHORT).show()
-                detailViewModel.isDownloadingWallpaper.value = false
+                viewModel.isDownloadingWallpaper.value = false
             }
         } catch (e: Exception) {
             e.printStackTrace()
             requireActivity().runOnUiThread {
                 Toast.makeText(application, R.string.error_image_save, Toast.LENGTH_SHORT).show()
-                detailViewModel.isDownloadingWallpaper.value = false
+                viewModel.isDownloadingWallpaper.value = false
             }
         }
     }
