@@ -5,11 +5,13 @@ import android.content.Context
 import android.os.Bundle
 import android.view.*
 import androidx.core.view.isVisible
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.jankku.wallpapers.R
 import com.jankku.wallpapers.WallpaperApplication
 import com.jankku.wallpapers.databinding.FragmentHomeBinding
@@ -42,12 +44,12 @@ class HomeFragment : BaseFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentHomeBinding.inflate(
+        _binding = DataBindingUtil.inflate(
             inflater,
+            R.layout.fragment_home,
             container,
             false
         )
-
         return binding.root
     }
 
@@ -56,18 +58,16 @@ class HomeFragment : BaseFragment() {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 
-        setupObservers()
         setupAdapter()
         setupRecyclerView()
+        setupObservers()
         setupSwipeRefresh()
     }
 
     private fun setupAdapter() {
         adapter = WallpaperAdapter { wallpaper ->
             // This is executed when clicking wallpaper
-            val action = HomeFragmentDirections.actionHomeFragmentToDetailFragment(
-                wallpaper = wallpaper
-            )
+            val action = HomeFragmentDirections.actionHomeFragmentToDetailFragment(wallpaper)
             findNavController().navigate(action)
         }
 
@@ -106,11 +106,6 @@ class HomeFragment : BaseFragment() {
         }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_main, menu)
     }
@@ -118,9 +113,42 @@ class HomeFragment : BaseFragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_search -> true
-            R.id.action_sort -> true
+            R.id.action_sort -> {
+                //SortDialogFragment().show(parentFragmentManager, "TAG")
+                sortDialog()
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }
-}
 
+    private fun sortDialog() {
+        val checkedItem = 0
+        val singleItems = arrayOf(
+            getString(R.string.dialog_sort_newest),
+            getString(R.string.dialog_sort_rating),
+            getString(R.string.dialog_sort_views),
+            getString(R.string.dialog_sort_favorites),
+        )
+
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle(resources.getString(R.string.dialog_sort_title))
+            .setPositiveButton(resources.getString(R.string.dialog_sort_button)) { dialog, _ ->
+                dialog.dismiss()
+            }
+            .setSingleChoiceItems(singleItems, checkedItem) { dialog, which ->
+                when (which) {
+                    0 -> {
+                    }
+                    1 -> {
+                    }
+                    2 -> {
+                    }
+                    3 -> {
+                    }
+                    else -> {
+                    }
+                }
+            }.show()
+    }
+}

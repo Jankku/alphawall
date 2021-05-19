@@ -72,7 +72,7 @@ class CategoryDetailFragment : BaseFragment() {
             // This is executed when clicking wallpaper
             val action =
                 CategoryDetailFragmentDirections.actionCategoryDetailFragmentToDetailFragment(
-                    wallpaper = wallpaper
+                    wallpaper
                 )
             findNavController().navigate(action)
         }

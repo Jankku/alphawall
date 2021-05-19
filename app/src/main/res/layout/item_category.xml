@@ -7,11 +7,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="category"
             type="com.jankku.wallpapers.database.Category" />
-
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -47,6 +45,7 @@
                 tools:text="6212" />
 
         </RelativeLayout>
+
     </com.google.android.material.card.MaterialCardView>
 
 </layout>

@@ -19,6 +19,7 @@ class WallpaperRepository(
     private val api: AlphaCodersApiService,
     private val database: WallpaperDatabase
 ) {
+
     fun fetchWallpapers(): LiveData<PagingData<Wallpaper>> {
         return Pager(
             pagingSourceFactory = { database.wallpaperDao().getAll() },
@@ -26,7 +27,7 @@ class WallpaperRepository(
             config = PagingConfig(
                 pageSize = PAGE_SIZE,
                 prefetchDistance = PAGE_SIZE + (PAGE_SIZE * 2),
-                enablePlaceholders = false
+                enablePlaceholders = true
             )
         ).liveData
     }
@@ -37,7 +38,7 @@ class WallpaperRepository(
             config = PagingConfig(
                 pageSize = PAGE_SIZE,
                 prefetchDistance = PAGE_SIZE + (PAGE_SIZE * 2),
-                enablePlaceholders = false
+                enablePlaceholders = true
             )
         ).liveData
     }

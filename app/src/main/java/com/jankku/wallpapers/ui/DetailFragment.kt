@@ -18,6 +18,7 @@ import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
+import androidx.paging.ExperimentalPagingApi
 import com.bumptech.glide.Glide
 import com.jankku.wallpapers.R
 import com.jankku.wallpapers.databinding.FragmentDetailBinding
@@ -35,6 +36,7 @@ import java.net.MalformedURLException
 import java.net.URISyntaxException
 
 
+@ExperimentalPagingApi
 class DetailFragment : BaseFragment() {
 
     override var bottomNavigationVisibility = View.GONE

@@ -65,7 +65,7 @@ fun detailImageLoad(imageView: ImageView, url: String, viewModel: DetailViewMode
 }
 
 /**
- * Binding adapter used to hide the view loading finishes
+ * Binding adapter used to hide view when loading finishes
  */
 @BindingAdapter("isLoading")
 fun hideIfNotLoading(view: View, isLoading: Boolean) {

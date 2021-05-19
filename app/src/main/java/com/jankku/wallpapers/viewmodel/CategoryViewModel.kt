@@ -8,7 +8,9 @@ import kotlinx.coroutines.launch
 
 @ExperimentalPagingApi
 class CategoryViewModel(private val repository: WallpaperRepository) : ViewModel() {
-    val categories: LiveData<List<Category>> = repository.fetchCategories().asLiveData()
+    private val _categories: LiveData<List<Category>> = repository.fetchCategories().asLiveData()
+    val categories: LiveData<List<Category>>
+        get() = _categories
 
     init {
         viewModelScope.launch {

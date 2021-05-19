@@ -2,28 +2,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <PreferenceCategory app:title="@string/ui_header">
-
-        <ListPreference
-            app:key="@string/view_mode_key"
-            app:summary="@string/view_mode_description"
-            app:title="@string/view_mode_title"
-            android:icon="@drawable/ic_grid_view"
-            app:defaultValue="@string/view_mode_value_list"
-            app:entries="@array/view_mode_entries"
-            app:entryValues="@array/view_mode_values" />
-
-        <ListPreference
-            app:key="@string/theme_key"
-            app:summary="@string/theme_description"
-            app:title="@string/theme_title"
-            android:dialogTitle="@string/theme_title"
-            android:icon="@drawable/ic_light_mode"
-            app:defaultValue="@string/theme_value_system"
-            app:entries="@array/theme_entries"
-            app:entryValues="@array/theme_values" />
-    </PreferenceCategory>
-
     <PreferenceCategory app:title="@string/about_header">
         <Preference
             app:key="@string/app_key"

@@ -3,6 +3,7 @@ package com.jankku.wallpapers.ui
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import androidx.paging.ExperimentalPagingApi
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.jankku.wallpapers.BuildConfig

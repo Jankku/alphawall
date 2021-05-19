@@ -1,13 +1,13 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <style name="Base.Theme.Wallpapers" parent="Theme.MaterialComponents.DayNight">
-        <item name="android:statusBarColor">?colorPrimarySurface</item>
-        <item name="android:navigationBarColor">?colorPrimarySurface</item>
+    <style name="Base.Theme.Wallpapers" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <item name="android:statusBarColor">?colorSurface</item>
+        <item name="android:navigationBarColor">?colorSurface</item>
         <item name="bottomNavigationStyle">@style/Widget.MaterialComponents.BottomNavigationView.PrimarySurface</item>
     </style>
 
     <style name="Theme.Wallpapers" parent="Base.Theme.Wallpapers">
-        <item name="android:windowLightStatusBar" tools:targetApi="23">false</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="23">true</item>
         <item name="android:windowLightNavigationBar" tools:targetApi="27">true</item>
 
         <item name="colorPrimary">@color/green_500</item>
@@ -17,5 +17,16 @@
         <item name="colorSecondary">@color/green_500</item>
         <item name="colorSecondaryVariant">@color/green_200</item>
         <item name="colorOnSecondary">@color/white</item>
+
+        <item name="colorSurface">@color/white</item>
+    </style>
+
+    <style name="OverflowMenuStyle" parent="Widget.AppCompat.PopupMenu.Overflow">
+        <!-- Api 21 -->
+        <item name="overlapAnchor">false</item>
+        <!-- Pop-up layer background color -->
+        <item name="android:popupBackground">@color/white</item>
+        <!-- Set the text color of the pop-up menu -->
+        <item name="android:textColor">@color/black</item>
     </style>
 </resources>

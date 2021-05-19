@@ -14,6 +14,14 @@
     <!-- Search -->
     <string name="search_hint">Search wallpapers</string>
 
+    <!-- Sort dialog -->
+    <string name="dialog_sort_title">Sort wallpapers by</string>
+    <string name="dialog_sort_button">Apply</string>
+    <string name="dialog_sort_newest">Newest</string>
+    <string name="dialog_sort_rating">Rating</string>
+    <string name="dialog_sort_views">Views</string>
+    <string name="dialog_sort_favorites">Favorites</string>
+
     <!-- Bottom navigation -->
     <string name="menu_bottom_nav_home">Home</string>
     <string name="menu_bottom_nav_categories">Categories</string>
@@ -66,6 +74,4 @@
     <string name="github_key" translatable="false">github</string>
     <string name="github_title" translatable="false">GitHub</string>
     <string name="github_summary" translatable="false">https://github.com/jankku/wallpapers</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

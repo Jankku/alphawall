@@ -13,11 +13,11 @@ class CategoryItemViewModel(
     private val category: Category,
     private val repository: WallpaperRepository
 ) : ViewModel() {
-    private val _wallpapers: LiveData<PagingData<Wallpaper>> = fetchWallpapers()
+    private val _wallpapers: LiveData<PagingData<Wallpaper>> = fetchWallpapersFromCategory()
     val wallpapers: LiveData<PagingData<Wallpaper>>
         get() = _wallpapers
 
-    private fun fetchWallpapers(): LiveData<PagingData<Wallpaper>> {
+    private fun fetchWallpapersFromCategory(): LiveData<PagingData<Wallpaper>> {
         return repository
             .fetchCategory(category)
             .distinctUntilChanged()

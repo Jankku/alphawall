@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/category"
+    app:startDestination="@+id/categoryFragment">
+
+    <fragment
+        android:id="@+id/categoryFragment"
+        android:name="com.jankku.wallpapers.ui.CategoryFragment"
+        android:label="@string/navigation_categories_label"
+        tools:layout="@layout/fragment_category">
+
+        <action
+            android:id="@+id/action_categoryFragment_to_categoryDetailFragment"
+            app:destination="@id/categoryDetailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/categoryDetailFragment"
+        android:name="com.jankku.wallpapers.ui.CategoryDetailFragment"
+        android:label="{categoryName}"
+        tools:layout="@layout/fragment_category_detail">
+        <argument
+            android:name="category"
+            app:argType="com.jankku.wallpapers.database.Category" />
+        <argument
+            android:name="categoryName"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_categoryDetailFragment_to_detailFragment"
+            app:destination="@id/detailFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.jankku.wallpapers.ui.DetailFragment"
+        android:label="@string/navigation_detail_label"
+        tools:layout="@layout/fragment_detail">
+        <argument
+            android:name="wallpaper"
+            app:argType="com.jankku.wallpapers.database.Wallpaper" />
+    </fragment>
+
+</navigation>

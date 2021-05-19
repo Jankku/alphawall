@@ -7,11 +7,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="wallpaper"
             type="com.jankku.wallpapers.database.Wallpaper" />
-
     </data>
 
     <com.google.android.material.card.MaterialCardView
