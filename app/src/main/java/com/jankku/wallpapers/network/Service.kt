@@ -34,6 +34,7 @@ interface AlphaCodersApiService {
     suspend fun getWallpapers(
         @Query("auth") apiKey: String,
         @Query("method") method: String,
+        @Query("sort") sort: String,
         @Query("page") page: Int,
         @Query("check_last") checkIfLastPage: Int // 1 = true, 0 = false
     ): NetworkWallpaperResponse

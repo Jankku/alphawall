@@ -9,8 +9,7 @@ class DetailViewModel(wallpaper: Wallpaper) : ViewModel() {
     val wallpaper: LiveData<Wallpaper>
         get() = _wallpaper
 
-    val isLoadingPicture = MutableLiveData(true)
-    val isDownloadingWallpaper = MutableLiveData(false)
+    val isLoading = MutableLiveData(true)
     val setWallpaper = MutableLiveData(false)
     val downloadWallpaper = MutableLiveData(false)
     val openWallpaperPage = MutableLiveData(false)

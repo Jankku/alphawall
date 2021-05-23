@@ -3,10 +3,12 @@ package com.jankku.wallpapers.ui
 import android.app.Application
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadState
@@ -17,6 +19,7 @@ import com.jankku.wallpapers.WallpaperApplication
 import com.jankku.wallpapers.databinding.FragmentHomeBinding
 import com.jankku.wallpapers.viewmodel.HomeViewModel
 import com.jankku.wallpapers.viewmodel.HomeViewModelFactory
+import kotlinx.coroutines.launch
 
 @ExperimentalPagingApi
 class HomeFragment : BaseFragment() {
@@ -58,9 +61,9 @@ class HomeFragment : BaseFragment() {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 
+        setupObservers()
         setupAdapter()
         setupRecyclerView()
-        setupObservers()
         setupSwipeRefresh()
     }
 
@@ -76,9 +79,12 @@ class HomeFragment : BaseFragment() {
 
         adapter.addLoadStateListener { loadState ->
             if (_binding != null) {
-                binding.rvWallpaper.isVisible = loadState.source.refresh !is LoadState.Error
-                binding.spinner.isVisible = loadState.source.refresh is LoadState.Loading
-                binding.btnRetry.isVisible = loadState.source.refresh is LoadState.Error
+                lifecycleScope.launch {
+                    binding.rvWallpaper.isVisible =
+                        loadState.mediator?.refresh is LoadState.NotLoading
+                    binding.progressBar.isVisible = loadState.mediator?.refresh is LoadState.Loading
+                    binding.btnRetry.isVisible = loadState.mediator?.refresh is LoadState.Error
+                }
             }
         }
     }
@@ -97,6 +103,10 @@ class HomeFragment : BaseFragment() {
         viewModel.wallpapers.observe(viewLifecycleOwner) { pagingData ->
             adapter.submitData(lifecycle, pagingData)
         }
+
+        viewModel.sortMethod.observe(viewLifecycleOwner) { method ->
+            Log.d("LOG_SORT", method)
+        }
     }
 
     private fun setupSwipeRefresh() {
@@ -114,7 +124,6 @@ class HomeFragment : BaseFragment() {
         return when (item.itemId) {
             R.id.action_search -> true
             R.id.action_sort -> {
-                //SortDialogFragment().show(parentFragmentManager, "TAG")
                 sortDialog()
                 true
             }
@@ -123,32 +132,45 @@ class HomeFragment : BaseFragment() {
     }
 
     private fun sortDialog() {
-        val checkedItem = 0
-        val singleItems = arrayOf(
+        val sortMethods = arrayOf(
             getString(R.string.dialog_sort_newest),
             getString(R.string.dialog_sort_rating),
             getString(R.string.dialog_sort_views),
             getString(R.string.dialog_sort_favorites),
         )
+        var checkedId = viewModel.sortMethodId.value ?: 0
+        var checkedString = sortMethods[0]
 
         MaterialAlertDialogBuilder(requireContext())
             .setTitle(resources.getString(R.string.dialog_sort_title))
-            .setPositiveButton(resources.getString(R.string.dialog_sort_button)) { dialog, _ ->
-                dialog.dismiss()
-            }
-            .setSingleChoiceItems(singleItems, checkedItem) { dialog, which ->
+            .setSingleChoiceItems(sortMethods, checkedId) { _, which ->
                 when (which) {
                     0 -> {
+                        checkedString = sortMethods[0]
+                        checkedId = 0
                     }
                     1 -> {
+                        checkedString = sortMethods[1]
+                        checkedId = 1
                     }
                     2 -> {
+                        checkedString = sortMethods[2]
+                        checkedId = 2
                     }
                     3 -> {
+                        checkedString = sortMethods[3]
+                        checkedId = 3
                     }
                     else -> {
+                        checkedString = sortMethods[0]
+                        checkedId = 0
                     }
                 }
+            }
+            .setPositiveButton(resources.getString(R.string.dialog_sort_button)) { _, _ ->
+                viewModel.setSortMethodId(checkedId)
+                viewModel.setSortMethod(checkedString.lowercase())
+
             }.show()
     }
 }

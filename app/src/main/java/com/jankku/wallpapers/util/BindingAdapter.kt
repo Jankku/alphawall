@@ -29,7 +29,7 @@ fun setImageUrl(imageView: ImageView, url: String?) {
 }
 
 /**
- * Binding adapter used to display images from URL using Glide
+ * Binding adapter used to display images on detail page from URL using Glide
  */
 @BindingAdapter("detailImgUrl", "viewModel")
 fun detailImageLoad(imageView: ImageView, url: String, viewModel: DetailViewModel) {
@@ -45,7 +45,7 @@ fun detailImageLoad(imageView: ImageView, url: String, viewModel: DetailViewMode
                 target: Target<Drawable>?,
                 isFirstResource: Boolean
             ): Boolean {
-                viewModel.isLoadingPicture.value = false
+                viewModel.isLoading.value = false
                 viewModel.networkError.value = true
                 return false
             }
@@ -57,7 +57,7 @@ fun detailImageLoad(imageView: ImageView, url: String, viewModel: DetailViewMode
                 dataSource: DataSource?,
                 isFirstResource: Boolean
             ): Boolean {
-                viewModel.isLoadingPicture.value = false
+                viewModel.isLoading.value = false
                 return false
             }
         })

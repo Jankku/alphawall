@@ -1,13 +1,15 @@
 package com.jankku.wallpapers.repository
 
-import androidx.lifecycle.LiveData
-import androidx.paging.*
+import androidx.paging.ExperimentalPagingApi
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
 import com.jankku.wallpapers.BuildConfig
 import com.jankku.wallpapers.database.Category
 import com.jankku.wallpapers.database.Wallpaper
 import com.jankku.wallpapers.database.WallpaperDatabase
 import com.jankku.wallpapers.network.AlphaCodersApiService
-import com.jankku.wallpapers.network.WallpaperPagingSource
+import com.jankku.wallpapers.network.CategoryDetailPagingSource
 import com.jankku.wallpapers.network.WallpaperRemoteMediator
 import com.jankku.wallpapers.util.Constants.PAGE_SIZE
 import kotlinx.coroutines.flow.Flow
@@ -20,27 +22,25 @@ class WallpaperRepository(
     private val database: WallpaperDatabase
 ) {
 
-    fun fetchWallpapers(): LiveData<PagingData<Wallpaper>> {
+    fun fetchWallpapers(sortMethod: String): Flow<PagingData<Wallpaper>> {
         return Pager(
             pagingSourceFactory = { database.wallpaperDao().getAll() },
-            remoteMediator = WallpaperRemoteMediator(api, database),
+            remoteMediator = WallpaperRemoteMediator(api, database, sortMethod),
             config = PagingConfig(
                 pageSize = PAGE_SIZE,
                 prefetchDistance = PAGE_SIZE + (PAGE_SIZE * 2),
-                enablePlaceholders = true
             )
-        ).liveData
+        ).flow
     }
 
-    fun fetchCategory(category: Category): LiveData<PagingData<Wallpaper>> {
+    fun fetchWallpapersFromCategory(category: Category): Flow<PagingData<Wallpaper>> {
         return Pager(
-            pagingSourceFactory = { WallpaperPagingSource(api, category) },
+            pagingSourceFactory = { CategoryDetailPagingSource(api, category) },
             config = PagingConfig(
                 pageSize = PAGE_SIZE,
                 prefetchDistance = PAGE_SIZE + (PAGE_SIZE * 2),
-                enablePlaceholders = true
             )
-        ).liveData
+        ).flow
     }
 
     fun fetchCategories(): Flow<List<Category>> {
@@ -53,7 +53,10 @@ class WallpaperRepository(
                 apiKey = BuildConfig.apiKey,
                 method = "category_list"
             )
-            database.categoryDao().insertAll(response.categories)
+            if (response.success) {
+                database.categoryDao().deleteAll()
+                database.categoryDao().insertAll(response.categories)
+            }
         } catch (e: IOException) {
             e.printStackTrace()
         } catch (e: HttpException) {

@@ -31,9 +31,8 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.File
 import java.io.FileOutputStream
+import java.io.InputStream
 import java.io.OutputStream
-import java.net.MalformedURLException
-import java.net.URISyntaxException
 
 
 @ExperimentalPagingApi
@@ -84,16 +83,19 @@ class DetailFragment : BaseFragment() {
             }
         }
 
+        // TODO("Before downloading, check if image exists")
         viewModel.downloadWallpaper.observe(viewLifecycleOwner) { downloadWallpaper ->
             if (downloadWallpaper) {
                 val id = viewModel.wallpaper.value!!.id
                 val url = viewModel.wallpaper.value!!.imageUrl
-                viewModel.isDownloadingWallpaper.value = true
-
-                lifecycleScope.launch(Dispatchers.Default) {
+                lifecycleScope.launch(Dispatchers.Main) {
                     try {
                         val bitmap = downloadImage(url)
-                        saveImageToDownloads(bitmap, id)
+                        saveImageToPictures(bitmap, id)
+                        requireActivity().runOnUiThread {
+                            Toast.makeText(application, R.string.image_saved, Toast.LENGTH_SHORT)
+                                .show()
+                        }
                     } catch (e: Exception) {
                         e.printStackTrace()
                     }
@@ -101,26 +103,37 @@ class DetailFragment : BaseFragment() {
             }
         }
 
+        // TODO("Before downloading, check if image exists")
         viewModel.setWallpaper.observe(viewLifecycleOwner) { setWallpaper ->
             if (setWallpaper) {
-                try {
-                    TODO("Save wallpaper to app specific storage, get content URI, call intent")
-                    //val uri = Uri.parse(url)
-                    //val intent = Intent(wallpaperManager.getCropAndSetWallpaperIntent(uri))
-                    //startActivity(intent)
-                } catch (e: MalformedURLException) {
-                    e.printStackTrace()
-                } catch (e: URISyntaxException) {
-                    e.printStackTrace()
-                }
+                val id = viewModel.wallpaper.value!!.id
+                val url = viewModel.wallpaper.value!!.imageUrl
+                lifecycleScope.launch(Dispatchers.IO) {
+                    try {
+                        val bitmap = downloadImage(url)
+                        val imageUri = saveImageToPictures(bitmap, id) ?: return@launch
+                        val intent = Intent(Intent.ACTION_ATTACH_DATA)
+                            .setDataAndType(imageUri, "image/jpeg").apply {
+                                addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                            }
+                        startActivity(
+                            Intent.createChooser(
+                                intent,
+                                getString(R.string.image_set)
+                            )
+                        )
 
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
+                }
             }
         }
 
         viewModel.openWallpaperPage.observe(viewLifecycleOwner) { openInWeb ->
             if (openInWeb) {
-                val url = viewModel.wallpaper.value!!.pageUrl
-                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                val pageUrl = viewModel.wallpaper.value!!.pageUrl
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(pageUrl))
                 startActivity(intent)
             }
         }
@@ -137,50 +150,49 @@ class DetailFragment : BaseFragment() {
         }
     }
 
-    private fun saveImageToDownloads(bitmap: Bitmap, id: String) {
-        if (activity == null) return
+    private fun imageExists(imageUri: Uri): Boolean {
+        var boolean = false
+        try {
+            val inputStream: InputStream? =
+                requireContext().contentResolver.openInputStream(imageUri)
+            inputStream?.close()
+            boolean = true
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return boolean
+    }
 
-        var outputStream: OutputStream? = null
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            try {
+    private fun saveImageToPictures(bitmap: Bitmap, name: String): Uri? {
+        if (activity == null) return null
+        val outputStream: OutputStream?
+        var imageUri: Uri? = null
+        try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                 val resolver: ContentResolver = requireActivity().contentResolver
                 val contentValues = ContentValues().apply {
-                    put(MediaStore.DownloadColumns.DISPLAY_NAME, id)
-                    put(MediaStore.DownloadColumns.MIME_TYPE, "image/jpeg")
-                    put(MediaStore.DownloadColumns.RELATIVE_PATH, IMAGE_DOWNLOAD_RELATIVE_PATH)
+                    put(MediaStore.Images.Media.DISPLAY_NAME, name)
+                    put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg")
+                    put(MediaStore.Images.Media.RELATIVE_PATH, IMAGE_DOWNLOAD_RELATIVE_PATH)
                 }
-                val imageUri = resolver
-                    .insert(MediaStore.Downloads.EXTERNAL_CONTENT_URI, contentValues)
+                imageUri =
+                    resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
                 outputStream = imageUri?.let { resolver.openOutputStream(it) }
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-        } else {
-            try {
+            } else {
                 val imagesDir =
-                    Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+                    Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES + File.pathSeparator + IMAGE_DOWNLOAD_RELATIVE_PATH)
                         .toString()
-                val image = File(imagesDir, "$id.jpg")
+                val image = File(imagesDir, "$name.jpeg")
                 outputStream = FileOutputStream(image)
-            } catch (e: Exception) {
-                e.printStackTrace()
             }
-        }
-
-        try {
             bitmap.compress(Bitmap.CompressFormat.JPEG, IMAGE_DOWNLOAD_QUALITY, outputStream)
             outputStream?.close()
-            requireActivity().runOnUiThread {
-                Toast.makeText(application, R.string.image_saved, Toast.LENGTH_SHORT).show()
-                viewModel.isDownloadingWallpaper.value = false
-            }
         } catch (e: Exception) {
             e.printStackTrace()
             requireActivity().runOnUiThread {
                 Toast.makeText(application, R.string.error_image_save, Toast.LENGTH_SHORT).show()
-                viewModel.isDownloadingWallpaper.value = false
             }
         }
+        return imageUri
     }
 }

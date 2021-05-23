@@ -41,7 +41,7 @@
                 android:id="@+id/pbImage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:isLoading="@{viewModel.isLoadingPicture()}"
+                app:isLoading="@{viewModel.isLoading()}"
                 android:layout_centerInParent="true" />
 
         </RelativeLayout>
@@ -53,7 +53,7 @@
             android:gravity="center"
             android:padding="8dp"
             app:layout_constraintTop_toBottomOf="@id/llImg"
-            app:layout_constraintBottom_toTopOf="@id/rlProgressBar"
+            app:layout_constraintBottom_toTopOf="@id/llDetails"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
 
@@ -86,24 +86,6 @@
 
         </LinearLayout>
 
-        <RelativeLayout
-            android:id="@+id/rlProgressBar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:isLoading="@{viewModel.isDownloadingWallpaper()}"
-            app:layout_constraintTop_toBottomOf="@id/llButtons"
-            app:layout_constraintBottom_toTopOf="@id/llDetails"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
-
-            <ProgressBar
-                android:id="@+id/pbDownloadImage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true" />
-
-        </RelativeLayout>
-
 
         <LinearLayout
             android:id="@+id/llDetails"
@@ -113,7 +95,7 @@
             android:foregroundGravity="right"
             android:paddingHorizontal="8dp"
             android:paddingVertical="4dp"
-            app:layout_constraintTop_toBottomOf="@id/rlProgressBar"
+            app:layout_constraintTop_toBottomOf="@id/llButtons"
             app:layout_constraintBottom_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">

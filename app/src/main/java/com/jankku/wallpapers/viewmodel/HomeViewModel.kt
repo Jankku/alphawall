@@ -6,19 +6,44 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.jankku.wallpapers.database.Wallpaper
 import com.jankku.wallpapers.repository.WallpaperRepository
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.launch
 
 @ExperimentalPagingApi
 class HomeViewModel(private val repository: WallpaperRepository) : ViewModel() {
 
-    private val _wallpapers: LiveData<PagingData<Wallpaper>> = fetchWallpapers()
-    val wallpapers: LiveData<PagingData<Wallpaper>>
-        get() = _wallpapers
+    private val _sortMethod: MutableLiveData<String> = MutableLiveData("newest")
+    val sortMethod: LiveData<String> get() = _sortMethod
 
-    private fun fetchWallpapers(): LiveData<PagingData<Wallpaper>> {
-        return repository
-            .fetchWallpapers()
-            .distinctUntilChanged()
-            .cachedIn(viewModelScope)
+    private val _sortMethodId: MutableLiveData<Int> = MutableLiveData()
+    val sortMethodId: LiveData<Int> get() = _sortMethodId
+
+    private var _wallpapers: MutableLiveData<PagingData<Wallpaper>> = MutableLiveData()
+    val wallpapers: LiveData<PagingData<Wallpaper>> get() = _wallpapers
+
+    init {
+        fetchWallpapers(_sortMethod.value!!)
+    }
+
+    private fun fetchWallpapers(sortMethod: String) {
+        viewModelScope.launch {
+            repository
+                .fetchWallpapers(sortMethod)
+                .distinctUntilChanged()
+                .cachedIn(viewModelScope)
+                .collect { pagingData ->
+                    _wallpapers.value = pagingData
+                }
+        }
+    }
+
+    fun setSortMethod(method: String) {
+        _sortMethod.postValue(method)
+    }
+
+    fun setSortMethodId(id: Int) {
+        _sortMethodId.postValue(id)
     }
 }
 

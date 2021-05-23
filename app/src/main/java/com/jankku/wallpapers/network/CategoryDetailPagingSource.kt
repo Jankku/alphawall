@@ -7,7 +7,7 @@ import com.jankku.wallpapers.database.Category
 import com.jankku.wallpapers.database.Wallpaper
 import com.jankku.wallpapers.util.Constants.STARTING_PAGE_INDEX
 
-class WallpaperPagingSource(
+class CategoryDetailPagingSource(
     private val api: AlphaCodersApiService,
     private val category: Category
 ) : PagingSource<Int, Wallpaper>() {

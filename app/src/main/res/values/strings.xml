@@ -3,7 +3,6 @@
     <string name="app_name" translatable="false">Wallpapers</string>
     <string name="navigation_home_label">Home</string>
     <string name="navigation_detail_label">Wallpaper</string>
-    <string name="navigation_search_label">Search</string>
     <string name="navigation_categories_label">Categories</string>
     <string name="navigation_settings_label">Settings</string>
 
@@ -17,10 +16,10 @@
     <!-- Sort dialog -->
     <string name="dialog_sort_title">Sort wallpapers by</string>
     <string name="dialog_sort_button">Apply</string>
-    <string name="dialog_sort_newest">Newest</string>
-    <string name="dialog_sort_rating">Rating</string>
-    <string name="dialog_sort_views">Views</string>
-    <string name="dialog_sort_favorites">Favorites</string>
+    <string name="dialog_sort_newest">newest</string>
+    <string name="dialog_sort_rating">rating</string>
+    <string name="dialog_sort_views">views</string>
+    <string name="dialog_sort_favorites">favorites</string>
 
     <!-- Bottom navigation -->
     <string name="menu_bottom_nav_home">Home</string>
@@ -29,7 +28,6 @@
 
     <!-- Home Fragment -->
     <string name="rv_item_description">Wallpaper</string>
-    <string name="error_no_network">No Internet Connection</string>
     <string name="error_network">Network error</string>
     <string name="btn_retry">Retry</string>
 
@@ -38,10 +36,10 @@
     <string name="btn_download">Download</string>
     <string name="btn_set">Set</string>
     <string name="wallpaper_size">%1$sMB</string>
-    <string name="wallpaper_resolution">%1$s x %2$s</string>
-    <string name="error_image_download">Failed to download image</string>
+    <string name="wallpaper_resolution">%1$sx%2$s</string>
     <string name="error_image_save">Failed to save image</string>
-    <string name="image_saved">Image saved to downloads</string>
+    <string name="image_saved">Image saved to pictures</string>
+    <string name="image_set">Set as wallpaper</string>
 
     <!-- View Mode -->
     <string name="view_mode_key" translatable="false">view_mode</string>

@@ -16,7 +16,8 @@ import java.io.IOException
 @ExperimentalPagingApi
 class WallpaperRemoteMediator(
     private val api: AlphaCodersApiService,
-    private val database: WallpaperDatabase
+    private val database: WallpaperDatabase,
+    private val sortMethod: String
 ) : RemoteMediator<Int, Wallpaper>() {
 
     override suspend fun initialize(): InitializeAction {
@@ -40,6 +41,7 @@ class WallpaperRemoteMediator(
             val response = api.getWallpapers(
                 apiKey = BuildConfig.apiKey,
                 method = "featured",
+                sort = sortMethod,
                 page = page,
                 checkIfLastPage = 1 // 1 = true, 0 = false
 

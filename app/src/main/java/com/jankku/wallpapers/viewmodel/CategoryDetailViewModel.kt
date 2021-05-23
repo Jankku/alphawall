@@ -7,21 +7,33 @@ import androidx.paging.cachedIn
 import com.jankku.wallpapers.database.Category
 import com.jankku.wallpapers.database.Wallpaper
 import com.jankku.wallpapers.repository.WallpaperRepository
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.launch
 
 @ExperimentalPagingApi
 class CategoryItemViewModel(
     private val category: Category,
     private val repository: WallpaperRepository
 ) : ViewModel() {
-    private val _wallpapers: LiveData<PagingData<Wallpaper>> = fetchWallpapersFromCategory()
+    private val _wallpapers: MutableLiveData<PagingData<Wallpaper>> = MutableLiveData()
     val wallpapers: LiveData<PagingData<Wallpaper>>
         get() = _wallpapers
 
-    private fun fetchWallpapersFromCategory(): LiveData<PagingData<Wallpaper>> {
-        return repository
-            .fetchCategory(category)
-            .distinctUntilChanged()
-            .cachedIn(viewModelScope)
+    init {
+        fetchWallpapersFromCategory()
+    }
+
+    private fun fetchWallpapersFromCategory() {
+        viewModelScope.launch {
+            repository
+                .fetchWallpapersFromCategory(category)
+                .distinctUntilChanged()
+                .cachedIn(viewModelScope)
+                .collect { pagingData ->
+                    _wallpapers.value = pagingData
+                }
+        }
     }
 }
 

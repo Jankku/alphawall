@@ -7,12 +7,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.paging.ExperimentalPagingApi
 import com.jankku.wallpapers.WallpaperApplication
 import com.jankku.wallpapers.databinding.FragmentCategoryBinding
 import com.jankku.wallpapers.viewmodel.CategoryViewModel
 import com.jankku.wallpapers.viewmodel.CategoryViewModelFactory
+import kotlinx.coroutines.launch
 
 @ExperimentalPagingApi
 class CategoryFragment : BaseFragment() {
@@ -23,7 +25,7 @@ class CategoryFragment : BaseFragment() {
     private lateinit var adapter: CategoryAdapter
 
 
-    private val categoryViewModel: CategoryViewModel by viewModels {
+    private val viewModel: CategoryViewModel by viewModels {
         CategoryViewModelFactory((application as WallpaperApplication).repository)
     }
 
@@ -53,10 +55,11 @@ class CategoryFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.lifecycleOwner = viewLifecycleOwner
+        binding.viewModel = viewModel
 
+        setupObservers()
         setupAdapter()
         setupRecyclerView()
-        setupObservers()
     }
 
     private fun setupAdapter() {
@@ -76,8 +79,10 @@ class CategoryFragment : BaseFragment() {
     }
 
     private fun setupObservers() {
-        categoryViewModel.categories.observe(viewLifecycleOwner) { list ->
-            adapter.submitList(list)
+        lifecycleScope.launch {
+            viewModel.categories.observe(viewLifecycleOwner) { list ->
+                adapter.submitList(list)
+            }
         }
     }
 
