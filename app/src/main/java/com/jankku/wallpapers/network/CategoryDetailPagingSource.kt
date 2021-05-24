@@ -25,7 +25,7 @@ class CategoryDetailPagingSource(
 
             LoadResult.Page(
                 data = response.wallpapers,
-                prevKey = if (nextPage == STARTING_PAGE_INDEX) null else nextPage - 1,
+                prevKey = null,
                 nextKey = if (response.isLastPage) null else nextPage + 1
             )
         } catch (e: Exception) {

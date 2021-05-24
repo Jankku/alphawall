@@ -3,6 +3,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
     <data>
         <variable
             name="viewModel"
@@ -31,11 +32,11 @@
                 android:overScrollMode="never"
                 android:scrollbars="none"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                app:spanCount="2"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                app:spanCount="2"
                 tools:listitem="@layout/item_wallpaper" />
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
@@ -53,7 +54,6 @@
                 android:layout_height="wrap_content"
                 android:indeterminate="true" />
 
-
         </LinearLayout>
 
         <LinearLayout
@@ -62,12 +62,21 @@
             android:gravity="center"
             android:orientation="vertical">
 
+            <TextView
+                android:id="@+id/tvLoadErrorMessage"
+                style="@style/TextAppearance.MaterialComponents.Headline6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingBottom="@dimen/spacing_half"
+                android:text="@string/error_network" />
+
             <Button
-                android:id="@+id/btnRetry"
+                android:id="@+id/btnLoadRetry"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/btn_retry"/>
-
+                android:text="@string/btn_retry"
+                android:onClick="@{() -> viewModel.setRetryBtnClick(true)}" />
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

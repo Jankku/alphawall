@@ -18,12 +18,12 @@ import com.jankku.wallpapers.viewmodel.DetailViewModel
  * Binding adapter used to display images from URL using Glide
  */
 @BindingAdapter("imageUrl")
-fun setImageUrl(imageView: ImageView, url: String?) {
+fun loadImage(imageView: ImageView, url: String?) {
     Glide
         .with(imageView.context)
         .load(url)
         .centerCrop()
-        .transition(DrawableTransitionOptions.withCrossFade())
+        //.transition(DrawableTransitionOptions.withCrossFade())
         .error(R.drawable.ic_error)
         .into(imageView)
 }

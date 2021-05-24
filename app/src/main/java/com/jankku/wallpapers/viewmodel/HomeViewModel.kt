@@ -13,20 +13,20 @@ import kotlinx.coroutines.launch
 @ExperimentalPagingApi
 class HomeViewModel(private val repository: WallpaperRepository) : ViewModel() {
 
-    private val _sortMethod: MutableLiveData<String> = MutableLiveData("newest")
-    val sortMethod: LiveData<String> get() = _sortMethod
-
     private val _sortMethodId: MutableLiveData<Int> = MutableLiveData()
     val sortMethodId: LiveData<Int> get() = _sortMethodId
 
-    private var _wallpapers: MutableLiveData<PagingData<Wallpaper>> = MutableLiveData()
+    private val _wallpapers: MutableLiveData<PagingData<Wallpaper>> = MutableLiveData()
     val wallpapers: LiveData<PagingData<Wallpaper>> get() = _wallpapers
 
+    private val _retryBtnClick: MutableLiveData<Boolean> = MutableLiveData(false)
+    val retryBtnClick: LiveData<Boolean> get() = _retryBtnClick
+
     init {
-        fetchWallpapers(_sortMethod.value!!)
+        fetchWallpapers("newest") // Default sort method
     }
 
-    private fun fetchWallpapers(sortMethod: String) {
+    fun fetchWallpapers(sortMethod: String) {
         viewModelScope.launch {
             repository
                 .fetchWallpapers(sortMethod)
@@ -38,12 +38,12 @@ class HomeViewModel(private val repository: WallpaperRepository) : ViewModel() {
         }
     }
 
-    fun setSortMethod(method: String) {
-        _sortMethod.postValue(method)
-    }
-
     fun setSortMethodId(id: Int) {
         _sortMethodId.postValue(id)
+    }
+
+    fun setRetryBtnClick(value: Boolean) {
+        _retryBtnClick.postValue(value)
     }
 }
 

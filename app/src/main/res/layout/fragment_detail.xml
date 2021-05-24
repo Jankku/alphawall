@@ -51,7 +51,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:padding="8dp"
+            android:padding="@dimen/spacing_quarter"
             app:layout_constraintTop_toBottomOf="@id/llImg"
             app:layout_constraintBottom_toTopOf="@id/llDetails"
             app:layout_constraintEnd_toEndOf="parent"
@@ -61,28 +61,28 @@
                 android:id="@+id/btnOpenWeb"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="4dp"
                 android:text="@string/btn_page"
                 app:icon="@drawable/ic_open_in_browser"
-                android:onClick="@{() -> viewModel.openWallpaperPage(true)}"/>
+                android:onClick="@{() -> viewModel.openWallpaperPage(true)}"
+                style="?android:attr/buttonBarButtonStyle" />
 
             <Button
                 android:id="@+id/btnDownload"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="4dp"
                 android:text="@string/btn_download"
                 app:icon="@drawable/ic_download"
-                android:onClick="@{() -> viewModel.downloadWallpaper(true)}" />
+                android:onClick="@{() -> viewModel.downloadWallpaper(true)}"
+                style="?android:attr/buttonBarButtonStyle" />
 
             <Button
                 android:id="@+id/btnSet"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="4dp"
                 android:text="@string/btn_set"
                 app:icon="@drawable/ic_wallpaper"
-                android:onClick="@{() -> viewModel.setWallpaper(true)}"/>
+                android:onClick="@{() -> viewModel.setWallpaper(true)}"
+                style="?android:attr/buttonBarButtonStyle" />
 
         </LinearLayout>
 

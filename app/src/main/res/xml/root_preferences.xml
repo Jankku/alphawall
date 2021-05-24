@@ -1,30 +1,28 @@
-<PreferenceScreen
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <PreferenceCategory app:title="@string/about_header">
         <Preference
+            app:icon="@drawable/ic_android"
             app:key="@string/app_key"
-            app:title="@string/app_name"
-            app:icon="@drawable/ic_android"/>
+            app:title="@string/app_name" />
 
         <Preference
+            app:icon="@drawable/ic_person"
             app:key="@string/author_key"
-            app:title="@string/author_title"
             app:summary="@string/author_summary"
-            app:icon="@drawable/ic_person" />
+            app:title="@string/author_title" />
 
         <Preference
+            app:icon="@drawable/ic_github"
             app:key="@string/github_key"
-            app:title="@string/github_title"
             app:summary="@string/github_summary"
-            app:icon="@drawable/ic_github" />
+            app:title="@string/github_title" />
 
         <Preference
+            app:icon="@drawable/ic_api"
             app:key="@string/api_key"
-            app:title="@string/api_title"
             app:summary="@string/api_summary"
-            app:icon="@drawable/ic_api" />
+            app:title="@string/api_title" />
     </PreferenceCategory>
 
 </PreferenceScreen>

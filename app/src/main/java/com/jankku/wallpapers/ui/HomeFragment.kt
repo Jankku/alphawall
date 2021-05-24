@@ -3,7 +3,6 @@ package com.jankku.wallpapers.ui
 import android.app.Application
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
@@ -83,7 +82,9 @@ class HomeFragment : BaseFragment() {
                     binding.rvWallpaper.isVisible =
                         loadState.mediator?.refresh is LoadState.NotLoading
                     binding.progressBar.isVisible = loadState.mediator?.refresh is LoadState.Loading
-                    binding.btnRetry.isVisible = loadState.mediator?.refresh is LoadState.Error
+                    binding.btnLoadRetry.isVisible = loadState.mediator?.refresh is LoadState.Error
+                    binding.tvLoadErrorMessage.isVisible =
+                        loadState.mediator?.refresh is LoadState.Error
                 }
             }
         }
@@ -104,8 +105,8 @@ class HomeFragment : BaseFragment() {
             adapter.submitData(lifecycle, pagingData)
         }
 
-        viewModel.sortMethod.observe(viewLifecycleOwner) { method ->
-            Log.d("LOG_SORT", method)
+        viewModel.retryBtnClick.observe(viewLifecycleOwner) { click ->
+            if (click) adapter.retry()
         }
     }
 
@@ -169,7 +170,8 @@ class HomeFragment : BaseFragment() {
             }
             .setPositiveButton(resources.getString(R.string.dialog_sort_button)) { _, _ ->
                 viewModel.setSortMethodId(checkedId)
-                viewModel.setSortMethod(checkedString.lowercase())
+                viewModel.fetchWallpapers(checkedString.lowercase())
+                adapter.refresh()
 
             }.show()
     }

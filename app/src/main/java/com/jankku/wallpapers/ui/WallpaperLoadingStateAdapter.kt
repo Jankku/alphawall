@@ -37,15 +37,16 @@ class WallpaperLoadingStateAdapter(
         private val retryCallback: () -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
         init {
-            binding.retryButton.setOnClickListener { retryCallback() }
+            binding.btnItemRetry.setOnClickListener { retryCallback() }
         }
 
         fun bind(loadState: LoadState) {
             with(binding) {
-                progressBar.isVisible = loadState is LoadState.Loading
-                retryButton.isVisible = loadState is LoadState.Error
-                errorMsg.isVisible = !(loadState as? LoadState.Error)?.error?.message.isNullOrBlank()
-                errorMsg.text = (loadState as? LoadState.Error)?.error?.message
+                pbItemLoader.isVisible = loadState is LoadState.Loading
+                btnItemRetry.isVisible = loadState is LoadState.Error
+                tvItemErrorMessage.isVisible =
+                    !(loadState as? LoadState.Error)?.error?.message.isNullOrBlank()
+                tvItemErrorMessage.text = (loadState as? LoadState.Error)?.error?.message
             }
         }
     }

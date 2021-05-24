@@ -8,28 +8,28 @@
         android:layout_height="wrap_content">
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/error_msg"
+            android:id="@+id/tvItemErrorMessage"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:gravity="center"
-            app:layout_constraintBottom_toTopOf="@+id/progress_bar"
+            app:layout_constraintBottom_toTopOf="@+id/pbItemLoader"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="@string/error_no_network"/>
+            tools:text="@string/error_network" />
 
         <ProgressBar
-            android:id="@+id/progress_bar"
+            android:id="@+id/pbItemLoader"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@+id/retry_button"
+            app:layout_constraintBottom_toTopOf="@+id/btnItemRetry"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/error_msg" />
+            app:layout_constraintTop_toBottomOf="@+id/tvItemErrorMessage" />
 
         <Button
-            android:id="@+id/retry_button"
+            android:id="@+id/btnItemRetry"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/btn_retry"
@@ -37,6 +37,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/progress_bar" />
+            app:layout_constraintTop_toBottomOf="@+id/pbItemLoader" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

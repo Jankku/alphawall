@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.paging.ExperimentalPagingApi
@@ -15,8 +16,9 @@ import androidx.paging.LoadState
 import androidx.recyclerview.widget.RecyclerView
 import com.jankku.wallpapers.WallpaperApplication
 import com.jankku.wallpapers.databinding.FragmentCategoryDetailBinding
-import com.jankku.wallpapers.viewmodel.CategoryItemViewModel
-import com.jankku.wallpapers.viewmodel.CategoryItemViewModelFactory
+import com.jankku.wallpapers.viewmodel.CategoryDetailViewModel
+import com.jankku.wallpapers.viewmodel.CategoryDetailViewModelFactory
+import kotlinx.coroutines.launch
 
 @ExperimentalPagingApi
 class CategoryDetailFragment : BaseFragment() {
@@ -27,8 +29,8 @@ class CategoryDetailFragment : BaseFragment() {
     private lateinit var adapter: WallpaperAdapter
     private val args: CategoryDetailFragmentArgs by navArgs()
 
-    private val viewModel: CategoryItemViewModel by viewModels {
-        CategoryItemViewModelFactory(
+    private val viewModel: CategoryDetailViewModel by viewModels {
+        CategoryDetailViewModelFactory(
             args.category,
             (application as WallpaperApplication).repository
         )
@@ -60,6 +62,7 @@ class CategoryDetailFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.lifecycleOwner = viewLifecycleOwner
+        binding.viewModel = viewModel
 
         setupObservers()
         setupAdapter()
@@ -82,9 +85,14 @@ class CategoryDetailFragment : BaseFragment() {
 
         adapter.addLoadStateListener { loadState ->
             if (_binding != null) {
-                binding.rvCategoryDetail.isVisible = loadState.source.refresh !is LoadState.Error
-                binding.spinner.isVisible = loadState.source.refresh is LoadState.Loading
-                binding.btnRetry.isVisible = loadState.source.refresh is LoadState.Error
+                lifecycleScope.launch {
+                    binding.rvCategoryDetail.isVisible =
+                        loadState.source.refresh is LoadState.NotLoading
+                    binding.progressBar.isVisible = loadState.source.refresh is LoadState.Loading
+                    binding.btnLoadRetry.isVisible = loadState.source.refresh is LoadState.Error
+                    binding.tvLoadErrorMessage.isVisible =
+                        loadState.source.refresh is LoadState.Error
+                }
             }
         }
     }
@@ -102,6 +110,10 @@ class CategoryDetailFragment : BaseFragment() {
     private fun setupObservers() {
         viewModel.wallpapers.observe(viewLifecycleOwner) { pagingData ->
             adapter.submitData(lifecycle, pagingData)
+        }
+
+        viewModel.retryBtnClick.observe(viewLifecycleOwner) { click ->
+            if (click) adapter.retry()
         }
     }
 
