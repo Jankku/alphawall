@@ -72,4 +72,8 @@
     <string name="github_key" translatable="false">github</string>
     <string name="github_title" translatable="false">GitHub</string>
     <string name="github_summary" translatable="false">https://github.com/jankku/wallpapers</string>
+
+    <string name="api_key" translatable="false">api</string>
+    <string name="api_title" translatable="false">Powered By Wallpaper Abyss</string>
+    <string name="api_summary">https://wall.alphacoders.com/api.php</string>
 </resources>

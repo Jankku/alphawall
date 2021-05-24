@@ -12,13 +12,19 @@
             app:key="@string/author_key"
             app:title="@string/author_title"
             app:summary="@string/author_summary"
-            app:icon="@drawable/ic_person"/>
+            app:icon="@drawable/ic_person" />
 
         <Preference
             app:key="@string/github_key"
             app:title="@string/github_title"
             app:summary="@string/github_summary"
-            app:icon="@drawable/ic_github"/>
+            app:icon="@drawable/ic_github" />
+
+        <Preference
+            app:key="@string/api_key"
+            app:title="@string/api_title"
+            app:summary="@string/api_summary"
+            app:icon="@drawable/ic_api" />
     </PreferenceCategory>
 
 </PreferenceScreen>
