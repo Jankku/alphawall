@@ -17,5 +17,7 @@ data class Wallpaper(
     @Json(name = "width") val width: String,
     @Json(name = "height") val height: String,
     @Json(name = "file_size") val fileSize: String,
-    @Json(name = "file_type") val fileType: String,
+    @Json(name = "category") val category: String,
+    @Json(name = "sub_category") val subCategory: String,
+    @Json(name = "user_name") val userName: String,
 ) : Parcelable

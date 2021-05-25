@@ -20,6 +20,7 @@ class CategoryDetailPagingSource(
                 method = "category",
                 id = category.id.toInt(),
                 page = nextPage,
+                infoLevel = 2,
                 checkIfLastPage = 1
             )
 

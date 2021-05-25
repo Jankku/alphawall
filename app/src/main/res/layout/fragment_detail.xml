@@ -10,65 +10,50 @@
             type="com.jankku.wallpapers.viewmodel.DetailViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:overScrollMode="never"
+        android:layout_height="match_parent"
         android:scrollbars="none"
-        tools:context=".ui.HomeFragment">
-
-        <RelativeLayout
-            android:id="@+id/llImg"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toTopOf="@id/llButtons"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <ImageView
-                android:id="@+id/ivDetail"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/detail_image_height"
-                android:transitionName="@{viewModel.wallpaper.id}"
-                app:detailImgUrl="@{viewModel.wallpaper.imageUrl}"
-                app:viewModel="@{viewModel}"
-                tools:src="@color/black">
-
-                <tag
-                    android:id="@+id/zoomable"
-                    android:value="ZoomableViewTag" />
-            </ImageView>
-
-            <ProgressBar
-                android:id="@+id/pbImage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                app:isLoading="@{viewModel.isLoading()}" />
-
-        </RelativeLayout>
+        android:overScrollMode="never">
 
         <LinearLayout
-            android:id="@+id/llButtons"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:baselineAligned="false"
-            android:divider="?android:attr/dividerVertical"
-            android:orientation="horizontal"
-            android:padding="@dimen/spacing_default"
-            android:showDividers="middle"
-            app:layout_constraintBottom_toTopOf="@id/llDetails"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/llImg">
+            android:orientation="vertical"
+            tools:context=".ui.HomeFragment">
 
-            <LinearLayout
-                android:layout_width="0dp"
+            <RelativeLayout
+                android:id="@+id/rlImg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/ivDetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/detail_image_height"
+                    app:detailImgUrl="@{viewModel.wallpaper.imageUrl}"
+                    app:viewModel="@{viewModel}"
+                    tools:src="@color/black">
+
+                    <tag
+                        android:id="@+id/zoomable"
+                        android:value="ZoomableViewTag" />
+                </ImageView>
+
+                <ProgressBar
+                    android:id="@+id/pbImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    app:isLoading="@{viewModel.isLoading()}" />
+
+            </RelativeLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clButtons"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center">
+                android:padding="@dimen/spacing_default">
 
                 <Button
                     android:id="@+id/btnOpenWeb"
@@ -76,16 +61,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:drawableTop="@drawable/ic_open_in_browser"
-                    android:gravity="center"
                     android:onClick="@{() -> viewModel.openWallpaperPage(true)}"
-                    android:text="@string/btn_page" />
-            </LinearLayout>
+                    android:text="@string/btn_page"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/btnDownload"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center">
 
                 <Button
                     android:id="@+id/btnDownload"
@@ -93,70 +75,111 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:drawableTop="@drawable/ic_download"
-                    android:gravity="center"
                     android:onClick="@{() -> viewModel.downloadWallpaper(true)}"
-                    android:text="@string/btn_download" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center">
+                    android:text="@string/btn_download"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/btnSet"
+                    app:layout_constraintStart_toEndOf="@id/btnOpenWeb"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <Button
                     android:id="@+id/btnSet"
                     style="?android:attr/buttonBarButtonStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawableTop="@drawable/ic_wallpaper"
-                    android:gravity="center"
+                    android:drawableTop="@drawable/ic_image"
                     android:onClick="@{() -> viewModel.setWallpaper(true)}"
-                    android:text="@string/btn_set" />
+                    android:text="@string/btn_set"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/btnDownload"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <LinearLayout
+                android:id="@+id/llDetails"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:paddingHorizontal="@dimen/spacing_1_5x"
+                android:paddingVertical="@dimen/spacing_default">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:paddingTop="@dimen/spacing_half">
+
+                    <TextView
+                        android:id="@+id/tvResolution"
+                        style="@style/TextAppearance.Wallpapers.Body2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="start"
+                        android:paddingStart="@dimen/spacing_default"
+                        android:drawablePadding="@dimen/spacing_default"
+                        android:paddingVertical="@dimen/spacing_half"
+                        app:detailHeight="@{viewModel.wallpaper.height}"
+                        app:detailWidth="@{viewModel.wallpaper.width}"
+                        app:drawableStartCompat="@drawable/ic_aspect_ratio" />
+
+                    <TextView
+                        android:id="@+id/tvFileSize"
+                        style="@style/TextAppearance.Wallpapers.Body2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="start"
+                        android:paddingStart="@dimen/spacing_default"
+                        android:drawablePadding="@dimen/spacing_default"
+                        android:paddingVertical="@dimen/spacing_half"
+                        app:detailSize="@{viewModel.wallpaper.fileSize}"
+                        app:drawableStartCompat="@drawable/ic_chart_donut" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="100dp"
+                    android:layout_marginHorizontal="@dimen/spacing_1_5x"
+                    android:background="@color/divider_color" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:paddingTop="@dimen/spacing_half">
+
+                    <TextView
+                        android:id="@+id/tvCategory"
+                        style="@style/TextAppearance.Wallpapers.Body2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="start"
+                        android:drawablePadding="@dimen/spacing_default"
+                        android:paddingVertical="@dimen/spacing_half"
+                        app:detailCategory="@{viewModel.wallpaper.category}"
+                        app:drawableStartCompat="@drawable/ic_category" />
+
+                    <TextView
+                        android:id="@+id/tvSubmitter"
+                        style="@style/TextAppearance.Wallpapers.Body2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="start"
+                        android:drawablePadding="@dimen/spacing_default"
+                        android:paddingVertical="@dimen/spacing_half"
+                        app:detailSubmitter="@{viewModel.wallpaper.userName}"
+                        app:drawableStartCompat="@drawable/ic_person" />
+
+                </LinearLayout>
+
             </LinearLayout>
 
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/llDetails"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:foregroundGravity="right"
-            android:orientation="vertical"
-            android:paddingHorizontal="8dp"
-            android:paddingVertical="4dp"
-            app:layout_constraintBottom_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/llButtons">
-
-            <TextView
-                android:id="@+id/tvResolution"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="end"
-                android:padding="@dimen/spacing_quarter"
-                app:detailHeight="@{viewModel.wallpaper.height}"
-                app:detailWidth="@{viewModel.wallpaper.width}"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvFileSize" />
-
-            <TextView
-                android:id="@+id/tvFileSize"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="end"
-                android:padding="4dp"
-                app:detailSize="@{viewModel.wallpaper.fileSize}"
-                app:layout_constraintBottom_toTopOf="@id/tvResolution"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="parent" />
-
-        </LinearLayout>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 
 </layout>

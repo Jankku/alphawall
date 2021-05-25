@@ -8,21 +8,25 @@
     <style name="TextAppearance.Wallpapers.Body1" parent="TextAppearance.MaterialComponents.Body1">
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/grey</item>
+        <item name="android:textSize">14sp</item>
     </style>
 
     <style name="TextAppearance.Wallpapers.Body2" parent="TextAppearance.MaterialComponents.Body2">
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/grey</item>
+        <item name="android:textSize">12sp</item>
     </style>
 
     <style name="TextAppearance.Wallpapers.Subtitle1" parent="TextAppearance.MaterialComponents.Subtitle1">
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/text_color_secondary</item>
+        <item name="android:textSize">14sp</item>
     </style>
 
     <style name="TextAppearance.Wallpapers.Subtitle2" parent="TextAppearance.MaterialComponents.Subtitle2">
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/text_color_secondary</item>
+        <item name="android:textSize">12sp</item>
     </style>
 
     <style name="TextAppearance.Wallpapers.Button" parent="TextAppearance.MaterialComponents.Button">

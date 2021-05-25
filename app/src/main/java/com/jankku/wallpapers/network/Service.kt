@@ -36,6 +36,7 @@ interface AlphaCodersApiService {
         @Query("method") method: String,
         @Query("sort") sort: String,
         @Query("page") page: Int,
+        @Query("info_level") infoLevel: Int,
         @Query("check_last") checkIfLastPage: Int // 1 = true, 0 = false
     ): NetworkWallpaperResponse
 
@@ -51,6 +52,7 @@ interface AlphaCodersApiService {
         @Query("method") method: String,
         @Query("id") id: Int,
         @Query("page") page: Int,
+        @Query("info_level") infoLevel: Int,
         @Query("check_last") checkIfLastPage: Int // 1 = true, 0 = false
     ): NetworkWallpaperResponse
 }

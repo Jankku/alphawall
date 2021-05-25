@@ -15,7 +15,8 @@
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/spacing_quarter"
+        android:layout_marginVertical="@dimen/spacing_quarter"
+        android:layout_marginHorizontal="@dimen/spacing_three_fours"
         app:cardBackgroundColor="@color/purple_800"
         app:cardElevation="@dimen/card_elevation"
         app:cardCornerRadius="@dimen/card_corner_radius"
@@ -25,6 +26,7 @@
             android:id="@+id/llCategory"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:padding="@dimen/spacing_default"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
@@ -32,20 +34,18 @@
                 android:id="@+id/tvCategoryName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/spacing_three_fours"
                 android:layout_alignParentStart="true"
                 android:text="@{category.name}"
-                style="@style/TextAppearance.Wallpapers.Body2"
+                style="@style/TextAppearance.Wallpapers.Body1"
                 tools:text="Anime" />
 
             <TextView
                 android:id="@+id/tvCategoryCount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/spacing_three_fours"
                 android:layout_alignParentEnd="true"
                 android:text="@{category.count}"
-                style="@style/TextAppearance.Wallpapers.Subtitle2"
+                style="@style/TextAppearance.Wallpapers.Subtitle1"
                 tools:text="6212" />
 
         </RelativeLayout>

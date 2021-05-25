@@ -64,6 +64,16 @@ fun detailImageLoad(imageView: ImageView, url: String, viewModel: DetailViewMode
         .into(imageView)
 }
 
+@BindingAdapter("detailCategory")
+fun detailCategory(textView: TextView, category: String) {
+    textView.text = textView.context.getString(R.string.wallpaper_category, category)
+}
+
+@BindingAdapter("detailSubmitter")
+fun detailSubmitter(textView: TextView, submitter: String) {
+    textView.text = textView.context.getString(R.string.wallpaper_submitter, submitter)
+}
+
 /**
  * Binding adapter used to hide view when loading finishes
  */

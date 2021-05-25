@@ -8,7 +8,7 @@ import com.jankku.wallpapers.util.Constants.DATABASE_NAME
 
 @Database(
     entities = [Wallpaper::class, RemoteKey::class, Category::class],
-    version = 2,
+    version = 3,
     exportSchema = false
 )
 abstract class WallpaperDatabase : RoomDatabase() {

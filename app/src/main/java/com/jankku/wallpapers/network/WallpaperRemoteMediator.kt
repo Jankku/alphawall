@@ -43,6 +43,7 @@ class WallpaperRemoteMediator(
                 method = "featured",
                 sort = sortMethod,
                 page = page,
+                infoLevel = 2,
                 checkIfLastPage = 1 // 1 = true, 0 = false
 
             )

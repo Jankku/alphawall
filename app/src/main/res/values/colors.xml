@@ -7,14 +7,16 @@
     <color name="purple_300">#BA68C8</color>
     <color name="purple_400">#AB47BC</color>
     <color name="purple_500">#9C27B0</color>
-    <color name="purple_600">#8E24AA</color>
-    <color name="purple_700">#6E278C</color>
-    <color name="purple_800">#321A42</color>
+    <color name="purple_600">#872A9F</color>
+    <color name="purple_700">#642480</color>
+    <color name="purple_800">#291833</color>
     <color name="purple_900">#1D1527</color>
 
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="grey">#EEEEEE</color>
+
+    <color name="divider_color">#392843</color>
 
     <color name="text_color_primary">@color/grey</color>
     <color name="text_color_secondary">@color/purple_200</color>

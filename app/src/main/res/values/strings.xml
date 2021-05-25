@@ -35,14 +35,13 @@
     <string name="btn_page">Web</string>
     <string name="btn_download">Download</string>
     <string name="btn_set">Set</string>
-    <string name="wallpaper_size">%1$sMB</string>
+    <string name="wallpaper_size">Size: %1$sMB</string>
     <string name="wallpaper_resolution">%1$sx%2$s</string>
+    <string name="wallpaper_category">%1$s</string>
+    <string name="wallpaper_submitter">%1$s</string>
     <string name="error_image_save">Failed to save image</string>
     <string name="image_saved">Image saved to pictures</string>
     <string name="image_set">Set as wallpaper</string>
-
-    <!-- Detail Fragment -->
-    <string name="manu_detail_open_in_browser">Open in browser</string>
 
     <!-- View Mode -->
     <string name="view_mode_key" translatable="false">view_mode</string>
