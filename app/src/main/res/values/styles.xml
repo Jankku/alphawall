@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Widget.Wallpapers.BottomNavigationView" parent="@style/Widget.MaterialComponents.BottomNavigationView.PrimarySurface">
+        <item name="labelVisibilityMode">selected</item>
+        <item name="android:background">?colorSurface</item>
+        <item name="itemIconTint">@color/bottom_nav_item</item>
+        <item name="itemTextColor">@color/bottom_nav_item</item>
+        <item name="itemTextAppearanceActive">@style/TextAppearance.Wallpapers.BottomNavigation
+        </item>
+    </style>
+
+    <style name="Widget.Wallpapers.AppBarOverlay" parent="Widget.MaterialComponents.AppBarLayout.Surface" />
+
+    <style name="Widget.Wallpapers.ToolBar" parent="Widget.MaterialComponents.Toolbar.Surface">
+        <item name="titleTextAppearance">@style/TextAppearance.Wallpapers.Headline6</item>
+    </style>
+
+</resources>

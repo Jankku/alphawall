@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="TextAppearance.Wallpapers.Headline6" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="android:textColor">@color/grey</item>
+    </style>
+
+    <style name="TextAppearance.Wallpapers.Body1" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/grey</item>
+    </style>
+
+    <style name="TextAppearance.Wallpapers.Body2" parent="TextAppearance.MaterialComponents.Body2">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/grey</item>
+    </style>
+
+    <style name="TextAppearance.Wallpapers.Subtitle1" parent="TextAppearance.MaterialComponents.Subtitle1">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/text_color_secondary</item>
+    </style>
+
+    <style name="TextAppearance.Wallpapers.Subtitle2" parent="TextAppearance.MaterialComponents.Subtitle2">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/text_color_secondary</item>
+    </style>
+
+    <style name="TextAppearance.Wallpapers.Button" parent="TextAppearance.MaterialComponents.Button">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="TextAppearance.Wallpapers.BottomNavigation" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:letterSpacing">0.08</item>
+    </style>
+
+</resources>

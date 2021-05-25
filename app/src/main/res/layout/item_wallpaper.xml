@@ -15,14 +15,15 @@
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="2dp"
-        app:cardCornerRadius="0dp"
+        android:layout_margin="@dimen/spacing_eighth"
+        app:cardCornerRadius="@dimen/card_corner_radius"
         app:cardPreventCornerOverlap="false">
 
         <ImageView
             android:id="@+id/ivWallpaper"
             android:layout_width="match_parent"
-            android:layout_height="180dp"
+            android:layout_height="@dimen/image_height"
+            android:background="@color/purple_800"
             app:imageUrl="@{wallpaper.thumbUrl}"
             tools:src="@color/black"
             android:contentDescription="@string/rv_item_description" />

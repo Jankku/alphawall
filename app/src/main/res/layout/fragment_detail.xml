@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.jankku.wallpapers.viewmodel.DetailViewModel" />
@@ -20,110 +21,139 @@
             android:id="@+id/llImg"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_constraintTop_toTopOf="parent"
+            android:orientation="horizontal"
             app:layout_constraintBottom_toTopOf="@id/llButtons"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:orientation="horizontal">
+            app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
                 android:id="@+id/ivDetail"
                 android:layout_width="match_parent"
-                android:layout_height="400dp"
+                android:layout_height="@dimen/detail_image_height"
+                android:transitionName="@{viewModel.wallpaper.id}"
                 app:detailImgUrl="@{viewModel.wallpaper.imageUrl}"
                 app:viewModel="@{viewModel}"
-                android:transitionName="@{viewModel.wallpaper.id}"
                 tools:src="@color/black">
-                <tag android:id="@+id/zoomable" android:value="ZoomableViewTag" />
+
+                <tag
+                    android:id="@+id/zoomable"
+                    android:value="ZoomableViewTag" />
             </ImageView>
 
             <ProgressBar
                 android:id="@+id/pbImage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:isLoading="@{viewModel.isLoading()}"
-                android:layout_centerInParent="true" />
+                android:layout_centerInParent="true"
+                app:isLoading="@{viewModel.isLoading()}" />
 
         </RelativeLayout>
 
         <LinearLayout
             android:id="@+id/llButtons"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:padding="@dimen/spacing_quarter"
-            app:layout_constraintTop_toBottomOf="@id/llImg"
+            android:layout_height="wrap_content"
+            android:baselineAligned="false"
+            android:divider="?android:attr/dividerVertical"
+            android:orientation="horizontal"
+            android:padding="@dimen/spacing_default"
+            android:showDividers="middle"
             app:layout_constraintBottom_toTopOf="@id/llDetails"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/llImg">
 
-            <Button
-                android:id="@+id/btnOpenWeb"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="@string/btn_page"
-                app:icon="@drawable/ic_open_in_browser"
-                android:onClick="@{() -> viewModel.openWallpaperPage(true)}"
-                style="?android:attr/buttonBarButtonStyle" />
+                android:layout_weight="1"
+                android:gravity="center">
 
-            <Button
-                android:id="@+id/btnDownload"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/btn_download"
-                app:icon="@drawable/ic_download"
-                android:onClick="@{() -> viewModel.downloadWallpaper(true)}"
-                style="?android:attr/buttonBarButtonStyle" />
+                <Button
+                    android:id="@+id/btnOpenWeb"
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableTop="@drawable/ic_open_in_browser"
+                    android:gravity="center"
+                    android:onClick="@{() -> viewModel.openWallpaperPage(true)}"
+                    android:text="@string/btn_page" />
+            </LinearLayout>
 
-            <Button
-                android:id="@+id/btnSet"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="@string/btn_set"
-                app:icon="@drawable/ic_wallpaper"
-                android:onClick="@{() -> viewModel.setWallpaper(true)}"
-                style="?android:attr/buttonBarButtonStyle" />
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <Button
+                    android:id="@+id/btnDownload"
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableTop="@drawable/ic_download"
+                    android:gravity="center"
+                    android:onClick="@{() -> viewModel.downloadWallpaper(true)}"
+                    android:text="@string/btn_download" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <Button
+                    android:id="@+id/btnSet"
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableTop="@drawable/ic_wallpaper"
+                    android:gravity="center"
+                    android:onClick="@{() -> viewModel.setWallpaper(true)}"
+                    android:text="@string/btn_set" />
+            </LinearLayout>
 
         </LinearLayout>
-
 
         <LinearLayout
             android:id="@+id/llDetails"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
             android:foregroundGravity="right"
+            android:orientation="vertical"
             android:paddingHorizontal="8dp"
             android:paddingVertical="4dp"
-            app:layout_constraintTop_toBottomOf="@id/llButtons"
             app:layout_constraintBottom_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
-
-            <TextView
-                android:id="@+id/tvFileSize"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="4dp"
-                android:gravity="end"
-                app:detailSize="@{viewModel.wallpaper.fileSize}"
-                app:layout_constraintTop_toBottomOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/tvResolution"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/llButtons">
 
             <TextView
                 android:id="@+id/tvResolution"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="end"
-                android:padding="4dp"
+                android:padding="@dimen/spacing_quarter"
                 app:detailHeight="@{viewModel.wallpaper.height}"
                 app:detailWidth="@{viewModel.wallpaper.width}"
-                app:layout_constraintTop_toBottomOf="@id/tvFileSize"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvFileSize" />
+
+            <TextView
+                android:id="@+id/tvFileSize"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="end"
+                android:padding="4dp"
+                app:detailSize="@{viewModel.wallpaper.fileSize}"
+                app:layout_constraintBottom_toTopOf="@id/tvResolution"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="parent" />
 
         </LinearLayout>
 
