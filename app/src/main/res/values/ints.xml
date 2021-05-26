@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <integer name="home_grid_columns">2</integer>
+    <integer name="wallpaper_grid_columns">2</integer>
     <integer name="category_grid_columns">1</integer>
 </resources>

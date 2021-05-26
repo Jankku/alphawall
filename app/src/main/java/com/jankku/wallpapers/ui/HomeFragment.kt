@@ -66,6 +66,11 @@ class HomeFragment : BaseFragment() {
         setupSwipeRefresh()
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
     private fun setupAdapter() {
         adapter = WallpaperAdapter { wallpaper ->
             // This is executed when clicking wallpaper
