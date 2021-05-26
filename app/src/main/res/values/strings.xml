@@ -40,7 +40,8 @@
     <string name="wallpaper_category">%1$s</string>
     <string name="wallpaper_submitter">%1$s</string>
     <string name="error_image_save">Failed to save image</string>
-    <string name="image_saved">Image saved to pictures</string>
+    <string name="image_saved">Image saved to Pictures/Wallpapers</string>
+    <string name="image_already_saved">Image is already saved in Pictures/Wallpapers</string>
     <string name="image_set">Set as wallpaper</string>
 
     <!-- View Mode -->
