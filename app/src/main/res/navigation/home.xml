@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.jankku.wallpapers.ui.HomeFragment"
+        android:name="com.jankku.alphawall.ui.HomeFragment"
         android:label="@string/navigation_home_label"
         tools:layout="@layout/fragment_home">
         <action
@@ -21,12 +21,12 @@
 
     <fragment
         android:id="@+id/detailFragment"
-        android:name="com.jankku.wallpapers.ui.DetailFragment"
+        android:name="com.jankku.alphawall.ui.DetailFragment"
         android:label="@string/navigation_detail_label"
         tools:layout="@layout/fragment_detail">
         <argument
             android:name="wallpaper"
-            app:argType="com.jankku.wallpapers.database.Wallpaper" />
+            app:argType="com.jankku.alphawall.database.Wallpaper" />
     </fragment>
 
 </navigation>

@@ -9,7 +9,7 @@
     <data>
         <variable
             name="category"
-            type="com.jankku.wallpapers.database.Category" />
+            type="com.jankku.alphawall.database.Category" />
     </data>
 
     <com.google.android.material.card.MaterialCardView

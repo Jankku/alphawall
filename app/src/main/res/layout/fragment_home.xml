@@ -7,7 +7,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.jankku.wallpapers.viewmodel.HomeViewModel" />
+            type="com.jankku.alphawall.viewmodel.HomeViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

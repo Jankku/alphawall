@@ -15,8 +15,8 @@ android {
     buildToolsVersion "30.0.3"
 
     defaultConfig {
-        applicationId "com.jankku.wallpapers"
-        minSdkVersion 21
+        applicationId "com.jankku.alphawall"
+        minSdkVersion 23
         targetSdkVersion 30
         versionCode 1
         versionName "0.1"

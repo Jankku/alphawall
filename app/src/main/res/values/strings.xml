@@ -1,10 +1,11 @@
 <resources>
     <!-- General -->
-    <string name="app_name" translatable="false">Wallpapers</string>
+    <string name="app_name" translatable="false">AlphaWall</string>
     <string name="navigation_home_label">Home</string>
     <string name="navigation_detail_label">Wallpaper</string>
     <string name="navigation_categories_label">Categories</string>
     <string name="navigation_settings_label">Settings</string>
+    <string name="permission_storage_enable">Please enable storage permission to download or set image as your wallpaper</string>
 
     <!-- App bar menu -->
     <string name="menu_main_search">Search</string>
@@ -35,7 +36,7 @@
     <string name="btn_page">Web</string>
     <string name="btn_download">Download</string>
     <string name="btn_set">Set</string>
-    <string name="wallpaper_size">Size: %1$sMB</string>
+    <string name="wallpaper_size">%1$sMB</string>
     <string name="wallpaper_resolution">%1$sx%2$s</string>
     <string name="wallpaper_category">%1$s</string>
     <string name="wallpaper_submitter">%1$s</string>

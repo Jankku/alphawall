@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="com.jankku.wallpapers.ui.SettingsFragment"
+        android:name="com.jankku.alphawall.ui.SettingsFragment"
         android:label="@string/navigation_settings_label" />
 
 </navigation>
