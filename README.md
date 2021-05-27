@@ -1,5 +1,5 @@
-# Wallpapers
+# AlphaWall
 
-Wallpaper app made in Kotlin.
+AlphaWall wallpaper app made in Kotlin.
 
 [Powered By Wallpaper Abyss](https://wall.alphacoders.com)
