@@ -175,9 +175,7 @@ class WallpaperDetailFragment : BaseFragment() {
                     saveBitmapToPictures(bitmap, id)
                     // Without this, error is thrown at least on emulator and maybe
                     // on pre Q devices
-                    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
-                        delay(100)
-                    }
+                    delay(100)
                     val savedImageUri = getImageUri(id)
                     setWallpaperIntent(savedImageUri)
                 } else {

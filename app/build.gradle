@@ -6,9 +6,13 @@ plugins {
     id 'androidx.navigation.safeargs'
 }
 
-def propertiesFile = rootProject.file("apikey.properties")
-def properties = new Properties()
-properties.load(new FileInputStream(propertiesFile))
+def apiKeyFile = rootProject.file("apikey.properties")
+def apiKeyProperties = new Properties()
+apiKeyProperties.load(new FileInputStream(apiKeyFile))
+
+def signingFile = rootProject.file("signing.properties")
+def signingProperties = new Properties()
+signingProperties.load(new FileInputStream(signingFile))
 
 android {
     compileSdkVersion 30
@@ -20,7 +24,16 @@ android {
         targetSdkVersion 30
         versionCode 1
         versionName "0.1"
-        buildConfigField "String", "apiKey", properties['apiKey']
+        buildConfigField "String", "apiKey", apiKeyProperties['apiKey']
+    }
+
+    signingConfigs {
+        release {
+            storeFile file(signingProperties['storeFile'])
+            storePassword signingProperties['storePassword']
+            keyAlias signingProperties['keyAlias']
+            keyPassword signingProperties['keyPassword']
+        }
     }
 
     buildFeatures {
@@ -33,6 +46,7 @@ android {
             minifyEnabled true
             shrinkResources true
             debuggable false
+            signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
         debug {

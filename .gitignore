@@ -12,3 +12,5 @@ app/**/output-metadata.json
 local.properties
 apikey.properties
 /apikey.properties
+signing.properties
+/signing.properties

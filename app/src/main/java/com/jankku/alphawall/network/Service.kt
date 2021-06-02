@@ -25,7 +25,6 @@ private val moshi = Moshi.Builder()
 
 private val retrofit = Retrofit.Builder()
     .baseUrl(BASE_URL)
-    .client(okHttpClient)
     .addConverterFactory(MoshiConverterFactory.create(moshi))
     .build()
 
