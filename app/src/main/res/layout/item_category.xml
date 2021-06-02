@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="category"
             type="com.jankku.alphawall.database.Category" />
@@ -15,40 +15,47 @@
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="@dimen/spacing_quarter"
         android:layout_marginHorizontal="@dimen/spacing_three_fours"
+        android:layout_marginVertical="@dimen/spacing_quarter"
         app:cardBackgroundColor="@color/purple_800"
-        app:cardElevation="@dimen/card_elevation"
         app:cardCornerRadius="@dimen/card_corner_radius"
+        app:cardElevation="@dimen/card_elevation"
         app:cardPreventCornerOverlap="false">
 
-        <RelativeLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/llCategory"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="@dimen/spacing_default"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:padding="@dimen/spacing_default">
 
             <TextView
                 android:id="@+id/tvCategoryName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:text="@{category.name}"
                 style="@style/TextAppearance.Wallpapers.Body1"
-                tools:text="Anime" />
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@{category.name}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/tvCategoryCount"
+                app:layout_constraintHorizontal_weight="4"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Animals" />
 
             <TextView
                 android:id="@+id/tvCategoryCount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:text="@{category.count}"
                 style="@style/TextAppearance.Wallpapers.Subtitle1"
-                tools:text="6212" />
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:text="@{category.count}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintStart_toEndOf="@id/tvCategoryName"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="10000" />
 
-        </RelativeLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>
 

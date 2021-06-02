@@ -1,4 +1,4 @@
-package com.jankku.alphawall.ui
+package com.jankku.alphawall.ui.settings
 
 import android.content.Intent
 import android.net.Uri

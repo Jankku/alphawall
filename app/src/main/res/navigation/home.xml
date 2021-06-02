@@ -7,12 +7,12 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.jankku.alphawall.ui.HomeFragment"
+        android:name="com.jankku.alphawall.ui.home.HomeFragment"
         android:label="@string/navigation_home_label"
         tools:layout="@layout/fragment_home">
         <action
-            android:id="@+id/action_homeFragment_to_detailFragment"
-            app:destination="@id/detailFragment"
+            android:id="@+id/action_homeFragment_to_wallpaperDetailFragment"
+            app:destination="@id/wallpaperDetailFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@android:anim/slide_in_left"
@@ -20,8 +20,8 @@
     </fragment>
 
     <fragment
-        android:id="@+id/detailFragment"
-        android:name="com.jankku.alphawall.ui.DetailFragment"
+        android:id="@+id/wallpaperDetailFragment"
+        android:name="com.jankku.alphawall.ui.WallpaperDetailFragment"
         android:label="@string/navigation_detail_label"
         tools:layout="@layout/fragment_detail">
         <argument

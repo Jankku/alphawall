@@ -7,5 +7,5 @@ object Constants {
     const val PAGE_SIZE = 30
     const val DOWNLOAD_RELATIVE_PATH = "Pictures/Wallpapers/"
     const val DOWNLOAD_RELATIVE_PATH_PRE_Q = "/Wallpapers/"
-    const val DOWNLOAD_QUALITY = 100
+    const val DOWNLOAD_QUALITY = 95
 }

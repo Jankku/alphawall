@@ -1,11 +1,11 @@
 <resources>
     <!-- General -->
     <string name="app_name" translatable="false">AlphaWall</string>
+    <string name="item_description">Wallpaper</string>
     <string name="navigation_home_label">Home</string>
     <string name="navigation_detail_label">Wallpaper</string>
     <string name="navigation_categories_label">Categories</string>
     <string name="navigation_settings_label">Settings</string>
-    <string name="permission_storage_enable">Please enable storage permission to download or set image as your wallpaper</string>
 
     <!-- App bar menu -->
     <string name="menu_main_search">Search</string>
@@ -28,7 +28,6 @@
     <string name="menu_bottom_nav_settings">Settings</string>
 
     <!-- Home Fragment -->
-    <string name="rv_item_description">Wallpaper</string>
     <string name="error_network">Network error</string>
     <string name="btn_retry">Retry</string>
 
@@ -44,6 +43,10 @@
     <string name="image_saved">Image saved to Pictures/Wallpapers</string>
     <string name="image_already_saved">Image is already saved in Pictures/Wallpapers</string>
     <string name="image_set">Set as wallpaper</string>
+    <string name="permission_storage_enable">Please enable storage permission to download or set image as your wallpaper</string>
+    <string name="permission_rationale_reason">Storage permissions are needed to download and set wallpaper</string>
+    <string name="permission_rationale_ok">OK</string>
+    <string name="permission_rationale_cancel">Cancel</string>
 
     <!-- View Mode -->
     <string name="view_mode_key" translatable="false">view_mode</string>
@@ -75,7 +78,7 @@
 
     <string name="github_key" translatable="false">github</string>
     <string name="github_title" translatable="false">GitHub</string>
-    <string name="github_summary" translatable="false">https://github.com/jankku/wallpapers</string>
+    <string name="github_summary" translatable="false">https://github.com/jankku/alphawall</string>
 
     <string name="api_key" translatable="false">api</string>
     <string name="api_title" translatable="false">Powered By Wallpaper Abyss</string>

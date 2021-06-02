@@ -1,6 +1,5 @@
 package com.jankku.alphawall.ui
 
-import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -16,11 +15,6 @@ abstract class BaseFragment : Fragment() {
 
     protected open var bottomNavigationVisibility = View.VISIBLE
     private lateinit var mainActivity: MainActivity
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-
-    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)

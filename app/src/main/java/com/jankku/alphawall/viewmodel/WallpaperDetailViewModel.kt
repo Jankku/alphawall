@@ -3,17 +3,17 @@ package com.jankku.alphawall.viewmodel
 import androidx.lifecycle.*
 import com.jankku.alphawall.database.Wallpaper
 
-class DetailViewModel(wallpaper: Wallpaper) : ViewModel() {
+class WallpaperDetailViewModel(wallpaper: Wallpaper) : ViewModel() {
 
     private val _wallpaper = liveData { emit(wallpaper) }
     val wallpaper: LiveData<Wallpaper>
         get() = _wallpaper
 
     val isLoading = MutableLiveData(true)
+    val networkError = MutableLiveData(false)
     val setWallpaper = MutableLiveData(false)
     val downloadWallpaper = MutableLiveData(false)
     val openWallpaperPage = MutableLiveData(false)
-    val networkError = MutableLiveData(false)
 
     fun setWallpaper(value: Boolean) {
         setWallpaper.value = value
@@ -28,12 +28,12 @@ class DetailViewModel(wallpaper: Wallpaper) : ViewModel() {
     }
 }
 
-class DetailViewModelFactory(private val wallpaper: Wallpaper) :
+class WallpaperDetailViewModelFactory(private val wallpaper: Wallpaper) :
     ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(DetailViewModel::class.java)) {
+        if (modelClass.isAssignableFrom(WallpaperDetailViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
-            return DetailViewModel(wallpaper) as T
+            return WallpaperDetailViewModel(wallpaper) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

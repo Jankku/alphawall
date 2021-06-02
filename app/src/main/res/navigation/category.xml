@@ -3,24 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/category"
-    app:startDestination="@+id/categoryFragment">
+    app:startDestination="@+id/categoryListFragment">
 
     <fragment
-        android:id="@+id/categoryFragment"
-        android:name="com.jankku.alphawall.ui.CategoryFragment"
+        android:id="@+id/categoryListFragment"
+        android:name="com.jankku.alphawall.ui.categorylist.CategoryListFragment"
         android:label="@string/navigation_categories_label"
-        tools:layout="@layout/fragment_category">
-
+        tools:layout="@layout/fragment_category_list">
         <action
-            android:id="@+id/action_categoryFragment_to_categoryDetailFragment"
-            app:destination="@id/categoryDetailFragment" />
+            android:id="@+id/action_categoryListFragment_to_categoryFragment"
+            app:destination="@id/categoryFragment" />
     </fragment>
 
     <fragment
-        android:id="@+id/categoryDetailFragment"
-        android:name="com.jankku.alphawall.ui.CategoryDetailFragment"
+        android:id="@+id/categoryFragment"
+        android:name="com.jankku.alphawall.ui.category.CategoryFragment"
         android:label="{categoryName}"
-        tools:layout="@layout/fragment_category_detail">
+        tools:layout="@layout/fragment_category">
         <argument
             android:name="category"
             app:argType="com.jankku.alphawall.database.Category" />
@@ -28,18 +27,17 @@
             android:name="categoryName"
             app:argType="string" />
         <action
-            android:id="@+id/action_categoryDetailFragment_to_detailFragment"
-            app:destination="@id/detailFragment"
+            android:id="@+id/action_categoryFragment_to_wallpaperDetailFragment"
+            app:destination="@id/wallpaperDetailFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@android:anim/slide_in_left"
             app:popExitAnim="@android:anim/slide_out_right" />
-
     </fragment>
 
     <fragment
-        android:id="@+id/detailFragment"
-        android:name="com.jankku.alphawall.ui.DetailFragment"
+        android:id="@+id/wallpaperDetailFragment"
+        android:name="com.jankku.alphawall.ui.WallpaperDetailFragment"
         android:label="@string/navigation_detail_label"
         tools:layout="@layout/fragment_detail">
         <argument

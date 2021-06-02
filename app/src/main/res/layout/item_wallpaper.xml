@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="wallpaper"
             type="com.jankku.alphawall.database.Wallpaper" />
@@ -24,9 +24,9 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/image_height"
             android:background="@color/purple_800"
+            android:contentDescription="@string/item_description"
             app:imageUrl="@{wallpaper.thumbUrl}"
-            tools:src="@color/black"
-            android:contentDescription="@string/rv_item_description" />
+            tools:src="@color/black" />
 
     </com.google.android.material.card.MaterialCardView>
 

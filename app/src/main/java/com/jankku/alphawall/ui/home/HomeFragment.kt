@@ -1,4 +1,4 @@
-package com.jankku.alphawall.ui
+package com.jankku.alphawall.ui.home
 
 import android.app.Application
 import android.content.Context
@@ -15,7 +15,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.jankku.alphawall.AlphaWallApplication
 import com.jankku.alphawall.R
+import com.jankku.alphawall.adapter.WallpaperAdapter
+import com.jankku.alphawall.adapter.WallpaperLoadingStateAdapter
 import com.jankku.alphawall.databinding.FragmentHomeBinding
+import com.jankku.alphawall.ui.BaseFragment
 import com.jankku.alphawall.viewmodel.HomeViewModel
 import com.jankku.alphawall.viewmodel.HomeViewModelFactory
 import kotlinx.coroutines.launch
@@ -74,7 +77,8 @@ class HomeFragment : BaseFragment() {
     private fun setupAdapter() {
         adapter = WallpaperAdapter { wallpaper ->
             // This is executed when clicking wallpaper
-            val action = HomeFragmentDirections.actionHomeFragmentToDetailFragment(wallpaper)
+            val action =
+                HomeFragmentDirections.actionHomeFragmentToWallpaperDetailFragment(wallpaper)
             findNavController().navigate(action)
         }
 

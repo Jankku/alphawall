@@ -12,7 +12,7 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.jankku.alphawall.R
-import com.jankku.alphawall.viewmodel.DetailViewModel
+import com.jankku.alphawall.viewmodel.WallpaperDetailViewModel
 
 /**
  * Binding adapter used to display images from URL using Glide
@@ -23,7 +23,6 @@ fun loadImage(imageView: ImageView, url: String?) {
         .with(imageView.context)
         .load(url)
         .centerCrop()
-        //.transition(DrawableTransitionOptions.withCrossFade())
         .error(R.drawable.ic_error)
         .into(imageView)
 }
@@ -31,8 +30,12 @@ fun loadImage(imageView: ImageView, url: String?) {
 /**
  * Binding adapter used to display images on detail page from URL using Glide
  */
-@BindingAdapter("detailImgUrl", "viewModel")
-fun detailImageLoad(imageView: ImageView, url: String, viewModel: DetailViewModel) {
+@BindingAdapter("detailImgUrl", "viewModelWallpaper")
+fun detailImageLoad(
+    imageView: ImageView,
+    url: String,
+    viewModelWallpaper: WallpaperDetailViewModel
+) {
     Glide
         .with(imageView.context)
         .load(url)
@@ -45,8 +48,8 @@ fun detailImageLoad(imageView: ImageView, url: String, viewModel: DetailViewMode
                 target: Target<Drawable>?,
                 isFirstResource: Boolean
             ): Boolean {
-                viewModel.isLoading.value = false
-                viewModel.networkError.value = true
+                viewModelWallpaper.isLoading.value = false
+                viewModelWallpaper.networkError.value = true
                 return false
             }
 
@@ -57,21 +60,11 @@ fun detailImageLoad(imageView: ImageView, url: String, viewModel: DetailViewMode
                 dataSource: DataSource?,
                 isFirstResource: Boolean
             ): Boolean {
-                viewModel.isLoading.value = false
+                viewModelWallpaper.isLoading.value = false
                 return false
             }
         })
         .into(imageView)
-}
-
-@BindingAdapter("detailCategory")
-fun detailCategory(textView: TextView, category: String) {
-    textView.text = textView.context.getString(R.string.wallpaper_category, category)
-}
-
-@BindingAdapter("detailSubmitter")
-fun detailSubmitter(textView: TextView, submitter: String) {
-    textView.text = textView.context.getString(R.string.wallpaper_submitter, submitter)
 }
 
 /**

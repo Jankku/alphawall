@@ -36,8 +36,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
         debug {
-            minifyEnabled false
-            shrinkResources false
             versionNameSuffix "-debug"
             applicationIdSuffix ".debug"
             debuggable true
@@ -62,7 +60,6 @@ dependencies {
     implementation "androidx.recyclerview:recyclerview:1.2.0"
     implementation "androidx.legacy:legacy-support-v4:1.0.0"
     implementation "androidx.preference:preference-ktx:1.1.1"
-    implementation(platform("org.jetbrains.kotlin:kotlin-reflect:1.5.0")) // Needed to remove build error
 
     // Navigation
     implementation "androidx.navigation:navigation-fragment:$nav_version"

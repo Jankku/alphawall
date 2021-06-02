@@ -7,20 +7,20 @@
 
         <variable
             name="viewModel"
-            type="com.jankku.alphawall.viewmodel.DetailViewModel" />
+            type="com.jankku.alphawall.viewmodel.WallpaperDetailViewModel" />
     </data>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbars="none"
-        android:overScrollMode="never">
+        android:overScrollMode="never"
+        android:scrollbars="none">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            tools:context=".ui.HomeFragment">
+            tools:context=".ui.home.HomeFragment">
 
             <RelativeLayout
                 android:id="@+id/rlImg"
@@ -31,8 +31,9 @@
                     android:id="@+id/ivDetail"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/detail_image_height"
+                    android:contentDescription="@string/item_description"
                     app:detailImgUrl="@{viewModel.wallpaper.imageUrl}"
-                    app:viewModel="@{viewModel}"
+                    app:viewModelWallpaper="@{viewModel}"
                     tools:src="@color/black">
 
                     <tag
@@ -117,10 +118,10 @@
                         style="@style/TextAppearance.Wallpapers.Body2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="start"
-                        android:paddingStart="@dimen/spacing_1_5x"
                         android:drawablePadding="@dimen/spacing_default"
+                        android:gravity="start"
                         android:paddingVertical="@dimen/spacing_three_fours"
+                        android:paddingStart="@dimen/spacing_1_5x"
                         app:detailHeight="@{viewModel.wallpaper.height}"
                         app:detailWidth="@{viewModel.wallpaper.width}"
                         app:drawableStartCompat="@drawable/ic_aspect_ratio" />
@@ -130,10 +131,10 @@
                         style="@style/TextAppearance.Wallpapers.Body2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="start"
-                        android:paddingStart="@dimen/spacing_1_5x"
                         android:drawablePadding="@dimen/spacing_default"
+                        android:gravity="start"
                         android:paddingVertical="@dimen/spacing_three_fours"
+                        android:paddingStart="@dimen/spacing_1_5x"
                         app:detailSize="@{viewModel.wallpaper.fileSize}"
                         app:drawableStartCompat="@drawable/ic_chart_donut" />
 
@@ -157,10 +158,10 @@
                         style="@style/TextAppearance.Wallpapers.Body2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="start"
                         android:drawablePadding="@dimen/spacing_default"
+                        android:gravity="start"
                         android:paddingVertical="@dimen/spacing_three_fours"
-                        app:detailCategory="@{viewModel.wallpaper.category}"
+                        android:text="@{viewModel.wallpaper.category}"
                         app:drawableStartCompat="@drawable/ic_category" />
 
                     <TextView
@@ -168,10 +169,10 @@
                         style="@style/TextAppearance.Wallpapers.Body2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="start"
                         android:drawablePadding="@dimen/spacing_default"
+                        android:gravity="start"
                         android:paddingVertical="@dimen/spacing_three_fours"
-                        app:detailSubmitter="@{viewModel.wallpaper.userName}"
+                        android:text="@{viewModel.wallpaper.userName}"
                         app:drawableStartCompat="@drawable/ic_person" />
 
                 </LinearLayout>

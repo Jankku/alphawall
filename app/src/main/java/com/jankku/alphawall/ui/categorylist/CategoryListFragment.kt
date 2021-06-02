@@ -1,4 +1,4 @@
-package com.jankku.alphawall.ui
+package com.jankku.alphawall.ui.categorylist
 
 import android.app.Application
 import android.content.Context
@@ -11,22 +11,24 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.paging.ExperimentalPagingApi
 import com.jankku.alphawall.AlphaWallApplication
-import com.jankku.alphawall.databinding.FragmentCategoryBinding
-import com.jankku.alphawall.viewmodel.CategoryViewModel
-import com.jankku.alphawall.viewmodel.CategoryViewModelFactory
+import com.jankku.alphawall.adapter.CategoryAdapter
+import com.jankku.alphawall.databinding.FragmentCategoryListBinding
+import com.jankku.alphawall.ui.BaseFragment
+import com.jankku.alphawall.viewmodel.CategoryListViewModel
+import com.jankku.alphawall.viewmodel.CategoryListViewModelFactory
 import kotlinx.coroutines.launch
 
 @ExperimentalPagingApi
-class CategoryFragment : BaseFragment() {
+class CategoryListFragment : BaseFragment() {
 
     private lateinit var application: Application
-    private var _binding: FragmentCategoryBinding? = null
+    private var _binding: FragmentCategoryListBinding? = null
     private val binding get() = _binding!!
     private lateinit var adapter: CategoryAdapter
 
 
-    private val viewModel: CategoryViewModel by viewModels {
-        CategoryViewModelFactory((application as AlphaWallApplication).repository)
+    private val viewModel: CategoryListViewModel by viewModels {
+        CategoryListViewModelFactory((application as AlphaWallApplication).repository)
     }
 
     override fun onAttach(context: Context) {
@@ -43,7 +45,7 @@ class CategoryFragment : BaseFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentCategoryBinding.inflate(
+        _binding = FragmentCategoryListBinding.inflate(
             inflater,
             container,
             false
@@ -65,10 +67,11 @@ class CategoryFragment : BaseFragment() {
     private fun setupAdapter() {
         adapter = CategoryAdapter { category ->
             // This is executed when clicking wallpaper
-            val action = CategoryFragmentDirections.actionCategoryFragmentToCategoryDetailFragment(
-                category,
-                category.name
-            )
+            val action =
+                CategoryListFragmentDirections.actionCategoryListFragmentToCategoryFragment(
+                    category,
+                    category.name
+                )
             findNavController().navigate(action)
         }
     }
