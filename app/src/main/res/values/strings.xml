@@ -80,6 +80,10 @@
     <string name="github_title" translatable="false">GitHub</string>
     <string name="github_summary" translatable="false">https://github.com/jankku/alphawall</string>
 
+    <string name="logo_design_key" translatable="false">logo_author</string>
+    <string name="logo_design_title" translatable="false">Logo design</string>
+    <string name="logo_design_summary" translatable="false">Léandro Tijink</string>
+
     <string name="api_key" translatable="false">api</string>
     <string name="api_title" translatable="false">Powered By Wallpaper Abyss</string>
     <string name="api_summary">https://wall.alphacoders.com/api.php</string>

@@ -2,7 +2,7 @@
 
     <PreferenceCategory app:title="@string/about_header">
         <Preference
-            app:icon="@drawable/ic_android"
+            app:icon="@drawable/ic_logo_outline_2"
             app:key="@string/app_key"
             app:title="@string/app_name" />
 
@@ -17,6 +17,12 @@
             app:key="@string/github_key"
             app:summary="@string/github_summary"
             app:title="@string/github_title" />
+
+        <Preference
+            app:icon="@drawable/ic_paint"
+            app:key="@string/logo_design_key"
+            app:summary="@string/logo_design_summary"
+            app:title="@string/logo_design_title" />
 
         <Preference
             app:icon="@drawable/ic_api"
