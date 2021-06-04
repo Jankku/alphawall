@@ -11,7 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.paging.ExperimentalPagingApi
 import com.jankku.alphawall.AlphaWallApplication
-import com.jankku.alphawall.adapter.CategoryAdapter
+import com.jankku.alphawall.adapter.CategoryListAdapter
 import com.jankku.alphawall.databinding.FragmentCategoryListBinding
 import com.jankku.alphawall.ui.BaseFragment
 import com.jankku.alphawall.viewmodel.CategoryListViewModel
@@ -24,7 +24,7 @@ class CategoryListFragment : BaseFragment() {
     private lateinit var application: Application
     private var _binding: FragmentCategoryListBinding? = null
     private val binding get() = _binding!!
-    private lateinit var adapter: CategoryAdapter
+    private lateinit var adapter: CategoryListAdapter
 
 
     private val viewModel: CategoryListViewModel by viewModels {
@@ -65,7 +65,7 @@ class CategoryListFragment : BaseFragment() {
     }
 
     private fun setupAdapter() {
-        adapter = CategoryAdapter { category ->
+        adapter = CategoryListAdapter { category ->
             // This is executed when clicking wallpaper
             val action =
                 CategoryListFragmentDirections.actionCategoryListFragmentToCategoryFragment(

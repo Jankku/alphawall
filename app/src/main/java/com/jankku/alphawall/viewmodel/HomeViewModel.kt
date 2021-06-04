@@ -4,7 +4,7 @@ import androidx.lifecycle.*
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.jankku.alphawall.database.Wallpaper
+import com.jankku.alphawall.database.model.Wallpaper
 import com.jankku.alphawall.repository.WallpaperRepository
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.distinctUntilChanged

@@ -1,4 +1,4 @@
-package com.jankku.alphawall.database
+package com.jankku.alphawall.database.model
 
 import android.os.Parcelable
 import androidx.room.Entity

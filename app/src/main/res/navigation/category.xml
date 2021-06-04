@@ -22,7 +22,7 @@
         tools:layout="@layout/fragment_category">
         <argument
             android:name="category"
-            app:argType="com.jankku.alphawall.database.Category" />
+            app:argType="com.jankku.alphawall.database.model.Category" />
         <argument
             android:name="categoryName"
             app:argType="string" />
@@ -42,7 +42,7 @@
         tools:layout="@layout/fragment_detail">
         <argument
             android:name="wallpaper"
-            app:argType="com.jankku.alphawall.database.Wallpaper" />
+            app:argType="com.jankku.alphawall.database.model.Wallpaper" />
     </fragment>
 
 </navigation>

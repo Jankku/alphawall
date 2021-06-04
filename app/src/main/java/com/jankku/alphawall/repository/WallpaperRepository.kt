@@ -5,11 +5,11 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.jankku.alphawall.BuildConfig
-import com.jankku.alphawall.database.Category
-import com.jankku.alphawall.database.Wallpaper
 import com.jankku.alphawall.database.WallpaperDatabase
+import com.jankku.alphawall.database.model.Category
+import com.jankku.alphawall.database.model.Wallpaper
 import com.jankku.alphawall.network.AlphaCodersApiService
-import com.jankku.alphawall.network.CategoryDetailPagingSource
+import com.jankku.alphawall.network.CategoryPagingSource
 import com.jankku.alphawall.network.WallpaperRemoteMediator
 import com.jankku.alphawall.util.Constants.PAGE_SIZE
 import kotlinx.coroutines.flow.Flow
@@ -35,7 +35,7 @@ class WallpaperRepository(
 
     fun fetchWallpapersFromCategory(category: Category): Flow<PagingData<Wallpaper>> {
         return Pager(
-            pagingSourceFactory = { CategoryDetailPagingSource(api, category) },
+            pagingSourceFactory = { CategoryPagingSource(api, category) },
             config = PagingConfig(
                 pageSize = PAGE_SIZE,
                 prefetchDistance = PAGE_SIZE + (PAGE_SIZE * 2),

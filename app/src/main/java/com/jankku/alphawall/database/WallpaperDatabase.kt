@@ -4,6 +4,12 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.jankku.alphawall.database.dao.CategoryDao
+import com.jankku.alphawall.database.dao.RemoteKeyDao
+import com.jankku.alphawall.database.dao.WallpaperDao
+import com.jankku.alphawall.database.model.Category
+import com.jankku.alphawall.database.model.RemoteKey
+import com.jankku.alphawall.database.model.Wallpaper
 import com.jankku.alphawall.util.Constants.DATABASE_NAME
 
 @Database(

@@ -8,11 +8,11 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.jankku.alphawall.R
-import com.jankku.alphawall.database.Category
+import com.jankku.alphawall.database.model.Category
 import com.jankku.alphawall.databinding.ItemCategoryBinding
 
-class CategoryAdapter(private val clickListener: (Category) -> Unit) :
-    ListAdapter<Category, CategoryAdapter.ViewHolder>(DiffCallback) {
+class CategoryListAdapter(private val clickListener: (Category) -> Unit) :
+    ListAdapter<Category, CategoryListAdapter.ViewHolder>(DiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding: ItemCategoryBinding = DataBindingUtil.inflate(

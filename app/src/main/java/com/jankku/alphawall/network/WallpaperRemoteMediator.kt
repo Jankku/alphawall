@@ -6,9 +6,9 @@ import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
 import com.jankku.alphawall.BuildConfig
-import com.jankku.alphawall.database.RemoteKey
-import com.jankku.alphawall.database.Wallpaper
 import com.jankku.alphawall.database.WallpaperDatabase
+import com.jankku.alphawall.database.model.RemoteKey
+import com.jankku.alphawall.database.model.Wallpaper
 import com.jankku.alphawall.util.Constants.STARTING_PAGE_INDEX
 import retrofit2.HttpException
 import java.io.IOException

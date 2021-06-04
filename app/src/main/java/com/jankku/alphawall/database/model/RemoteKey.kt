@@ -1,4 +1,4 @@
-package com.jankku.alphawall.database
+package com.jankku.alphawall.database.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

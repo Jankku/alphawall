@@ -9,7 +9,7 @@
 
         <variable
             name="wallpaper"
-            type="com.jankku.alphawall.database.Wallpaper" />
+            type="com.jankku.alphawall.database.model.Wallpaper" />
     </data>
 
     <com.google.android.material.card.MaterialCardView

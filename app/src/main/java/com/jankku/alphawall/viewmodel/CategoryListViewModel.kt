@@ -2,7 +2,7 @@ package com.jankku.alphawall.viewmodel
 
 import androidx.lifecycle.*
 import androidx.paging.ExperimentalPagingApi
-import com.jankku.alphawall.database.Category
+import com.jankku.alphawall.database.model.Category
 import com.jankku.alphawall.repository.WallpaperRepository
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect

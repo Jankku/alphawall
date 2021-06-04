@@ -42,7 +42,7 @@
     <string name="error_image_save">Failed to save image</string>
     <string name="image_saved">Image saved to Pictures/Wallpapers</string>
     <string name="image_already_saved">Image is already saved in Pictures/Wallpapers</string>
-    <string name="image_set">Set as wallpaper</string>
+    <string name="image_set_as">Set as:</string>
     <string name="permission_storage_enable">Please enable storage permission to download or set image as your wallpaper</string>
     <string name="permission_rationale_reason">Storage permissions are needed to download and set wallpaper</string>
     <string name="permission_rationale_ok">OK</string>

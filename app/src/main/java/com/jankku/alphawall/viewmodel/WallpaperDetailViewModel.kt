@@ -1,7 +1,7 @@
 package com.jankku.alphawall.viewmodel
 
 import androidx.lifecycle.*
-import com.jankku.alphawall.database.Wallpaper
+import com.jankku.alphawall.database.model.Wallpaper
 
 class WallpaperDetailViewModel(wallpaper: Wallpaper) : ViewModel() {
 

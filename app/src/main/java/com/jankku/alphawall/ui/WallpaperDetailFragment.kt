@@ -2,7 +2,6 @@ package com.jankku.alphawall.ui
 
 import android.Manifest
 import android.app.Application
-import android.app.WallpaperManager
 import android.content.*
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -12,10 +11,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
-import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -33,7 +29,6 @@ import com.jankku.alphawall.util.Constants.DOWNLOAD_RELATIVE_PATH_PRE_Q
 import com.jankku.alphawall.viewmodel.WallpaperDetailViewModel
 import com.jankku.alphawall.viewmodel.WallpaperDetailViewModelFactory
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.File
@@ -99,9 +94,8 @@ class WallpaperDetailFragment : BaseFragment() {
 
     private fun setupObservers() {
         viewModel.networkError.observe(viewLifecycleOwner) { networkError ->
-            if (networkError) {
-                Toast.makeText(application, "Network error", Toast.LENGTH_SHORT).show()
-            }
+            if (!networkError) return@observe
+            Toast.makeText(application, "Network error", Toast.LENGTH_SHORT).show()
         }
 
         viewModel.downloadWallpaper.observe(viewLifecycleOwner) { downloadWallpaper ->
@@ -131,11 +125,10 @@ class WallpaperDetailFragment : BaseFragment() {
         }
 
         viewModel.openWallpaperPage.observe(viewLifecycleOwner) { openInWeb ->
-            if (openInWeb) {
-                val pageUrl = viewModel.wallpaper.value!!.pageUrl
-                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(pageUrl))
-                startActivity(intent)
-            }
+            if (!openInWeb) return@observe
+            val pageUrl = viewModel.wallpaper.value!!.pageUrl
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(pageUrl))
+            startActivity(intent)
         }
     }
 
@@ -173,25 +166,24 @@ class WallpaperDetailFragment : BaseFragment() {
                 if (!imageExists(id)) {
                     val bitmap = downloadBitmap(url)
                     saveBitmapToPictures(bitmap, id)
-                    // Without this, error is thrown at least on emulator and maybe
-                    // on pre Q devices
-                    delay(100)
-                    val savedImageUri = getImageUri(id)
-                    setWallpaperIntent(savedImageUri)
+                    val imageUri = getImageContentUri(id)
+                    val intent = Intent(Intent.ACTION_ATTACH_DATA)
+                        .setDataAndType(imageUri, "image/jpeg").apply {
+                            addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                        }
+                    startActivity(Intent.createChooser(intent, getString(R.string.image_set_as)))
                 } else {
-                    val savedImageUri = getImageUri(id)
-                    setWallpaperIntent(savedImageUri)
+                    val imageUri = getImageContentUri(id)
+                    val intent = Intent(Intent.ACTION_ATTACH_DATA)
+                        .setDataAndType(imageUri, "image/jpeg").apply {
+                            addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                        }
+                    startActivity(Intent.createChooser(intent, getString(R.string.image_set_as)))
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
             }
         }
-    }
-
-    private fun setWallpaperIntent(savedImageUri: Uri) {
-        val wallpaperManager = WallpaperManager.getInstance(application)
-        val intent = Intent(wallpaperManager.getCropAndSetWallpaperIntent(savedImageUri))
-        startActivity(intent)
     }
 
     private fun requestPermission(permission: String, callback: () -> Unit) {
@@ -218,8 +210,7 @@ class WallpaperDetailFragment : BaseFragment() {
 
     private suspend fun downloadBitmap(imageUrl: String): Bitmap {
         return withContext(Dispatchers.IO) {
-            Glide
-                .with(application)
+            Glide.with(application)
                 .asBitmap()
                 .load(imageUrl)
                 .submit()
@@ -235,7 +226,6 @@ class WallpaperDetailFragment : BaseFragment() {
             } else {
                 MediaStore.Images.Media.EXTERNAL_CONTENT_URI
             }
-
             val projection = arrayOf(MediaStore.Images.Media.DISPLAY_NAME)
             val selection = "${MediaStore.Images.Media.DISPLAY_NAME}=?"
             val selectionArgs = arrayOf("$id.jpg")
@@ -248,14 +238,13 @@ class WallpaperDetailFragment : BaseFragment() {
                 null,
             )
             query?.use { cursor ->
-                Log.d("LOG_EXISTS_CURSOR", cursor.count.toString())
                 if (cursor.count > 0) exists = true
             }
         }
         return exists
     }
 
-    private suspend fun getImageUri(id: String): Uri {
+    private suspend fun getImageContentUri(id: String): Uri {
         var contentUri: Uri = Uri.EMPTY
         withContext(Dispatchers.Default) {
             val collection = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
@@ -278,14 +267,12 @@ class WallpaperDetailFragment : BaseFragment() {
                 null
             )
             query?.use { cursor ->
-                val idColumn = cursor.getColumnIndex(MediaStore.Images.Media._ID)
                 if (cursor.moveToFirst()) {
-                    val imageId = cursor.getLong(idColumn)
+                    val imageId = cursor.getLong(cursor.getColumnIndex(MediaStore.Images.Media._ID))
                     contentUri = ContentUris.withAppendedId(
                         MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
                         imageId
                     )
-                    Log.d("LOG_URI", contentUri.toString())
                 }
             }
         }
@@ -331,9 +318,7 @@ class WallpaperDetailFragment : BaseFragment() {
 
     private fun refreshGallery(file: File?) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
-            MediaScannerConnection.scanFile(application, arrayOf("$file"), null) { string, _ ->
-                Log.d("LOG_SCANFILE", string)
-            }
+            MediaScannerConnection.scanFile(application, arrayOf("$file"), null) { _, _ -> }
         }
     }
 }

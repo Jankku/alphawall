@@ -26,7 +26,7 @@
         tools:layout="@layout/fragment_detail">
         <argument
             android:name="wallpaper"
-            app:argType="com.jankku.alphawall.database.Wallpaper" />
+            app:argType="com.jankku.alphawall.database.model.Wallpaper" />
     </fragment>
 
 </navigation>

@@ -1,7 +1,7 @@
 package com.jankku.alphawall.network
 
-import com.jankku.alphawall.database.Category
-import com.jankku.alphawall.database.Wallpaper
+import com.jankku.alphawall.database.model.Category
+import com.jankku.alphawall.database.model.Wallpaper
 import com.squareup.moshi.Json
 
 /**

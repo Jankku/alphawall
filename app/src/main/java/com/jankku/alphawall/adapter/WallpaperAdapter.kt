@@ -8,7 +8,7 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.jankku.alphawall.R
-import com.jankku.alphawall.database.Wallpaper
+import com.jankku.alphawall.database.model.Wallpaper
 import com.jankku.alphawall.databinding.ItemWallpaperBinding
 
 class WallpaperAdapter(private val clickListener: (Wallpaper) -> Unit) :
