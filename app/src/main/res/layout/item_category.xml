@@ -30,7 +30,7 @@
 
             <TextView
                 android:id="@+id/tvCategoryName"
-                style="@style/TextAppearance.Wallpapers.Body1"
+                style="@style/TextAppearance.AlphaWall.Body1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@{category.name}"
@@ -43,7 +43,7 @@
 
             <TextView
                 android:id="@+id/tvCategoryCount"
-                style="@style/TextAppearance.Wallpapers.Subtitle1"
+                style="@style/TextAppearance.AlphaWall.Subtitle1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:gravity="end"

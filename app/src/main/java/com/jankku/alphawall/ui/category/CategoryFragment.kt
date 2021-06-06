@@ -71,6 +71,7 @@ class CategoryFragment : BaseFragment() {
         setupAdapter()
         setupRecyclerView()
         setupSwipeRefresh()
+        setupScrollToTop()
     }
 
     private fun setupAdapter() {
@@ -124,6 +125,22 @@ class CategoryFragment : BaseFragment() {
         binding.srCategoryDetail.setOnRefreshListener {
             adapter.refresh()
             binding.srCategoryDetail.isRefreshing = false
+        }
+    }
+
+    private fun setupScrollToTop() {
+        binding.fabUp.hide()
+        binding.rvCategoryDetail.addOnScrollListener(
+            object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    if (dy > 5)
+                        binding.fabUp.show()
+                    else if (dy < 0)
+                        binding.fabUp.hide()
+                }
+            })
+        binding.fabUp.setOnClickListener {
+            binding.rvCategoryDetail.smoothScrollToPosition(0)
         }
     }
 

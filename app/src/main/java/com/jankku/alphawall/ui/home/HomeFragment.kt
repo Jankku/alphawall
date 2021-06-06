@@ -67,6 +67,7 @@ class HomeFragment : BaseFragment() {
         setupAdapter()
         setupRecyclerView()
         setupSwipeRefresh()
+        setupScrollToTop()
     }
 
     override fun onDestroyView() {
@@ -123,6 +124,22 @@ class HomeFragment : BaseFragment() {
         binding.swipeRefresh.setOnRefreshListener {
             adapter.refresh()
             binding.swipeRefresh.isRefreshing = false
+        }
+    }
+
+    private fun setupScrollToTop() {
+        binding.fabUp.hide()
+        binding.rvWallpaper.addOnScrollListener(
+            object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    if (dy > 5)
+                        binding.fabUp.show()
+                    else if (dy < 0)
+                        binding.fabUp.hide()
+                }
+            })
+        binding.fabUp.setOnClickListener {
+            binding.rvWallpaper.smoothScrollToPosition(0)
         }
     }
 

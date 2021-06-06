@@ -2,6 +2,7 @@
     <!-- General -->
     <string name="app_name" translatable="false">AlphaWall</string>
     <string name="item_description">Wallpaper</string>
+    <string name="fab_up">Go up</string>
     <string name="navigation_home_label">Home</string>
     <string name="navigation_detail_label">Wallpaper</string>
     <string name="navigation_categories_label">Categories</string>

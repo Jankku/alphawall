@@ -2,7 +2,7 @@
 
     <PreferenceCategory app:title="@string/about_header">
         <Preference
-            app:icon="@drawable/ic_logo_outline_2"
+            app:icon="@drawable/ic_logo_outline"
             app:key="@string/app_key"
             app:title="@string/app_name" />
 

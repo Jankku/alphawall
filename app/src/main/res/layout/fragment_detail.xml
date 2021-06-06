@@ -115,7 +115,7 @@
 
                     <TextView
                         android:id="@+id/tvResolution"
-                        style="@style/TextAppearance.Wallpapers.Body2"
+                        style="@style/TextAppearance.AlphaWall.Body2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:drawablePadding="@dimen/spacing_default"
@@ -128,7 +128,7 @@
 
                     <TextView
                         android:id="@+id/tvFileSize"
-                        style="@style/TextAppearance.Wallpapers.Body2"
+                        style="@style/TextAppearance.AlphaWall.Body2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:drawablePadding="@dimen/spacing_default"
@@ -155,7 +155,7 @@
 
                     <TextView
                         android:id="@+id/tvCategory"
-                        style="@style/TextAppearance.Wallpapers.Body2"
+                        style="@style/TextAppearance.AlphaWall.Body2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:drawablePadding="@dimen/spacing_default"
@@ -166,7 +166,7 @@
 
                     <TextView
                         android:id="@+id/tvSubmitter"
-                        style="@style/TextAppearance.Wallpapers.Body2"
+                        style="@style/TextAppearance.AlphaWall.Body2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:drawablePadding="@dimen/spacing_default"

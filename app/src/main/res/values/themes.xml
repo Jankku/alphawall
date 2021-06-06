@@ -7,14 +7,16 @@
 
         <item name="android:navigationBarColor">@color/nav_bar</item>
         <item name="android:windowLightNavigationBar" tools:targetApi="27">false</item>
-        <item name="bottomNavigationStyle">@style/Widget.Wallpapers.BottomNavigationView</item>
+        <item name="bottomNavigationStyle">@style/Widget.AlphaWall.BottomNavigationView</item>
 
-        <item name="appBarLayoutStyle">@style/Widget.Wallpapers.AppBarOverlay</item>
-        <item name="toolbarStyle">@style/Widget.Wallpapers.ToolBar</item>
+        <item name="appBarLayoutStyle">@style/Widget.AlphaWall.AppBarOverlay</item>
+        <item name="toolbarStyle">@style/Widget.AlphaWall.ToolBar</item>
 
-        <item name="textAppearanceSubtitle1">@style/TextAppearance.Wallpapers.Subtitle1</item>
-        <item name="textAppearanceBody1">@style/TextAppearance.Wallpapers.Body1</item>
-        <item name="textAppearanceButton">@style/TextAppearance.Wallpapers.Button</item>
+        <item name="textAppearanceSubtitle1">@style/TextAppearance.AlphaWall.Subtitle1</item>
+        <item name="textAppearanceBody1">@style/TextAppearance.AlphaWall.Body1</item>
+        <item name="textAppearanceButton">@style/TextAppearance.AlphaWall.Button</item>
+
+        <item name="floatingActionButtonStyle">@style/Widget.AlphaWall.FloatingActionButton</item>
 
         <item name="colorPrimary">@color/purple_200</item>
         <item name="colorPrimaryDark">@color/purple_500</item>
@@ -25,9 +27,6 @@
 
         <item name="colorSurface">@color/purple_900</item>
         <item name="colorOnSurface">@color/white</item>
-
-        <item name="colorPrimarySurface">@color/purple_900</item>
-        <item name="colorOnPrimarySurface">?colorPrimary</item>
 
         <item name="android:colorBackground">@color/purple_900</item>
         <item name="colorOnBackground">?colorPrimary</item>
