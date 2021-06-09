@@ -20,3 +20,12 @@ data class NetworkCategoryResponse(
     @Json(name = "success") val success: Boolean,
     @Json(name = "categories") val categories: List<Category>,
 )
+
+/**
+ * Response from [AlphaCodersApiService]
+ */
+data class NetworkSearchResponse(
+    @Json(name = "success") val success: Boolean,
+    @Json(name = "wallpapers") val wallpapers: List<Wallpaper>,
+    @Json(name = "total_match") val totalMatch: Int,
+)

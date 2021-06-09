@@ -29,7 +29,8 @@ class HomeFragment : BaseFragment() {
     private lateinit var application: Application
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
-    private lateinit var adapter: WallpaperAdapter
+    private var _adapter: WallpaperAdapter? = null
+    private val adapter get() = _adapter!!
 
     private val viewModel: HomeViewModel by viewModels {
         HomeViewModelFactory((application as AlphaWallApplication).repository)
@@ -55,11 +56,7 @@ class HomeFragment : BaseFragment() {
             container,
             false
         )
-        return binding.root
-    }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 
@@ -68,15 +65,19 @@ class HomeFragment : BaseFragment() {
         setupRecyclerView()
         setupSwipeRefresh()
         setupScrollToTop()
+
+        return binding.root
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
+        binding.rvWallpaper.adapter = null
+        _adapter = null
         _binding = null
     }
 
     private fun setupAdapter() {
-        adapter = WallpaperAdapter { wallpaper ->
+        _adapter = WallpaperAdapter { wallpaper ->
             // This is executed when clicking wallpaper
             val action =
                 HomeFragmentDirections.actionHomeFragmentToWallpaperDetailFragment(wallpaper)
@@ -149,7 +150,12 @@ class HomeFragment : BaseFragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.action_search -> true
+            R.id.action_search -> {
+                // Navigate search fragment
+                val action = HomeFragmentDirections.actionHomeFragmentToSearchFragment()
+                findNavController().navigate(action)
+                true
+            }
             R.id.action_sort -> {
                 sortDialog()
                 true

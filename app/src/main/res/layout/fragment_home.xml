@@ -39,7 +39,6 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:spanCount="@integer/wallpaper_grid_columns"
                 tools:listitem="@layout/item_wallpaper" />
-
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -52,7 +51,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -64,7 +62,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:indeterminate="true" />
-
         </LinearLayout>
 
         <LinearLayout

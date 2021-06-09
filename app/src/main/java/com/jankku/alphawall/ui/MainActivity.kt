@@ -2,6 +2,7 @@ package com.jankku.alphawall.ui
 
 import android.os.Bundle
 import android.view.MotionEvent
+import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -37,10 +38,12 @@ class MainActivity : AppCompatActivity() {
             setOf(R.id.homeFragment, R.id.categoryListFragment, R.id.settingsFragment)
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
+
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING)
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        return navController.navigateUp(appBarConfiguration)
+        return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 
     /**

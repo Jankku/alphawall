@@ -24,7 +24,8 @@ class CategoryListFragment : BaseFragment() {
     private lateinit var application: Application
     private var _binding: FragmentCategoryListBinding? = null
     private val binding get() = _binding!!
-    private lateinit var adapter: CategoryListAdapter
+    private var _adapter: CategoryListAdapter? = null
+    private val adapter get() = _adapter!!
 
 
     private val viewModel: CategoryListViewModel by viewModels {
@@ -51,21 +52,25 @@ class CategoryListFragment : BaseFragment() {
             false
         )
 
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 
         setupObservers()
         setupAdapter()
         setupRecyclerView()
+
+        return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding.rvCategory.adapter = null
+        _adapter = null
+        _binding = null
     }
 
     private fun setupAdapter() {
-        adapter = CategoryListAdapter { category ->
+        _adapter = CategoryListAdapter { category ->
             // This is executed when clicking wallpaper
             val action =
                 CategoryListFragmentDirections.actionCategoryListFragmentToCategoryFragment(
@@ -87,11 +92,6 @@ class CategoryListFragment : BaseFragment() {
                 adapter.submitList(list)
             }
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }
 

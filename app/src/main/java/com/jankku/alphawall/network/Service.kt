@@ -54,6 +54,15 @@ interface AlphaCodersApiService {
         @Query("info_level") infoLevel: Int,
         @Query("check_last") checkIfLastPage: Int // 1 = true, 0 = false
     ): NetworkWallpaperResponse
+
+    @GET("get.php")
+    suspend fun search(
+        @Query("auth") apiKey: String,
+        @Query("method") method: String,
+        @Query("term") term: String,
+        @Query("page") page: Int,
+        @Query("info_level") infoLevel: Int,
+    ): NetworkSearchResponse
 }
 
 object AlphaCodersApi {

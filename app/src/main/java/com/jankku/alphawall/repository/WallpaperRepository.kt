@@ -10,6 +10,7 @@ import com.jankku.alphawall.database.model.Category
 import com.jankku.alphawall.database.model.Wallpaper
 import com.jankku.alphawall.network.AlphaCodersApiService
 import com.jankku.alphawall.network.CategoryPagingSource
+import com.jankku.alphawall.network.SearchPagingSource
 import com.jankku.alphawall.network.WallpaperRemoteMediator
 import com.jankku.alphawall.util.Constants.PAGE_SIZE
 import kotlinx.coroutines.flow.Flow
@@ -62,5 +63,15 @@ class WallpaperRepository(
         } catch (e: HttpException) {
             e.printStackTrace()
         }
+    }
+
+    fun search(term: String): Flow<PagingData<Wallpaper>> {
+        return Pager(
+            pagingSourceFactory = { SearchPagingSource(api, term) },
+            config = PagingConfig(
+                pageSize = PAGE_SIZE,
+                prefetchDistance = PAGE_SIZE + (PAGE_SIZE * 2),
+            )
+        ).flow
     }
 }

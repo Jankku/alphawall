@@ -29,9 +29,7 @@ class WallpaperAdapter(private val clickListener: (Wallpaper) -> Unit) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val wallpaper = getItem(position)
         if (wallpaper != null) {
-            holder.binding.also {
-                it.wallpaper = wallpaper
-            }
+            holder.binding.wallpaper = wallpaper
         }
     }
 

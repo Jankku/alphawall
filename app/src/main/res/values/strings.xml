@@ -4,6 +4,7 @@
     <string name="item_description">Wallpaper</string>
     <string name="fab_up">Go up</string>
     <string name="navigation_home_label">Home</string>
+    <string name="navigation_search_label">Search</string>
     <string name="navigation_detail_label">Wallpaper</string>
     <string name="navigation_categories_label">Categories</string>
     <string name="navigation_settings_label">Settings</string>
@@ -13,7 +14,9 @@
     <string name="menu_main_sort">Sort</string>
 
     <!-- Search -->
-    <string name="search_hint">Search wallpapers</string>
+    <string name="search_hint">Search AlphaWall</string>
+    <string name="search_btn_text">Search</string>
+    <string name="search_guide_text">Search wallpapers by keyword</string>
 
     <!-- Sort dialog -->
     <string name="dialog_sort_title">Sort wallpapers by</string>
@@ -88,4 +91,6 @@
     <string name="api_key" translatable="false">api</string>
     <string name="api_title" translatable="false">Powered By Wallpaper Abyss</string>
     <string name="api_summary">https://wall.alphacoders.com/api.php</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

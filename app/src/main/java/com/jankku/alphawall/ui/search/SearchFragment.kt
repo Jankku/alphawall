@@ -1,4 +1,4 @@
-package com.jankku.alphawall.ui.category
+package com.jankku.alphawall.ui.search
 
 import android.app.Application
 import android.content.Context
@@ -6,38 +6,37 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.RecyclerView
 import com.jankku.alphawall.AlphaWallApplication
 import com.jankku.alphawall.adapter.WallpaperAdapter
-import com.jankku.alphawall.adapter.WallpaperLoadingStateAdapter
-import com.jankku.alphawall.databinding.FragmentCategoryBinding
+import com.jankku.alphawall.databinding.FragmentSearchBinding
 import com.jankku.alphawall.ui.BaseFragment
-import com.jankku.alphawall.viewmodel.CategoryViewModel
-import com.jankku.alphawall.viewmodel.CategoryViewModelFactory
+import com.jankku.alphawall.util.Keyboard.Companion.hideKeyboard
+import com.jankku.alphawall.util.Keyboard.Companion.showKeyboard
+import com.jankku.alphawall.viewmodel.SearchViewModel
+import com.jankku.alphawall.viewmodel.SearchViewModelFactory
 import kotlinx.coroutines.launch
 
+
 @ExperimentalPagingApi
-class CategoryFragment : BaseFragment() {
+class SearchFragment : BaseFragment() {
 
     private lateinit var application: Application
-    private var _binding: FragmentCategoryBinding? = null
+    private var _binding: FragmentSearchBinding? = null
     private val binding get() = _binding!!
     private var _adapter: WallpaperAdapter? = null
     private val adapter get() = _adapter!!
-    private val args: CategoryFragmentArgs by navArgs()
+    private var keyboardShownOnce = false
 
-    private val viewModel: CategoryViewModel by viewModels {
-        CategoryViewModelFactory(
-            args.category,
-            (application as AlphaWallApplication).repository
-        )
+    private val viewModel: SearchViewModel by viewModels {
+        SearchViewModelFactory((application as AlphaWallApplication).repository)
     }
 
     override fun onAttach(context: Context) {
@@ -45,47 +44,60 @@ class CategoryFragment : BaseFragment() {
         application = requireActivity().application
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentCategoryBinding.inflate(
-            inflater,
-            container,
-            false
-        )
-
-        binding.lifecycleOwner = viewLifecycleOwner
-        binding.viewModel = viewModel
+        _binding = FragmentSearchBinding.inflate(layoutInflater)
 
         setupObservers()
         setupAdapter()
         setupRecyclerView()
-        setupSwipeRefresh()
+        setupSearch()
         setupScrollToTop()
 
         return binding.root
     }
 
+    override fun onStart() {
+        super.onStart()
+        setupSearch()
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
-        binding.rvCategoryDetail.adapter = null
+        binding.rvSearch.adapter = null
         _adapter = null
         _binding = null
+    }
+
+    private fun setupSearch() {
+        var handled = false
+        if (!keyboardShownOnce) {
+            binding.guideSearch.clSearchGuide.visibility = View.VISIBLE
+            binding.tietSearch.showKeyboard()
+            keyboardShownOnce = true
+        }
+        val searchTerm = binding.tietSearch.text
+        binding.tietSearch.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                if (searchTerm?.isNotBlank() == true) {
+                    binding.guideSearch.clSearchGuide.visibility = View.GONE
+                    binding.tietSearch.clearFocus()
+                    binding.tietSearch.hideKeyboard()
+                    viewModel.search(searchTerm.toString())
+                    handled = true
+                }
+            }
+            handled
+        }
     }
 
     private fun setupAdapter() {
         _adapter = WallpaperAdapter { wallpaper ->
             // This is executed when clicking wallpaper
             val action =
-                CategoryFragmentDirections.actionCategoryFragmentToWallpaperDetailFragment(
-                    wallpaper
-                )
+                SearchFragmentDirections.actionSearchFragmentToWallpaperDetailFragment(wallpaper)
             findNavController().navigate(action)
         }
 
@@ -95,24 +107,17 @@ class CategoryFragment : BaseFragment() {
         adapter.addLoadStateListener { loadState ->
             if (_binding != null) {
                 lifecycleScope.launch {
-                    binding.rvCategoryDetail.isVisible =
-                        loadState.source.refresh is LoadState.NotLoading
+                    binding.rvSearch.isVisible = loadState.source.refresh is LoadState.NotLoading
                     binding.progressBar.isVisible = loadState.source.refresh is LoadState.Loading
-                    binding.btnLoadRetry.isVisible = loadState.source.refresh is LoadState.Error
-                    binding.tvLoadErrorMessage.isVisible =
-                        loadState.source.refresh is LoadState.Error
                 }
             }
         }
     }
 
     private fun setupRecyclerView() {
-        binding.rvCategoryDetail.let {
+        binding.rvSearch.let {
             it.setHasFixedSize(true)
-            it.adapter = adapter.withLoadStateHeaderAndFooter(
-                header = WallpaperLoadingStateAdapter { adapter.retry() },
-                footer = WallpaperLoadingStateAdapter { adapter.retry() }
-            )
+            it.adapter = adapter
         }
     }
 
@@ -120,22 +125,11 @@ class CategoryFragment : BaseFragment() {
         viewModel.wallpapers.observe(viewLifecycleOwner) { pagingData ->
             adapter.submitData(lifecycle, pagingData)
         }
-
-        viewModel.retryBtnClick.observe(viewLifecycleOwner) { click ->
-            if (click) adapter.retry()
-        }
-    }
-
-    private fun setupSwipeRefresh() {
-        binding.srCategoryDetail.setOnRefreshListener {
-            adapter.refresh()
-            binding.srCategoryDetail.isRefreshing = false
-        }
     }
 
     private fun setupScrollToTop() {
         binding.fabUp.hide()
-        binding.rvCategoryDetail.addOnScrollListener(
+        binding.rvSearch.addOnScrollListener(
             object : RecyclerView.OnScrollListener() {
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                     if (dy > 5)
@@ -145,8 +139,7 @@ class CategoryFragment : BaseFragment() {
                 }
             })
         binding.fabUp.setOnClickListener {
-            binding.rvCategoryDetail.smoothScrollToPosition(0)
+            binding.rvSearch.smoothScrollToPosition(0)
         }
     }
 }
-

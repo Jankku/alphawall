@@ -210,7 +210,7 @@ class WallpaperDetailFragment : BaseFragment() {
 
     private suspend fun downloadBitmap(imageUrl: String): Bitmap {
         return withContext(Dispatchers.IO) {
-            Glide.with(application)
+            Glide.with(requireContext())
                 .asBitmap()
                 .load(imageUrl)
                 .submit()
