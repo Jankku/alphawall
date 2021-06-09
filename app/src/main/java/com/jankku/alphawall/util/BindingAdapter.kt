@@ -5,7 +5,6 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
-import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
@@ -19,8 +18,7 @@ import com.jankku.alphawall.viewmodel.WallpaperDetailViewModel
  */
 @BindingAdapter("imageUrl")
 fun loadImage(imageView: ImageView, url: String?) {
-    Glide
-        .with(imageView.context)
+    GlideApp.with(imageView.context)
         .load(url)
         .centerCrop()
         .error(R.drawable.ic_error)
@@ -36,8 +34,7 @@ fun detailImageLoad(
     url: String,
     viewModelWallpaper: WallpaperDetailViewModel
 ) {
-    Glide
-        .with(imageView.context)
+    GlideApp.with(imageView.context)
         .load(url)
         .centerCrop()
         .transition(DrawableTransitionOptions.withCrossFade())

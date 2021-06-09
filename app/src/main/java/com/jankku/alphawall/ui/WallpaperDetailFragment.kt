@@ -19,13 +19,13 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import androidx.paging.ExperimentalPagingApi
-import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import com.jankku.alphawall.R
 import com.jankku.alphawall.databinding.FragmentDetailBinding
 import com.jankku.alphawall.util.Constants.DOWNLOAD_QUALITY
 import com.jankku.alphawall.util.Constants.DOWNLOAD_RELATIVE_PATH
 import com.jankku.alphawall.util.Constants.DOWNLOAD_RELATIVE_PATH_PRE_Q
+import com.jankku.alphawall.util.GlideApp
 import com.jankku.alphawall.viewmodel.WallpaperDetailViewModel
 import com.jankku.alphawall.viewmodel.WallpaperDetailViewModelFactory
 import kotlinx.coroutines.Dispatchers
@@ -62,7 +62,7 @@ class WallpaperDetailFragment : BaseFragment() {
             registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
                 if (!isGranted) {
                     Toast.makeText(
-                        application,
+                        requireContext(),
                         R.string.permission_storage_enable,
                         Toast.LENGTH_LONG
                     ).show()
@@ -89,13 +89,14 @@ class WallpaperDetailFragment : BaseFragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        binding.ivDetail.setImageBitmap(null)
         _binding = null
     }
 
     private fun setupObservers() {
         viewModel.networkError.observe(viewLifecycleOwner) { networkError ->
             if (!networkError) return@observe
-            Toast.makeText(application, "Network error", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "Network error", Toast.LENGTH_SHORT).show()
         }
 
         viewModel.downloadWallpaper.observe(viewLifecycleOwner) { downloadWallpaper ->
@@ -140,7 +141,7 @@ class WallpaperDetailFragment : BaseFragment() {
                     saveBitmapToPictures(bitmap, id)
                     withContext(Dispatchers.Main) {
                         Toast.makeText(
-                            application,
+                            requireContext(),
                             R.string.image_saved,
                             Toast.LENGTH_SHORT
                         ).show()
@@ -148,7 +149,7 @@ class WallpaperDetailFragment : BaseFragment() {
                 } else {
                     withContext(Dispatchers.Main) {
                         Toast.makeText(
-                            application,
+                            requireContext(),
                             R.string.image_already_saved,
                             Toast.LENGTH_SHORT
                         ).show()
@@ -166,6 +167,7 @@ class WallpaperDetailFragment : BaseFragment() {
                 if (!imageExists(id)) {
                     val bitmap = downloadBitmap(url)
                     saveBitmapToPictures(bitmap, id)
+                    bitmap.recycle()
                     val imageUri = getImageContentUri(id)
                     val intent = Intent(Intent.ACTION_ATTACH_DATA)
                         .setDataAndType(imageUri, "image/jpeg").apply {
@@ -210,7 +212,7 @@ class WallpaperDetailFragment : BaseFragment() {
 
     private suspend fun downloadBitmap(imageUrl: String): Bitmap {
         return withContext(Dispatchers.IO) {
-            Glide.with(requireContext())
+            GlideApp.with(requireContext())
                 .asBitmap()
                 .load(imageUrl)
                 .submit()
@@ -310,7 +312,7 @@ class WallpaperDetailFragment : BaseFragment() {
         } catch (e: Exception) {
             e.printStackTrace()
             requireActivity().runOnUiThread {
-                Toast.makeText(application, R.string.error_image_save, Toast.LENGTH_SHORT)
+                Toast.makeText(requireContext(), R.string.error_image_save, Toast.LENGTH_SHORT)
                     .show()
             }
         }
