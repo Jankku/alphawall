@@ -12,22 +12,38 @@
             type="com.jankku.alphawall.database.model.Wallpaper" />
     </data>
 
-    <com.google.android.material.card.MaterialCardView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/spacing_eighth"
-        app:cardCornerRadius="@dimen/card_corner_radius"
-        app:cardPreventCornerOverlap="false">
+        android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/ivWallpaper"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/image_height"
-            android:background="@color/purple_800"
-            android:contentDescription="@string/item_description"
-            app:imageUrl="@{wallpaper.thumbUrl}"
-            tools:src="@color/black" />
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="@dimen/spacing_eighth"
+            app:cardCornerRadius="@dimen/card_corner_radius"
+            app:cardElevation="@dimen/card_elevation"
+            app:cardPreventCornerOverlap="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-    </com.google.android.material.card.MaterialCardView>
+            <ImageView
+                android:id="@+id/ivWallpaper"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/purple_800"
+                android:contentDescription="@string/item_description"
+                app:imageUrl="@{wallpaper.thumbUrl}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@color/black" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
