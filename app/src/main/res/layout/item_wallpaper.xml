@@ -36,6 +36,7 @@
                 android:background="@color/purple_800"
                 android:contentDescription="@string/item_description"
                 app:imageUrl="@{wallpaper.thumbUrl}"
+                android:scaleType="centerCrop"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
