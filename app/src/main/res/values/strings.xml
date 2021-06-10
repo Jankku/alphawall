@@ -90,7 +90,5 @@
 
     <string name="api_key" translatable="false">api</string>
     <string name="api_title" translatable="false">Powered By Wallpaper Abyss</string>
-    <string name="api_summary">https://wall.alphacoders.com/api.php</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="api_summary">https://wall.alphacoders.com</string>
 </resources>
