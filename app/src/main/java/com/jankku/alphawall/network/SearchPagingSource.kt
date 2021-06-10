@@ -32,8 +32,4 @@ class SearchPagingSource(
     }
 
     override fun getRefreshKey(state: PagingState<Int, Wallpaper>): Int = STARTING_PAGE_INDEX
-
-    fun responseHasWallpapersArray(response: NetworkSearchResponse): Boolean {
-        return response.javaClass.kotlin.members.any { it.name == "wallpapers" }
-    }
 }

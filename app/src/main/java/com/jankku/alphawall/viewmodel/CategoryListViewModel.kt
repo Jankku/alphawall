@@ -16,13 +16,13 @@ class CategoryListViewModel(private val repository: WallpaperRepository) : ViewM
     private val _isLoading: MutableLiveData<Boolean> = MutableLiveData(false)
     val isLoading: LiveData<Boolean> get() = _isLoading
 
-    fun setLoadingStatus(value: Boolean) {
+    private fun setLoadingStatus(value: Boolean) {
         _isLoading.postValue(value)
     }
 
     init {
-        saveCategoriesToDB()
         fetchCategories()
+        saveCategoriesToDB()
     }
 
     private fun fetchCategories() {

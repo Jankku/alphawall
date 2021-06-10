@@ -29,7 +29,8 @@ class WallpaperRepository(
             remoteMediator = WallpaperRemoteMediator(api, database, sortMethod),
             config = PagingConfig(
                 pageSize = PAGE_SIZE,
-                prefetchDistance = PAGE_SIZE + (PAGE_SIZE * 2),
+                prefetchDistance = PAGE_SIZE * 2,
+                initialLoadSize = PAGE_SIZE + (PAGE_SIZE * 2)
             )
         ).flow
     }
@@ -39,7 +40,8 @@ class WallpaperRepository(
             pagingSourceFactory = { CategoryPagingSource(api, category) },
             config = PagingConfig(
                 pageSize = PAGE_SIZE,
-                prefetchDistance = PAGE_SIZE + (PAGE_SIZE * 2),
+                prefetchDistance = PAGE_SIZE * 2,
+                initialLoadSize = PAGE_SIZE + (PAGE_SIZE * 2)
             )
         ).flow
     }
@@ -70,7 +72,8 @@ class WallpaperRepository(
             pagingSourceFactory = { SearchPagingSource(api, term) },
             config = PagingConfig(
                 pageSize = PAGE_SIZE,
-                prefetchDistance = PAGE_SIZE + (PAGE_SIZE * 2),
+                prefetchDistance = PAGE_SIZE * 2,
+                initialLoadSize = PAGE_SIZE + (PAGE_SIZE * 2)
             )
         ).flow
     }
