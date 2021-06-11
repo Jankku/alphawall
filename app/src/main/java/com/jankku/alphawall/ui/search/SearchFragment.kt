@@ -28,6 +28,8 @@ import kotlinx.coroutines.launch
 @ExperimentalPagingApi
 class SearchFragment : BaseFragment() {
 
+    override var bottomNavigationVisibility = View.GONE
+
     private lateinit var application: Application
     private var _binding: FragmentSearchBinding? = null
     private val binding get() = _binding!!

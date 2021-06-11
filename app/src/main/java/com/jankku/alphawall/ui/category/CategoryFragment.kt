@@ -26,6 +26,8 @@ import kotlinx.coroutines.launch
 @ExperimentalPagingApi
 class CategoryFragment : BaseFragment() {
 
+    override var bottomNavigationVisibility = View.GONE
+
     private lateinit var application: Application
     private var _binding: FragmentCategoryBinding? = null
     private val binding get() = _binding!!
