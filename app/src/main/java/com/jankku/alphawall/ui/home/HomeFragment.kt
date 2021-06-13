@@ -17,6 +17,7 @@ import com.jankku.alphawall.AlphaWallApplication
 import com.jankku.alphawall.R
 import com.jankku.alphawall.adapter.WallpaperAdapter
 import com.jankku.alphawall.adapter.WallpaperLoadingStateAdapter
+import com.jankku.alphawall.database.model.SortMethod
 import com.jankku.alphawall.databinding.FragmentHomeBinding
 import com.jankku.alphawall.ui.BaseFragment
 import com.jankku.alphawall.viewmodel.HomeViewModel
@@ -179,19 +180,19 @@ class HomeFragment : BaseFragment() {
             .setSingleChoiceItems(sortMethods, checkedId) { _, which ->
                 when (which) {
                     0 -> {
-                        checkedString = sortMethods[0]
+                        checkedString = SortMethod.NEWEST
                         checkedId = 0
                     }
                     1 -> {
-                        checkedString = sortMethods[1]
+                        checkedString = SortMethod.RATING
                         checkedId = 1
                     }
                     2 -> {
-                        checkedString = sortMethods[2]
+                        checkedString = SortMethod.VIEWS
                         checkedId = 2
                     }
                     3 -> {
-                        checkedString = sortMethods[3]
+                        checkedString = SortMethod.FAVORITES
                         checkedId = 3
                     }
                     else -> {
@@ -202,9 +203,7 @@ class HomeFragment : BaseFragment() {
             }
             .setPositiveButton(resources.getString(R.string.dialog_sort_button)) { _, _ ->
                 viewModel.setSortMethodId(checkedId)
-                viewModel.fetchWallpapers(checkedString.lowercase())
-                adapter.refresh()
-
+                viewModel.fetchWallpapers(checkedString)
             }.show()
     }
 }
