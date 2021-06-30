@@ -22,6 +22,6 @@
 
 ## Download
 
-Get the app [from releases](https://github.com/Jankku/alphawall/releases) page.
+Get the app from [releases page](https://github.com/Jankku/alphawall/releases).
 
 [Powered By Wallpaper Abyss](https://wall.alphacoders.com)
