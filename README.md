@@ -20,4 +20,8 @@
     -   Retrofit
     -   ZoomHelper
 
+## Download
+
+Get the app [from releases](https://github.com/Jankku/alphawall/releases) page.
+
 [Powered By Wallpaper Abyss](https://wall.alphacoders.com)
