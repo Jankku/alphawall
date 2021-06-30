@@ -1,6 +1,6 @@
 # AlphaWall
 
-Screenshot here
+![image](screenshots.png)
 
 ## Tech-stack
 
