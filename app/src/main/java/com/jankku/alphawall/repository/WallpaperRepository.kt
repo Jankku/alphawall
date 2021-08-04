@@ -11,7 +11,7 @@ import com.jankku.alphawall.database.model.Wallpaper
 import com.jankku.alphawall.network.AlphaCodersApiService
 import com.jankku.alphawall.network.CategoryPagingSource
 import com.jankku.alphawall.network.SearchPagingSource
-import com.jankku.alphawall.network.WallpaperRemoteMediator
+import com.jankku.alphawall.network.WallpaperPagingSource
 import com.jankku.alphawall.util.Constants.PAGE_SIZE
 import kotlinx.coroutines.flow.Flow
 import retrofit2.HttpException
@@ -25,8 +25,7 @@ class WallpaperRepository(
 
     fun fetchWallpapers(sortMethod: String): Flow<PagingData<Wallpaper>> {
         return Pager(
-            pagingSourceFactory = { database.wallpaperDao().getAll() },
-            remoteMediator = WallpaperRemoteMediator(api, database, sortMethod),
+            pagingSourceFactory = { WallpaperPagingSource(api, sortMethod) },
             config = PagingConfig(
                 pageSize = PAGE_SIZE,
                 prefetchDistance = PAGE_SIZE * 2,
@@ -46,10 +45,6 @@ class WallpaperRepository(
         ).flow
     }
 
-    fun fetchCategories(): Flow<List<Category>> {
-        return database.categoryDao().getAll()
-    }
-
     suspend fun saveCategoriesToDatabase() {
         try {
             val response = api.getCategoryList(
@@ -65,6 +60,10 @@ class WallpaperRepository(
         } catch (e: HttpException) {
             e.printStackTrace()
         }
+    }
+
+    fun fetchCategories(): Flow<List<Category>> {
+        return database.categoryDao().getAll()
     }
 
     fun search(term: String): Flow<PagingData<Wallpaper>> {

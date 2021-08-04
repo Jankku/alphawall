@@ -5,7 +5,6 @@ import android.content.Context
 import android.os.Bundle
 import android.view.*
 import androidx.core.view.isVisible
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -51,9 +50,8 @@ class HomeFragment : BaseFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = DataBindingUtil.inflate(
+        _binding = FragmentHomeBinding.inflate(
             inflater,
-            R.layout.fragment_home,
             container,
             false
         )
@@ -92,11 +90,11 @@ class HomeFragment : BaseFragment() {
             if (_binding != null) {
                 lifecycleScope.launch {
                     binding.rvWallpaper.isVisible =
-                        loadState.mediator?.refresh is LoadState.NotLoading
-                    binding.progressBar.isVisible = loadState.mediator?.refresh is LoadState.Loading
-                    binding.btnLoadRetry.isVisible = loadState.mediator?.refresh is LoadState.Error
+                        loadState.source.refresh is LoadState.NotLoading
+                    binding.progressBar.isVisible = loadState.source.refresh is LoadState.Loading
+                    binding.btnLoadRetry.isVisible = loadState.source.refresh is LoadState.Error
                     binding.tvLoadErrorMessage.isVisible =
-                        loadState.mediator?.refresh is LoadState.Error
+                        loadState.source.refresh is LoadState.Error
                 }
             }
         }

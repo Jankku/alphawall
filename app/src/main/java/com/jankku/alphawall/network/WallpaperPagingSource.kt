@@ -3,22 +3,21 @@ package com.jankku.alphawall.network
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.jankku.alphawall.BuildConfig
-import com.jankku.alphawall.database.model.Category
 import com.jankku.alphawall.database.model.Wallpaper
 import com.jankku.alphawall.util.Constants.STARTING_PAGE_INDEX
 
-class CategoryPagingSource(
+class WallpaperPagingSource(
     private val api: AlphaCodersApiService,
-    private val category: Category
+    private val sortMethod: String
 ) : PagingSource<Int, Wallpaper>() {
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Wallpaper> {
         val page = params.key ?: STARTING_PAGE_INDEX
         return try {
-            val response = api.getCategory(
+            val response = api.getWallpapers(
                 apiKey = BuildConfig.apiKey,
-                method = "category",
-                id = category.id.toInt(),
+                method = "featured",
+                sort = sortMethod,
                 page = page,
                 infoLevel = 2,
                 checkIfLastPage = 1
