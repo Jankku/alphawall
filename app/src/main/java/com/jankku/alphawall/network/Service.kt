@@ -16,9 +16,11 @@ private val okHttpClient = OkHttpClient
     .addNetworkInterceptor { chain ->
         val request = chain.request()
         val response = chain.proceed(request)
+
         if (BuildConfig.DEBUG) {
             Log.d("LOG_RESPONSE", response.request().url().toString())
         }
+
         return@addNetworkInterceptor response
     }.build()
 

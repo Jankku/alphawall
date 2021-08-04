@@ -22,6 +22,8 @@ import com.jankku.alphawall.util.Keyboard.Companion.hideKeyboard
 import com.jankku.alphawall.util.Keyboard.Companion.showKeyboard
 import com.jankku.alphawall.viewmodel.SearchViewModel
 import com.jankku.alphawall.viewmodel.SearchViewModelFactory
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
 
@@ -52,10 +54,11 @@ class SearchFragment : BaseFragment() {
     ): View {
         _binding = FragmentSearchBinding.inflate(layoutInflater)
 
+        setupSearchGuide()
+        setupSearch()
         setupObservers()
         setupAdapter()
         setupRecyclerView()
-        setupSearch()
         setupScrollToTop()
 
         return binding.root
@@ -63,7 +66,11 @@ class SearchFragment : BaseFragment() {
 
     override fun onStart() {
         super.onStart()
-        setupSearch()
+
+        // Show search guide only on initial load
+        if (viewModel.searchDone.value == true) {
+            viewModel.hideSearchGuide()
+        }
     }
 
     override fun onDestroyView() {
@@ -74,24 +81,28 @@ class SearchFragment : BaseFragment() {
     }
 
     private fun setupSearch() {
-        var handled = false
+        var searchHandled = false
+
+        // Show keyboard only on initial load
         if (!keyboardShownOnce) {
-            binding.guideSearch.clSearchGuide.visibility = View.VISIBLE
             binding.tietSearch.showKeyboard()
             keyboardShownOnce = true
         }
+
         val searchTerm = binding.tietSearch.text
+
         binding.tietSearch.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 if (searchTerm?.isNotBlank() == true) {
-                    binding.guideSearch.clSearchGuide.visibility = View.GONE
+                    viewModel.hideSearchGuide()
                     binding.tietSearch.clearFocus()
                     binding.tietSearch.hideKeyboard()
                     viewModel.search(searchTerm.toString())
-                    handled = true
+                    viewModel.setSearchDoneValue(true)
+                    searchHandled = true
                 }
             }
-            handled
+            searchHandled
         }
     }
 
@@ -128,6 +139,21 @@ class SearchFragment : BaseFragment() {
             adapter.submitData(lifecycle, pagingData)
         }
     }
+
+    private fun setupSearchGuide() {
+        viewModel.searchGuideFlow.onEach { event ->
+            when (event) {
+                is SearchViewModel.Event.SearchGuide -> {
+                    if (event.hideSearchGuide) {
+                        binding.guideSearch.clSearchGuide.visibility = View.GONE
+                    } else {
+                        binding.guideSearch.clSearchGuide.visibility = View.VISIBLE
+                    }
+                }
+            }
+        }.launchIn(viewLifecycleOwner.lifecycleScope)
+    }
+
 
     private fun setupScrollToTop() {
         binding.fabUp.hide()
