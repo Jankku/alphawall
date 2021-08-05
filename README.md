@@ -2,7 +2,7 @@
 
 ![image](screenshots.png)
 
-## Tech-stack
+## Tech stack
 
 -   Kotlin
 -   Coroutines
