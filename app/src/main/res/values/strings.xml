@@ -21,10 +21,10 @@
     <!-- Sort dialog -->
     <string name="dialog_sort_title">Sort wallpapers by</string>
     <string name="dialog_sort_button">Apply</string>
-    <string name="dialog_sort_newest">newest</string>
-    <string name="dialog_sort_rating">rating</string>
-    <string name="dialog_sort_views">views</string>
-    <string name="dialog_sort_favorites">favorites</string>
+    <string name="dialog_sort_newest">Newest</string>
+    <string name="dialog_sort_rating">Rating</string>
+    <string name="dialog_sort_views">Views</string>
+    <string name="dialog_sort_favorites">Favorites</string>
 
     <!-- Bottom navigation -->
     <string name="menu_bottom_nav_home">Home</string>
