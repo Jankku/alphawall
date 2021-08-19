@@ -26,6 +26,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
+private const val TAG = "SearchFragment"
 
 @ExperimentalPagingApi
 class SearchFragment : BaseFragment() {
@@ -55,7 +56,6 @@ class SearchFragment : BaseFragment() {
         _binding = FragmentSearchBinding.inflate(layoutInflater)
 
         setupSearchGuide()
-        setupSearch()
         setupObservers()
         setupAdapter()
         setupRecyclerView()
@@ -66,6 +66,8 @@ class SearchFragment : BaseFragment() {
 
     override fun onStart() {
         super.onStart()
+
+        setupSearch()
 
         // Show search guide only on initial load
         if (viewModel.searchDone.value == true) {
