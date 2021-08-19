@@ -20,8 +20,6 @@ import com.jankku.alphawall.databinding.FragmentSearchBinding
 import com.jankku.alphawall.ui.BaseFragment
 import com.jankku.alphawall.util.Keyboard.Companion.hideKeyboard
 import com.jankku.alphawall.util.Keyboard.Companion.showKeyboard
-import com.jankku.alphawall.viewmodel.SearchViewModel
-import com.jankku.alphawall.viewmodel.SearchViewModelFactory
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch

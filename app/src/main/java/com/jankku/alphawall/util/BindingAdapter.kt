@@ -11,7 +11,7 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.jankku.alphawall.R
-import com.jankku.alphawall.viewmodel.WallpaperDetailViewModel
+import com.jankku.alphawall.ui.detail.WallpaperDetailViewModel
 
 /**
  * Binding adapter used to display images from URL using Glide

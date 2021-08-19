@@ -37,7 +37,7 @@
 
     <fragment
         android:id="@+id/wallpaperDetailFragment"
-        android:name="com.jankku.alphawall.ui.WallpaperDetailFragment"
+        android:name="com.jankku.alphawall.ui.detail.WallpaperDetailFragment"
         android:label="@string/navigation_detail_label"
         tools:layout="@layout/fragment_detail">
         <argument

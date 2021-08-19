@@ -1,4 +1,4 @@
-package com.jankku.alphawall.ui
+package com.jankku.alphawall.ui.detail
 
 import android.Manifest
 import android.app.Application
@@ -22,12 +22,11 @@ import androidx.paging.ExperimentalPagingApi
 import com.google.android.material.snackbar.Snackbar
 import com.jankku.alphawall.R
 import com.jankku.alphawall.databinding.FragmentDetailBinding
+import com.jankku.alphawall.ui.BaseFragment
 import com.jankku.alphawall.util.Constants.DOWNLOAD_QUALITY
 import com.jankku.alphawall.util.Constants.DOWNLOAD_RELATIVE_PATH
 import com.jankku.alphawall.util.Constants.DOWNLOAD_RELATIVE_PATH_PRE_Q
 import com.jankku.alphawall.util.GlideApp
-import com.jankku.alphawall.viewmodel.WallpaperDetailViewModel
-import com.jankku.alphawall.viewmodel.WallpaperDetailViewModelFactory
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext

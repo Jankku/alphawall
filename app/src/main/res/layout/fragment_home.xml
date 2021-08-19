@@ -8,7 +8,7 @@
 
         <variable
             name="viewModel"
-            type="com.jankku.alphawall.viewmodel.HomeViewModel" />
+            type="com.jankku.alphawall.ui.home.HomeViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

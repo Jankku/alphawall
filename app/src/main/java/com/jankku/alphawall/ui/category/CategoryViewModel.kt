@@ -1,44 +1,36 @@
-package com.jankku.alphawall.viewmodel
+package com.jankku.alphawall.ui.category
 
 import androidx.lifecycle.*
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
+import com.jankku.alphawall.database.model.Category
 import com.jankku.alphawall.database.model.Wallpaper
 import com.jankku.alphawall.repository.WallpaperRepository
-import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
 @ExperimentalPagingApi
-class SearchViewModel(private val repository: WallpaperRepository) : ViewModel() {
-    sealed class Event {
-        data class SearchGuide(val hideSearchGuide: Boolean) : Event()
-    }
+class CategoryViewModel(
+    private val category: Category,
+    private val repository: WallpaperRepository
+) : ViewModel() {
 
     private val _wallpapers: MutableLiveData<PagingData<Wallpaper>> = MutableLiveData()
     val wallpapers: LiveData<PagingData<Wallpaper>> get() = _wallpapers
 
-    private val seachGuideChannel = Channel<Event>(Channel.BUFFERED)
-    val searchGuideFlow = seachGuideChannel.receiveAsFlow()
+    private val _retryBtnClick: MutableLiveData<Boolean> = MutableLiveData(false)
+    val retryBtnClick: LiveData<Boolean> get() = _retryBtnClick
 
-    private val _searchDone = MutableLiveData(false)
-    val searchDone get() = _searchDone
-
-    fun hideSearchGuide() = viewModelScope.launch {
-        seachGuideChannel.send(Event.SearchGuide(true))
+    init {
+        fetchWallpapersFromCategory()
     }
 
-    fun setSearchDoneValue(value: Boolean) {
-        _searchDone.postValue(value)
-    }
-
-    fun search(term: String) {
+    private fun fetchWallpapersFromCategory() {
         viewModelScope.launch {
             repository
-                .search(term)
+                .fetchWallpapersFromCategory(category)
                 .distinctUntilChanged()
                 .cachedIn(viewModelScope)
                 .collect { pagingData ->
@@ -46,15 +38,22 @@ class SearchViewModel(private val repository: WallpaperRepository) : ViewModel()
                 }
         }
     }
+
+    fun setRetryBtnClick(value: Boolean) {
+        _retryBtnClick.postValue(value)
+    }
 }
 
 @ExperimentalPagingApi
-class SearchViewModelFactory(private val repository: WallpaperRepository) :
+class CategoryViewModelFactory(
+    private val category: Category,
+    private val repository: WallpaperRepository
+) :
     ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(SearchViewModel::class.java)) {
+        if (modelClass.isAssignableFrom(CategoryViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
-            return SearchViewModel(repository) as T
+            return CategoryViewModel(category, repository) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

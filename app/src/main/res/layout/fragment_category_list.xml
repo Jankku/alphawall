@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.jankku.alphawall.viewmodel.CategoryListViewModel" />
+            type="com.jankku.alphawall.ui.categorylist.CategoryListViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

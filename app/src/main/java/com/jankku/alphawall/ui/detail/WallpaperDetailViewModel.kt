@@ -1,4 +1,4 @@
-package com.jankku.alphawall.viewmodel
+package com.jankku.alphawall.ui.detail
 
 import androidx.lifecycle.*
 import com.jankku.alphawall.database.model.Wallpaper

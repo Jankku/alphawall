@@ -19,8 +19,6 @@ import com.jankku.alphawall.adapter.WallpaperLoadingStateAdapter
 import com.jankku.alphawall.database.model.SortMethod
 import com.jankku.alphawall.databinding.FragmentHomeBinding
 import com.jankku.alphawall.ui.BaseFragment
-import com.jankku.alphawall.viewmodel.HomeViewModel
-import com.jankku.alphawall.viewmodel.HomeViewModelFactory
 import kotlinx.coroutines.launch
 
 @ExperimentalPagingApi

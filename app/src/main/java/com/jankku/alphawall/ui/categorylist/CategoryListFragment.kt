@@ -14,8 +14,6 @@ import com.jankku.alphawall.AlphaWallApplication
 import com.jankku.alphawall.adapter.CategoryListAdapter
 import com.jankku.alphawall.databinding.FragmentCategoryListBinding
 import com.jankku.alphawall.ui.BaseFragment
-import com.jankku.alphawall.viewmodel.CategoryListViewModel
-import com.jankku.alphawall.viewmodel.CategoryListViewModelFactory
 import kotlinx.coroutines.launch
 
 @ExperimentalPagingApi

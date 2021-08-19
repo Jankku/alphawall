@@ -19,8 +19,6 @@ import com.jankku.alphawall.adapter.WallpaperAdapter
 import com.jankku.alphawall.adapter.WallpaperLoadingStateAdapter
 import com.jankku.alphawall.databinding.FragmentCategoryBinding
 import com.jankku.alphawall.ui.BaseFragment
-import com.jankku.alphawall.viewmodel.CategoryViewModel
-import com.jankku.alphawall.viewmodel.CategoryViewModelFactory
 import kotlinx.coroutines.launch
 
 @ExperimentalPagingApi

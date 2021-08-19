@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.jankku.alphawall.viewmodel.WallpaperDetailViewModel" />
+            type="com.jankku.alphawall.ui.detail.WallpaperDetailViewModel" />
     </data>
 
     <ScrollView

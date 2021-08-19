@@ -1,4 +1,4 @@
-package com.jankku.alphawall.viewmodel
+package com.jankku.alphawall.ui.categorylist
 
 import androidx.lifecycle.*
 import androidx.paging.ExperimentalPagingApi
