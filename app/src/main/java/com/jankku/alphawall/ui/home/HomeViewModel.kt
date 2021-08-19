@@ -1,7 +1,6 @@
 package com.jankku.alphawall.ui.home
 
 import androidx.lifecycle.*
-import androidx.paging.ExperimentalPagingApi
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.jankku.alphawall.database.model.SortMethod
@@ -11,7 +10,6 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
 
-@ExperimentalPagingApi
 class HomeViewModel(private val repository: WallpaperRepository) : ViewModel() {
 
     private val _sortMethodId: MutableLiveData<Int> = MutableLiveData()
@@ -55,7 +53,6 @@ class HomeViewModel(private val repository: WallpaperRepository) : ViewModel() {
     }
 }
 
-@ExperimentalPagingApi
 class HomeViewModelFactory(private val repository: WallpaperRepository) :
     ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {

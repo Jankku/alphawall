@@ -11,7 +11,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.RecyclerView
 import com.jankku.alphawall.AlphaWallApplication
@@ -21,7 +20,6 @@ import com.jankku.alphawall.databinding.FragmentCategoryBinding
 import com.jankku.alphawall.ui.BaseFragment
 import kotlinx.coroutines.launch
 
-@ExperimentalPagingApi
 class CategoryFragment : BaseFragment() {
 
     override var bottomNavigationVisibility = View.GONE

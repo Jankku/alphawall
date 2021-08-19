@@ -19,7 +19,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
-import androidx.paging.ExperimentalPagingApi
 import com.google.android.material.snackbar.Snackbar
 import com.jankku.alphawall.R
 import com.jankku.alphawall.databinding.FragmentDetailBinding
@@ -35,7 +34,6 @@ import java.io.File
 import java.io.FileOutputStream
 import java.io.OutputStream
 
-@ExperimentalPagingApi
 class WallpaperDetailFragment : BaseFragment() {
 
     override var bottomNavigationVisibility = View.GONE

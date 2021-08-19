@@ -9,14 +9,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import androidx.paging.ExperimentalPagingApi
 import com.jankku.alphawall.AlphaWallApplication
 import com.jankku.alphawall.adapter.CategoryListAdapter
 import com.jankku.alphawall.databinding.FragmentCategoryListBinding
 import com.jankku.alphawall.ui.BaseFragment
 import kotlinx.coroutines.launch
 
-@ExperimentalPagingApi
 class CategoryListFragment : BaseFragment() {
 
     private lateinit var application: Application

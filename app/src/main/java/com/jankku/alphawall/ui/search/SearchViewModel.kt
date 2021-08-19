@@ -1,7 +1,6 @@
 package com.jankku.alphawall.ui.search
 
 import androidx.lifecycle.*
-import androidx.paging.ExperimentalPagingApi
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.jankku.alphawall.database.model.Wallpaper
@@ -12,7 +11,6 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
-@ExperimentalPagingApi
 class SearchViewModel(private val repository: WallpaperRepository) : ViewModel() {
     sealed class Event {
         data class SearchGuide(val hideSearchGuide: Boolean) : Event()
@@ -48,7 +46,6 @@ class SearchViewModel(private val repository: WallpaperRepository) : ViewModel()
     }
 }
 
-@ExperimentalPagingApi
 class SearchViewModelFactory(private val repository: WallpaperRepository) :
     ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {

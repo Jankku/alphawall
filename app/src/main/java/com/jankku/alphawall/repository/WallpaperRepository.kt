@@ -1,6 +1,5 @@
 package com.jankku.alphawall.repository
 
-import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
@@ -16,7 +15,6 @@ import kotlinx.coroutines.flow.Flow
 import retrofit2.HttpException
 import java.io.IOException
 
-@ExperimentalPagingApi
 class WallpaperRepository(
     private val api: AlphaCodersApiService,
     private val database: WallpaperDatabase

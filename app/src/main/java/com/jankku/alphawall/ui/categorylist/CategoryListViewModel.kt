@@ -1,14 +1,12 @@
 package com.jankku.alphawall.ui.categorylist
 
 import androidx.lifecycle.*
-import androidx.paging.ExperimentalPagingApi
 import com.jankku.alphawall.database.model.Category
 import com.jankku.alphawall.repository.WallpaperRepository
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
-@ExperimentalPagingApi
 class CategoryListViewModel(private val repository: WallpaperRepository) : ViewModel() {
     private val _categories: MutableLiveData<List<Category>> = MutableLiveData()
     val categories: LiveData<List<Category>> get() = _categories
@@ -45,7 +43,6 @@ class CategoryListViewModel(private val repository: WallpaperRepository) : ViewM
     }
 }
 
-@ExperimentalPagingApi
 class CategoryListViewModelFactory(private val repository: WallpaperRepository) :
     ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {

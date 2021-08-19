@@ -11,12 +11,10 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import androidx.paging.ExperimentalPagingApi
 import com.aghajari.zoomhelper.ZoomHelper
 import com.jankku.alphawall.R
 import com.jankku.alphawall.databinding.ActivityMainBinding
 
-@ExperimentalPagingApi
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var navHostFragment: NavHostFragment

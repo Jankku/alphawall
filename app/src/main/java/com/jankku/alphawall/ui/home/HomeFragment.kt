@@ -8,7 +8,6 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -21,7 +20,6 @@ import com.jankku.alphawall.databinding.FragmentHomeBinding
 import com.jankku.alphawall.ui.BaseFragment
 import kotlinx.coroutines.launch
 
-@ExperimentalPagingApi
 class HomeFragment : BaseFragment() {
 
     private lateinit var application: Application

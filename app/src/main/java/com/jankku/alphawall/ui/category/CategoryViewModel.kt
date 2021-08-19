@@ -1,7 +1,6 @@
 package com.jankku.alphawall.ui.category
 
 import androidx.lifecycle.*
-import androidx.paging.ExperimentalPagingApi
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.jankku.alphawall.database.model.Category
@@ -11,7 +10,6 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
 
-@ExperimentalPagingApi
 class CategoryViewModel(
     private val category: Category,
     private val repository: WallpaperRepository
@@ -44,7 +42,6 @@ class CategoryViewModel(
     }
 }
 
-@ExperimentalPagingApi
 class CategoryViewModelFactory(
     private val category: Category,
     private val repository: WallpaperRepository
