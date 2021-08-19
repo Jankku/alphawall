@@ -37,7 +37,7 @@ private val retrofit = Retrofit.Builder()
 interface AlphaCodersApiService {
     @GET("get.php")
     suspend fun getWallpapers(
-        @Query("auth") apiKey: String,
+        @Query("auth") apiKey: String = BuildConfig.apiKey,
         @Query("method") method: String,
         @Query("sort") sort: String,
         @Query("page") page: Int,
@@ -47,13 +47,13 @@ interface AlphaCodersApiService {
 
     @GET("get.php")
     suspend fun getCategoryList(
-        @Query("auth") apiKey: String,
+        @Query("auth") apiKey: String = BuildConfig.apiKey,
         @Query("method") method: String,
     ): NetworkCategoryResponse
 
     @GET("get.php")
     suspend fun getCategory(
-        @Query("auth") apiKey: String,
+        @Query("auth") apiKey: String = BuildConfig.apiKey,
         @Query("method") method: String,
         @Query("id") id: Int,
         @Query("page") page: Int,
@@ -63,7 +63,7 @@ interface AlphaCodersApiService {
 
     @GET("get.php")
     suspend fun search(
-        @Query("auth") apiKey: String,
+        @Query("auth") apiKey: String = BuildConfig.apiKey,
         @Query("method") method: String,
         @Query("term") term: String,
         @Query("page") page: Int,

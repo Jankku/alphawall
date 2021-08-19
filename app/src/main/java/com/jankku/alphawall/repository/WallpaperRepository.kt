@@ -4,7 +4,6 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import com.jankku.alphawall.BuildConfig
 import com.jankku.alphawall.database.WallpaperDatabase
 import com.jankku.alphawall.database.model.Category
 import com.jankku.alphawall.database.model.Wallpaper
@@ -48,7 +47,6 @@ class WallpaperRepository(
     suspend fun saveCategoriesToDatabase() {
         try {
             val response = api.getCategoryList(
-                apiKey = BuildConfig.apiKey,
                 method = "category_list"
             )
             if (response.success) {

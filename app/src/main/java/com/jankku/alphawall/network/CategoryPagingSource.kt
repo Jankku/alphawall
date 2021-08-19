@@ -2,7 +2,6 @@ package com.jankku.alphawall.network
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.jankku.alphawall.BuildConfig
 import com.jankku.alphawall.database.model.Category
 import com.jankku.alphawall.database.model.Wallpaper
 import com.jankku.alphawall.util.Constants.STARTING_PAGE_INDEX
@@ -16,7 +15,6 @@ class CategoryPagingSource(
         val page = params.key ?: STARTING_PAGE_INDEX
         return try {
             val response = api.getCategory(
-                apiKey = BuildConfig.apiKey,
                 method = "category",
                 id = category.id.toInt(),
                 page = page,

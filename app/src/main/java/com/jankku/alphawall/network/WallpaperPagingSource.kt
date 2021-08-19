@@ -2,7 +2,6 @@ package com.jankku.alphawall.network
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.jankku.alphawall.BuildConfig
 import com.jankku.alphawall.database.model.Wallpaper
 import com.jankku.alphawall.util.Constants.STARTING_PAGE_INDEX
 
@@ -15,7 +14,6 @@ class WallpaperPagingSource(
         val page = params.key ?: STARTING_PAGE_INDEX
         return try {
             val response = api.getWallpapers(
-                apiKey = BuildConfig.apiKey,
                 method = "featured",
                 sort = sortMethod,
                 page = page,
