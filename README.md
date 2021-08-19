@@ -7,18 +7,18 @@
 -   Kotlin
 -   Coroutines
 -   Flow
--   LiveData
 -   Libraries
-    -   Glide
-    -   Jetpack
-        -   Navigation
-        -   Paging 3
-        -   Preference
-        -   Room
-    -   LeakCanary
-    -   Moshi
-    -   Retrofit
-    -   ZoomHelper
+    - Glide
+    - Retrofit
+    - Moshi
+    - ZoomHelper
+    - LeakCanary
+    - Jetpack
+        - Navigation
+        - Paging 3
+        - Room
+        - LiveData
+        - Preference
 
 ## Download
 
