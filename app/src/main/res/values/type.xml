@@ -3,6 +3,8 @@
 
     <style name="TextAppearance.AlphaWall.Headline6" parent="TextAppearance.MaterialComponents.Headline6">
         <item name="android:textColor">@color/grey</item>
+        <item name="fontFamily">@font/opensans_bold</item>
+        <item name="android:fontFamily">@font/opensans_bold</item>
     </style>
 
     <style name="TextAppearance.AlphaWall.Body1" parent="TextAppearance.MaterialComponents.Body1">
@@ -12,30 +14,37 @@
     </style>
 
     <style name="TextAppearance.AlphaWall.Body2" parent="TextAppearance.MaterialComponents.Body2">
-        <item name="android:textStyle">bold</item>
+        <item name="fontFamily">@font/opensans_bold</item>
+        <item name="android:fontFamily">@font/opensans_bold</item>
         <item name="android:textColor">@color/grey</item>
         <item name="android:textSize">12sp</item>
     </style>
 
     <style name="TextAppearance.AlphaWall.Subtitle1" parent="TextAppearance.MaterialComponents.Subtitle1">
-        <item name="android:textStyle">bold</item>
+        <item name="fontFamily">@font/opensans_bold</item>
+        <item name="android:fontFamily">@font/opensans_bold</item>
         <item name="android:textColor">@color/text_color_secondary</item>
         <item name="android:textSize">14sp</item>
     </style>
 
     <style name="TextAppearance.AlphaWall.Subtitle2" parent="TextAppearance.MaterialComponents.Subtitle2">
-        <item name="android:textStyle">bold</item>
+        <item name="fontFamily">@font/opensans_bold</item>
+        <item name="android:fontFamily">@font/opensans_bold</item>
         <item name="android:textColor">@color/text_color_secondary</item>
         <item name="android:textSize">12sp</item>
     </style>
 
     <style name="TextAppearance.AlphaWall.Button" parent="TextAppearance.MaterialComponents.Button">
+        <item name="fontFamily">@font/opensans_bold</item>
+        <item name="android:fontFamily">@font/opensans_bold</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:textColor">@color/white</item>
+        <item name="android:textColor">@color/grey</item>
     </style>
 
     <style name="TextAppearance.AlphaWall.BottomNavigation" parent="TextAppearance.MaterialComponents.Caption">
-        <item name="android:letterSpacing">0.08</item>
+        <item name="android:letterSpacing">0.02</item>
+        <item name="fontFamily">@font/opensans_bold</item>
+        <item name="android:fontFamily">@font/opensans_bold</item>
     </style>
 
 </resources>

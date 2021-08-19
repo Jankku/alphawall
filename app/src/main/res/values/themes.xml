@@ -17,6 +17,7 @@
         <item name="appBarLayoutStyle">@style/Widget.AlphaWall.AppBarOverlay</item>
         <item name="toolbarStyle">@style/Widget.AlphaWall.ToolBar</item>
 
+        <item name="textAppearanceHeadline6">@style/TextAppearance.AlphaWall.Headline6</item>
         <item name="textAppearanceSubtitle1">@style/TextAppearance.AlphaWall.Subtitle1</item>
         <item name="textAppearanceBody1">@style/TextAppearance.AlphaWall.Body1</item>
         <item name="textAppearanceButton">@style/TextAppearance.AlphaWall.Button</item>

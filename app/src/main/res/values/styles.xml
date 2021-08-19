@@ -2,11 +2,13 @@
 <resources>
 
     <style name="Widget.AlphaWall.BottomNavigationView" parent="@style/Widget.MaterialComponents.BottomNavigationView.PrimarySurface">
-        <item name="labelVisibilityMode">selected</item>
+        <item name="labelVisibilityMode">labeled</item>
         <item name="android:background">?colorSurface</item>
         <item name="itemIconTint">@color/bottom_nav_item</item>
         <item name="itemTextColor">@color/bottom_nav_item</item>
         <item name="itemTextAppearanceActive">@style/TextAppearance.AlphaWall.BottomNavigation
+        </item>
+        <item name="itemTextAppearanceInactive">@style/TextAppearance.AlphaWall.BottomNavigation
         </item>
     </style>
 
