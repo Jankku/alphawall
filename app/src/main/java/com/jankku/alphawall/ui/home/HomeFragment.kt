@@ -45,7 +45,8 @@ class HomeFragment : BaseFragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentHomeBinding.inflate(
@@ -130,10 +131,11 @@ class HomeFragment : BaseFragment() {
         binding.rvWallpaper.addOnScrollListener(
             object : RecyclerView.OnScrollListener() {
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                    if (dy > 5)
+                    if (dy > 5) {
                         binding.fabUp.show()
-                    else if (dy < 0)
+                    } else if (dy < 0) {
                         binding.fabUp.hide()
+                    }
                 }
             })
         binding.fabUp.setOnClickListener {

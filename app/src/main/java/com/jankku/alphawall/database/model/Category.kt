@@ -13,4 +13,4 @@ data class Category(
     @Json(name = "id") val id: String,
     @Json(name = "name") val name: String,
     @Json(name = "count") val count: String,
-): Parcelable
+) : Parcelable

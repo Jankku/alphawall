@@ -25,7 +25,6 @@ class CategoryListFragment : BaseFragment() {
     private var _adapter: CategoryListAdapter? = null
     private val adapter get() = _adapter!!
 
-
     private val viewModel: CategoryListViewModel by viewModels {
         CategoryListViewModelFactory((application as AlphaWallApplication).repository)
     }
@@ -41,7 +40,8 @@ class CategoryListFragment : BaseFragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentCategoryListBinding.inflate(
@@ -92,4 +92,3 @@ class CategoryListFragment : BaseFragment() {
         }
     }
 }
-

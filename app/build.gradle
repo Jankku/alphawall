@@ -4,6 +4,7 @@ plugins {
     id 'kotlin-kapt'
     id 'kotlin-parcelize'
     id 'androidx.navigation.safeargs.kotlin'
+    id 'io.gitlab.arturbosch.detekt'
 }
 
 def apiKeyFile = rootProject.file("apikey.properties")
@@ -119,4 +120,17 @@ dependencies {
 
     // LeakCanary
     debugImplementation "com.squareup.leakcanary:leakcanary-android:2.7"
+
+    // Detekt
+    detekt("io.gitlab.arturbosch.detekt:detekt-formatting:$detekt_version")
+    detekt("io.gitlab.arturbosch.detekt:detekt-cli:$detekt_version")
+}
+
+detekt {
+    autoCorrect = true
+    reports {
+        xml {
+            enabled = false
+        }
+    }
 }

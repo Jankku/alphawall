@@ -1,6 +1,7 @@
 package com.jankku.alphawall.ui.detail
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.Application
 import android.content.*
 import android.content.pm.PackageManager
@@ -33,7 +34,6 @@ import kotlinx.coroutines.withContext
 import java.io.File
 import java.io.FileOutputStream
 import java.io.OutputStream
-
 
 @ExperimentalPagingApi
 class WallpaperDetailFragment : BaseFragment() {
@@ -70,7 +70,8 @@ class WallpaperDetailFragment : BaseFragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentDetailBinding.inflate(
@@ -245,6 +246,7 @@ class WallpaperDetailFragment : BaseFragment() {
         return exists
     }
 
+    @SuppressLint("Range")
     private suspend fun getImageContentUri(id: String): Uri {
         var contentUri: Uri = Uri.EMPTY
         withContext(Dispatchers.Default) {
@@ -298,7 +300,9 @@ class WallpaperDetailFragment : BaseFragment() {
                 outputStream = imageUri?.let { resolver.openOutputStream(it) }
             } else {
                 val imagesDir =
-                    Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES + DOWNLOAD_RELATIVE_PATH_PRE_Q)
+                    Environment.getExternalStoragePublicDirectory(
+                        Environment.DIRECTORY_PICTURES + DOWNLOAD_RELATIVE_PATH_PRE_Q
+                    )
                 if (!imagesDir.exists()) {
                     imagesDir.mkdirs()
                 }

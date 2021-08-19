@@ -18,13 +18,11 @@ import com.jankku.alphawall.AlphaWallApplication
 import com.jankku.alphawall.adapter.WallpaperAdapter
 import com.jankku.alphawall.databinding.FragmentSearchBinding
 import com.jankku.alphawall.ui.BaseFragment
-import com.jankku.alphawall.util.Keyboard.Companion.hideKeyboard
-import com.jankku.alphawall.util.Keyboard.Companion.showKeyboard
+import com.jankku.alphawall.util.hideKeyboard
+import com.jankku.alphawall.util.showKeyboard
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
-
-private const val TAG = "SearchFragment"
 
 @ExperimentalPagingApi
 class SearchFragment : BaseFragment() {
@@ -48,7 +46,8 @@ class SearchFragment : BaseFragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentSearchBinding.inflate(layoutInflater)
@@ -154,16 +153,16 @@ class SearchFragment : BaseFragment() {
         }.launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
-
     private fun setupScrollToTop() {
         binding.fabUp.hide()
         binding.rvSearch.addOnScrollListener(
             object : RecyclerView.OnScrollListener() {
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                    if (dy > 5)
+                    if (dy > 5) {
                         binding.fabUp.show()
-                    else if (dy < 0)
+                    } else if (dy < 0) {
                         binding.fabUp.hide()
+                    }
                 }
             })
         binding.fabUp.setOnClickListener {

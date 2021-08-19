@@ -10,19 +10,26 @@ buildscript {
         retrofit_version = "2.9.0"
         glide_version = "4.12.0"
         moshi_version = "1.12.0"
+        detekt_version = "1.18.0"
     }
     repositories {
         google()
         mavenCentral()
         jcenter()
+        gradlePluginPortal()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.0.0'
+        classpath 'com.android.tools.build:gradle:7.0.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version"
+        classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:$detekt_version"
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
+}
+
+plugins {
+    id("io.gitlab.arturbosch.detekt").version("1.18.0")
 }
 
 allprojects {
@@ -30,6 +37,7 @@ allprojects {
         google()
         mavenCentral()
         jcenter()
+        gradlePluginPortal()
     }
 }
 

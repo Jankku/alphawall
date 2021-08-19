@@ -35,6 +35,7 @@ private val retrofit = Retrofit.Builder()
     .build()
 
 interface AlphaCodersApiService {
+    @Suppress("LongParameterList")
     @GET("get.php")
     suspend fun getWallpapers(
         @Query("auth") apiKey: String = BuildConfig.apiKey,
@@ -51,6 +52,7 @@ interface AlphaCodersApiService {
         @Query("method") method: String,
     ): NetworkCategoryResponse
 
+    @Suppress("LongParameterList")
     @GET("get.php")
     suspend fun getCategory(
         @Query("auth") apiKey: String = BuildConfig.apiKey,
