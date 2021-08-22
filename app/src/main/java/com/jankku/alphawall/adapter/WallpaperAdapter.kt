@@ -51,10 +51,10 @@ class WallpaperAdapter(private val clickListener: (Wallpaper) -> Unit) :
     companion object {
         object DiffCallback : DiffUtil.ItemCallback<Wallpaper>() {
             override fun areItemsTheSame(oldItem: Wallpaper, newItem: Wallpaper) =
-                oldItem == newItem
+                oldItem.id == newItem.id
 
             override fun areContentsTheSame(oldItem: Wallpaper, newItem: Wallpaper) =
-                oldItem.id == newItem.id
+                oldItem == newItem
         }
     }
 }
