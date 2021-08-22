@@ -132,5 +132,8 @@ detekt {
         xml {
             enabled = false
         }
+        sarif {
+            enabled = false
+        }
     }
 }
