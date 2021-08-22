@@ -13,6 +13,7 @@
     - Moshi
     - ZoomHelper
     - LeakCanary
+    - Detekt
     - Jetpack
         - Navigation
         - Paging 3
