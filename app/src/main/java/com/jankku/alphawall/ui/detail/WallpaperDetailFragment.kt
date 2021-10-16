@@ -19,6 +19,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
+import com.aghajari.zoomhelper.ZoomHelper
 import com.google.android.material.snackbar.Snackbar
 import com.jankku.alphawall.R
 import com.jankku.alphawall.databinding.FragmentDetailBinding
@@ -87,6 +88,7 @@ class WallpaperDetailFragment : BaseFragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        ZoomHelper.getInstance().release()
         binding.ivDetail.setImageBitmap(null)
         _binding = null
     }
