@@ -20,7 +20,7 @@ import com.jankku.alphawall.ui.detail.WallpaperDetailViewModel
 fun loadImage(imageView: ImageView, url: String?) {
     GlideApp.with(imageView.context)
         .load(url)
-        .override(400, 400)
+        .centerCrop()
         .error(R.drawable.ic_error)
         .into(imageView)
 }
