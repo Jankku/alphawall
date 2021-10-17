@@ -19,14 +19,14 @@ class SearchViewModel(private val repository: WallpaperRepository) : ViewModel()
     private val _wallpapers: MutableLiveData<PagingData<Wallpaper>> = MutableLiveData()
     val wallpapers: LiveData<PagingData<Wallpaper>> get() = _wallpapers
 
-    private val seachGuideChannel = Channel<Event>(Channel.BUFFERED)
-    val searchGuideFlow = seachGuideChannel.receiveAsFlow()
+    private val searchGuideChannel = Channel<Event>(Channel.BUFFERED)
+    val searchGuideFlow = searchGuideChannel.receiveAsFlow()
 
     private val _searchDone = MutableLiveData(false)
     val searchDone get() = _searchDone
 
     fun hideSearchGuide() = viewModelScope.launch {
-        seachGuideChannel.send(Event.SearchGuide(true))
+        searchGuideChannel.send(Event.SearchGuide(true))
     }
 
     fun setSearchDoneValue(value: Boolean) {
