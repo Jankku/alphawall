@@ -1,4 +1,4 @@
-package com.jankku.alphawall.adapter
+package com.jankku.alphawall.ui.common
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
