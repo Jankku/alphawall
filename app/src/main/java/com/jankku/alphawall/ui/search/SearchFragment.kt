@@ -9,18 +9,22 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.RecyclerView
 import com.jankku.alphawall.AlphaWallApplication
-import com.jankku.alphawall.adapter.WallpaperAdapter
+import com.jankku.alphawall.R
 import com.jankku.alphawall.databinding.FragmentSearchBinding
 import com.jankku.alphawall.ui.BaseFragment
+import com.jankku.alphawall.ui.common.FastGridLayoutManager
+import com.jankku.alphawall.ui.common.WallpaperAdapter
+import com.jankku.alphawall.util.Event
 import com.jankku.alphawall.util.hideKeyboard
 import com.jankku.alphawall.util.showKeyboard
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class SearchFragment : BaseFragment() {
@@ -127,6 +131,10 @@ class SearchFragment : BaseFragment() {
     private fun setupRecyclerView() {
         binding.rvSearch.let {
             it.setHasFixedSize(true)
+            it.layoutManager = FastGridLayoutManager(
+                requireContext(),
+                resources.getInteger(R.integer.wallpaper_grid_columns)
+            )
             it.adapter = adapter
         }
     }
@@ -138,21 +146,24 @@ class SearchFragment : BaseFragment() {
     }
 
     private fun setupSearchGuide() {
-        viewModel.searchGuideFlow.onEach { event ->
-            when (event) {
-                is SearchViewModel.Event.SearchGuide -> {
-                    if (event.hideSearchGuide) {
-                        binding.guideSearch.clSearchGuide.visibility = View.GONE
-                    } else {
-                        binding.guideSearch.clSearchGuide.visibility = View.VISIBLE
+        lifecycleScope.launch {
+            viewModel.searchGuideFlow
+                .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
+                .collect { event ->
+                    when (event) {
+                        is Event.SearchGuide -> {
+                            if (event.hideSearchGuide) {
+                                binding.guideSearch.clSearchGuide.visibility = View.GONE
+                            } else {
+                                binding.guideSearch.clSearchGuide.visibility = View.VISIBLE
+                            }
+                        }
                     }
                 }
-            }
-        }.launchIn(viewLifecycleOwner.lifecycleScope)
+        }
     }
 
     private fun setupScrollToTop() {
-        binding.fabUp.hide()
         binding.rvSearch.addOnScrollListener(
             object : RecyclerView.OnScrollListener() {
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {

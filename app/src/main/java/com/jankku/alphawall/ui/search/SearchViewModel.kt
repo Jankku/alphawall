@@ -5,6 +5,7 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.jankku.alphawall.database.model.Wallpaper
 import com.jankku.alphawall.repository.WallpaperRepository
+import com.jankku.alphawall.util.Event
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -12,10 +13,6 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
 class SearchViewModel(private val repository: WallpaperRepository) : ViewModel() {
-    sealed class Event {
-        data class SearchGuide(val hideSearchGuide: Boolean) : Event()
-    }
-
     private val _wallpapers: MutableLiveData<PagingData<Wallpaper>> = MutableLiveData()
     val wallpapers: LiveData<PagingData<Wallpaper>> get() = _wallpapers
 

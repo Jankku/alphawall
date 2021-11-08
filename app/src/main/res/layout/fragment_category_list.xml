@@ -31,20 +31,15 @@
             app:spanCount="@integer/category_grid_columns"
             tools:listitem="@layout/item_category" />
 
-        <LinearLayout
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/progressBar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="top|center"
-            android:orientation="vertical">
-
-            <com.google.android.material.progressindicator.LinearProgressIndicator
-                android:id="@+id/progressBar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:indeterminate="true"
-                app:isLoading="@{viewModel.isLoading()}" />
-
-        </LinearLayout>
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            app:isLoading="@{viewModel.isLoading()}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

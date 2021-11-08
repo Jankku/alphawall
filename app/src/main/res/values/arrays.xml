@@ -1,5 +1,12 @@
 <resources>
 
+    <string-array name="dialog_sort_values">
+        <item>@string/dialog_sort_newest</item>
+        <item>@string/dialog_sort_rating</item>
+        <item>@string/dialog_sort_views</item>
+        <item>@string/dialog_sort_favorites</item>
+    </string-array>
+
     <string-array name="view_mode_values">
         <item>@string/view_mode_value_list</item>
         <item>@string/view_mode_value_grid</item>

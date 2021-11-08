@@ -13,11 +13,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.jankku.alphawall.AlphaWallApplication
 import com.jankku.alphawall.R
-import com.jankku.alphawall.adapter.WallpaperAdapter
-import com.jankku.alphawall.adapter.WallpaperLoadingStateAdapter
-import com.jankku.alphawall.database.model.SortMethod
+import com.jankku.alphawall.database.model.SortStatus
 import com.jankku.alphawall.databinding.FragmentHomeBinding
 import com.jankku.alphawall.ui.BaseFragment
+import com.jankku.alphawall.ui.common.FastGridLayoutManager
+import com.jankku.alphawall.ui.common.WallpaperAdapter
+import com.jankku.alphawall.ui.common.WallpaperLoadingStateAdapter
 import kotlinx.coroutines.launch
 
 class HomeFragment : BaseFragment() {
@@ -100,6 +101,10 @@ class HomeFragment : BaseFragment() {
     private fun setupRecyclerView() {
         binding.rvWallpaper.let {
             it.setHasFixedSize(true)
+            it.layoutManager = FastGridLayoutManager(
+                requireContext(),
+                resources.getInteger(R.integer.wallpaper_grid_columns)
+            )
             it.adapter = adapter.withLoadStateHeaderAndFooter(
                 header = WallpaperLoadingStateAdapter { adapter.retry() },
                 footer = WallpaperLoadingStateAdapter { adapter.retry() }
@@ -148,9 +153,7 @@ class HomeFragment : BaseFragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_search -> {
-                // Navigate search fragment
-                val action = HomeFragmentDirections.actionHomeFragmentToSearchFragment()
-                findNavController().navigate(action)
+                findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToSearchFragment())
                 true
             }
             R.id.action_sort -> {
@@ -162,44 +165,17 @@ class HomeFragment : BaseFragment() {
     }
 
     private fun sortDialog() {
-        val sortMethods = arrayOf(
-            getString(R.string.dialog_sort_newest),
-            getString(R.string.dialog_sort_rating),
-            getString(R.string.dialog_sort_views),
-            getString(R.string.dialog_sort_favorites),
-        )
-        var checkedId = viewModel.sortMethodId.value ?: 0
-        var checkedString = sortMethods[0]
+        val checkedItem = viewModel.sortStatus.value!!.ordinal
+        val sortMethods = SortStatus.toArray()
 
         MaterialAlertDialogBuilder(requireContext())
             .setTitle(resources.getString(R.string.dialog_sort_title))
-            .setSingleChoiceItems(sortMethods, checkedId) { _, which ->
-                when (which) {
-                    0 -> {
-                        checkedString = SortMethod.NEWEST
-                        checkedId = 0
-                    }
-                    1 -> {
-                        checkedString = SortMethod.RATING
-                        checkedId = 1
-                    }
-                    2 -> {
-                        checkedString = SortMethod.VIEWS
-                        checkedId = 2
-                    }
-                    3 -> {
-                        checkedString = SortMethod.FAVORITES
-                        checkedId = 3
-                    }
-                    else -> {
-                        checkedString = sortMethods[0]
-                        checkedId = 0
-                    }
-                }
+            .setSingleChoiceItems(sortMethods, checkedItem) { _, index ->
+                val status = SortStatus.values()[index]
+                viewModel.setSortMethod(status)
             }
             .setPositiveButton(resources.getString(R.string.dialog_sort_button)) { _, _ ->
-                viewModel.setSortMethodId(checkedId)
-                viewModel.fetchWallpapers(checkedString)
+                viewModel.fetchWallpapers()
             }.show()
     }
 }

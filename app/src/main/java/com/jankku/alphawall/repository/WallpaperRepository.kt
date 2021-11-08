@@ -12,8 +12,6 @@ import com.jankku.alphawall.network.SearchPagingSource
 import com.jankku.alphawall.network.WallpaperPagingSource
 import com.jankku.alphawall.util.Constants.PAGE_SIZE
 import kotlinx.coroutines.flow.Flow
-import retrofit2.HttpException
-import java.io.IOException
 
 class WallpaperRepository(
     private val api: AlphaCodersApiService,
@@ -44,23 +42,17 @@ class WallpaperRepository(
 
     suspend fun saveCategoriesToDatabase() {
         try {
-            val response = api.getCategoryList(
-                method = "category_list"
-            )
+            val response = api.getCategoryList(method = "category_list")
             if (response.success) {
                 database.categoryDao().deleteAll()
                 database.categoryDao().insertAll(response.categories)
             }
-        } catch (e: IOException) {
-            e.printStackTrace()
-        } catch (e: HttpException) {
+        } catch (e: Exception) {
             e.printStackTrace()
         }
     }
 
-    fun fetchCategories(): Flow<List<Category>> {
-        return database.categoryDao().getAll()
-    }
+    fun fetchCategories() = database.categoryDao().getAll()
 
     fun search(term: String): Flow<PagingData<Wallpaper>> {
         return Pager(

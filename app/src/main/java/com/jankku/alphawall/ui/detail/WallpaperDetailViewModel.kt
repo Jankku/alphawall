@@ -6,8 +6,7 @@ import com.jankku.alphawall.database.model.Wallpaper
 class WallpaperDetailViewModel(wallpaper: Wallpaper) : ViewModel() {
 
     private val _wallpaper = liveData { emit(wallpaper) }
-    val wallpaper: LiveData<Wallpaper>
-        get() = _wallpaper
+    val wallpaper: LiveData<Wallpaper> get() = _wallpaper
 
     val isLoading = MutableLiveData(true)
     val networkError = MutableLiveData(false)

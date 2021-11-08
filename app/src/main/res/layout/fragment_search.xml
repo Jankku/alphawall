@@ -30,15 +30,6 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.progressindicator.LinearProgressIndicator
-        android:id="@+id/progressBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:indeterminate="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tilSearch" />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvSearch"
         android:layout_width="match_parent"
@@ -46,17 +37,25 @@
         android:orientation="vertical"
         android:overScrollMode="never"
         android:scrollbars="none"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tilSearch"
-        app:spanCount="@integer/wallpaper_grid_columns"
         tools:listitem="@layout/item_wallpaper" />
 
     <include
         android:id="@+id/guide_search"
         layout="@layout/guide_search" />
+
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/progressBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tilSearch" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_up"
@@ -64,6 +63,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/spacing_default"
         android:contentDescription="@string/fab_up"
+        android:visibility="gone"
         android:src="@drawable/ic_arrow_up"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />

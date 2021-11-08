@@ -3,7 +3,7 @@ package com.jankku.alphawall.ui.home
 import androidx.lifecycle.*
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.jankku.alphawall.database.model.SortMethod
+import com.jankku.alphawall.database.model.SortStatus
 import com.jankku.alphawall.database.model.Wallpaper
 import com.jankku.alphawall.repository.WallpaperRepository
 import kotlinx.coroutines.flow.collect
@@ -12,11 +12,8 @@ import kotlinx.coroutines.launch
 
 class HomeViewModel(private val repository: WallpaperRepository) : ViewModel() {
 
-    private val _sortMethodId: MutableLiveData<Int> = MutableLiveData()
-    val sortMethodId: LiveData<Int> get() = _sortMethodId
-
-    private val _sortMethod: MutableLiveData<String> = MutableLiveData(SortMethod.NEWEST)
-    val sortMethod: LiveData<String> get() = _sortMethod
+    private val _sortStatus: MutableLiveData<SortStatus> = MutableLiveData(SortStatus.NEWEST)
+    val sortStatus: LiveData<SortStatus> get() = _sortStatus
 
     private val _wallpapers: MutableLiveData<PagingData<Wallpaper>> = MutableLiveData()
     val wallpapers: LiveData<PagingData<Wallpaper>> get() = _wallpapers
@@ -25,13 +22,13 @@ class HomeViewModel(private val repository: WallpaperRepository) : ViewModel() {
     val retryBtnClick: LiveData<Boolean> get() = _retryBtnClick
 
     init {
-        fetchWallpapers(SortMethod.NEWEST)
+        fetchWallpapers()
     }
 
-    fun fetchWallpapers(sortMethod: String) {
+    fun fetchWallpapers() {
         viewModelScope.launch {
             repository
-                .fetchWallpapers(sortMethod)
+                .fetchWallpapers(sortStatus.value!!.value)
                 .distinctUntilChanged()
                 .cachedIn(viewModelScope)
                 .collect { pagingData ->
@@ -40,12 +37,8 @@ class HomeViewModel(private val repository: WallpaperRepository) : ViewModel() {
         }
     }
 
-    fun setSortMethodId(id: Int) {
-        _sortMethodId.postValue(id)
-    }
-
-    fun setSortMethod(method: String) {
-        _sortMethod.postValue(method)
+    fun setSortMethod(status: SortStatus) {
+        _sortStatus.postValue(status)
     }
 
     fun setRetryBtnClick(value: Boolean) {

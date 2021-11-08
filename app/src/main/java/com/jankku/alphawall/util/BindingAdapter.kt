@@ -32,7 +32,7 @@ fun loadImage(imageView: ImageView, url: String?) {
 fun detailImageLoad(
     imageView: ImageView,
     url: String,
-    viewModelWallpaper: WallpaperDetailViewModel
+    viewModel: WallpaperDetailViewModel
 ) {
     GlideApp.with(imageView.context)
         .load(url)
@@ -45,8 +45,8 @@ fun detailImageLoad(
                 target: Target<Drawable>?,
                 isFirstResource: Boolean
             ): Boolean {
-                viewModelWallpaper.isLoading.value = false
-                viewModelWallpaper.networkError.value = true
+                viewModel.isLoading.value = false
+                viewModel.networkError.value = true
                 return false
             }
 
@@ -57,7 +57,7 @@ fun detailImageLoad(
                 dataSource: DataSource?,
                 isFirstResource: Boolean
             ): Boolean {
-                viewModelWallpaper.isLoading.value = false
+                viewModel.isLoading.value = false
                 return false
             }
         })

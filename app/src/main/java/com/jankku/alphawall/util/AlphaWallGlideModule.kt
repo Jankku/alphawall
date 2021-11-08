@@ -9,7 +9,6 @@ import com.bumptech.glide.request.RequestOptions
 
 @GlideModule
 class AlphaWallGlideModule : AppGlideModule() {
-
     override fun applyOptions(context: Context, builder: GlideBuilder) {
         super.applyOptions(context, builder)
         builder.setDefaultRequestOptions(RequestOptions().format(DecodeFormat.PREFER_RGB_565))

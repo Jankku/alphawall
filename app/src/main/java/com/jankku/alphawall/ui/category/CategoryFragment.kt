@@ -14,10 +14,12 @@ import androidx.navigation.fragment.navArgs
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.RecyclerView
 import com.jankku.alphawall.AlphaWallApplication
-import com.jankku.alphawall.adapter.WallpaperAdapter
-import com.jankku.alphawall.adapter.WallpaperLoadingStateAdapter
+import com.jankku.alphawall.R
 import com.jankku.alphawall.databinding.FragmentCategoryBinding
 import com.jankku.alphawall.ui.BaseFragment
+import com.jankku.alphawall.ui.common.FastGridLayoutManager
+import com.jankku.alphawall.ui.common.WallpaperAdapter
+import com.jankku.alphawall.ui.common.WallpaperLoadingStateAdapter
 import kotlinx.coroutines.launch
 
 class CategoryFragment : BaseFragment() {
@@ -80,12 +82,11 @@ class CategoryFragment : BaseFragment() {
 
     private fun setupAdapter() {
         _adapter = WallpaperAdapter { wallpaper ->
-            // This is executed when clicking wallpaper
-            val action =
+            findNavController().navigate(
                 CategoryFragmentDirections.actionCategoryFragmentToWallpaperDetailFragment(
                     wallpaper
                 )
-            findNavController().navigate(action)
+            )
         }
 
         adapter.stateRestorationPolicy =
@@ -93,7 +94,7 @@ class CategoryFragment : BaseFragment() {
 
         adapter.addLoadStateListener { loadState ->
             if (_binding != null) {
-                lifecycleScope.launch {
+                viewLifecycleOwner.lifecycleScope.launch {
                     binding.rvCategoryDetail.isVisible =
                         loadState.source.refresh is LoadState.NotLoading
                     binding.progressBar.isVisible = loadState.source.refresh is LoadState.Loading
@@ -108,6 +109,10 @@ class CategoryFragment : BaseFragment() {
     private fun setupRecyclerView() {
         binding.rvCategoryDetail.let {
             it.setHasFixedSize(true)
+            it.layoutManager = FastGridLayoutManager(
+                requireContext(),
+                resources.getInteger(R.integer.wallpaper_grid_columns)
+            )
             it.adapter = adapter.withLoadStateHeaderAndFooter(
                 header = WallpaperLoadingStateAdapter { adapter.retry() },
                 footer = WallpaperLoadingStateAdapter { adapter.retry() }
