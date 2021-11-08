@@ -1,11 +1,11 @@
 package com.jankku.alphawall.network
 
-import android.util.Log
 import com.jankku.alphawall.BuildConfig
 import com.jankku.alphawall.util.Constants.BASE_URL
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
@@ -13,16 +13,8 @@ import retrofit2.http.Query
 
 private val okHttpClient = OkHttpClient
     .Builder()
-    .addNetworkInterceptor { chain ->
-        val request = chain.request()
-        val response = chain.proceed(request)
-
-        if (BuildConfig.DEBUG) {
-            Log.d("LOG_RESPONSE", response.request().url().toString())
-        }
-
-        return@addNetworkInterceptor response
-    }.build()
+    .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BASIC))
+    .build()
 
 private val moshi = Moshi.Builder()
     .add(KotlinJsonAdapterFactory())
