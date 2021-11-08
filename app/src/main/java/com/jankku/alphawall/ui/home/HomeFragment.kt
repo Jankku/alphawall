@@ -19,6 +19,7 @@ import com.jankku.alphawall.ui.BaseFragment
 import com.jankku.alphawall.ui.common.FastGridLayoutManager
 import com.jankku.alphawall.ui.common.WallpaperAdapter
 import com.jankku.alphawall.ui.common.WallpaperLoadingStateAdapter
+import com.jankku.alphawall.util.navigateSafe
 import kotlinx.coroutines.launch
 
 class HomeFragment : BaseFragment() {
@@ -75,10 +76,11 @@ class HomeFragment : BaseFragment() {
 
     private fun setupAdapter() {
         _adapter = WallpaperAdapter { wallpaper ->
-            // This is executed when clicking wallpaper
-            val action =
-                HomeFragmentDirections.actionHomeFragmentToWallpaperDetailFragment(wallpaper)
-            findNavController().navigate(action)
+            findNavController().navigateSafe(
+                HomeFragmentDirections.actionHomeFragmentToWallpaperDetailFragment(
+                    wallpaper
+                )
+            )
         }
 
         adapter.stateRestorationPolicy =
@@ -153,7 +155,7 @@ class HomeFragment : BaseFragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_search -> {
-                findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToSearchFragment())
+                findNavController().navigateSafe(HomeFragmentDirections.actionHomeFragmentToSearchFragment())
                 true
             }
             R.id.action_sort -> {

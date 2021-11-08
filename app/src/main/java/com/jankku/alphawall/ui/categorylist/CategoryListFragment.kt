@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import com.jankku.alphawall.AlphaWallApplication
 import com.jankku.alphawall.databinding.FragmentCategoryListBinding
 import com.jankku.alphawall.ui.BaseFragment
+import com.jankku.alphawall.util.navigateSafe
 import kotlinx.coroutines.launch
 
 class CategoryListFragment : BaseFragment() {
@@ -66,13 +67,12 @@ class CategoryListFragment : BaseFragment() {
 
     private fun setupAdapter() {
         _adapter = CategoryListAdapter { category ->
-            // This is executed when clicking wallpaper
-            val action =
+            findNavController().navigateSafe(
                 CategoryListFragmentDirections.actionCategoryListFragmentToCategoryFragment(
                     category,
                     category.name
                 )
-            findNavController().navigate(action)
+            )
         }
     }
 

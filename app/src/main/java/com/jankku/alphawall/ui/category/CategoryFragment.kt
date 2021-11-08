@@ -20,6 +20,7 @@ import com.jankku.alphawall.ui.BaseFragment
 import com.jankku.alphawall.ui.common.FastGridLayoutManager
 import com.jankku.alphawall.ui.common.WallpaperAdapter
 import com.jankku.alphawall.ui.common.WallpaperLoadingStateAdapter
+import com.jankku.alphawall.util.navigateSafe
 import kotlinx.coroutines.launch
 
 class CategoryFragment : BaseFragment() {
@@ -82,7 +83,7 @@ class CategoryFragment : BaseFragment() {
 
     private fun setupAdapter() {
         _adapter = WallpaperAdapter { wallpaper ->
-            findNavController().navigate(
+            findNavController().navigateSafe(
                 CategoryFragmentDirections.actionCategoryFragmentToWallpaperDetailFragment(
                     wallpaper
                 )

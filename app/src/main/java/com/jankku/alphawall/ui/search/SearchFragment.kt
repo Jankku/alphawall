@@ -23,6 +23,7 @@ import com.jankku.alphawall.ui.common.FastGridLayoutManager
 import com.jankku.alphawall.ui.common.WallpaperAdapter
 import com.jankku.alphawall.util.Event
 import com.jankku.alphawall.util.hideKeyboard
+import com.jankku.alphawall.util.navigateSafe
 import com.jankku.alphawall.util.showKeyboard
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -109,10 +110,11 @@ class SearchFragment : BaseFragment() {
 
     private fun setupAdapter() {
         _adapter = WallpaperAdapter { wallpaper ->
-            // This is executed when clicking wallpaper
-            val action =
-                SearchFragmentDirections.actionSearchFragmentToWallpaperDetailFragment(wallpaper)
-            findNavController().navigate(action)
+            findNavController().navigateSafe(
+                SearchFragmentDirections.actionSearchFragmentToWallpaperDetailFragment(
+                    wallpaper
+                )
+            )
         }
 
         adapter.stateRestorationPolicy =
